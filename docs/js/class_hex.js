@@ -1059,6 +1059,11 @@ class Puzzle_hex extends Puzzle{
           set_font_style(this.ctx,0.4*this.size.toString(10),this[pu].number[i][1]);
           this.ctx.text(this[pu].number[i][0],this.point[i].x,this.point[i].y+0.03*this.size,this.size*0.8);
           break;
+        case "10"://big
+          this.draw_numbercircle(pu,i,0.36);
+          set_font_style(this.ctx,0.6*this.size.toString(10),this[pu].number[i][1]);
+          this.ctx.text(this[pu].number[i][0],this.point[i].x,this.point[i].y+0.03*this.size,this.size*0.8);
+          break;
         case "7"://sudoku
           this.draw_numbercircle(pu,i,0.42);
           var sum = 0,pos = 0;

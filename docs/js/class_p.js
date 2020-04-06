@@ -57,7 +57,7 @@ class Puzzle{
     //square
     this.group1 = ["sub_line2_lb","sub_lineE2_lb","sub_number9_lb","ms_tri","ms_pencils","ms_slovak","ms_arrow_fourtip","ms0_arrow_fouredge","combili_shaka","combili_battleship","combili_arrowS"];
     //square,pyramid,hex
-    this.group2 = ["mo_wall_lb","sub_number3_lb","ms4","ms5","subc4"];
+    this.group2 = ["mo_wall_lb","sub_number3_lb","sub_number10_lb","ms4","ms5","subc4"];
     //square,tri,hex
     this.group3 = ["sub_line5_lb"];
     //square,hex
@@ -508,9 +508,9 @@ class Puzzle{
   mode_set(mode){
     this.mode[this.mode.qa].edit_mode = mode;
     if(mode === "number"){
-      document.getElementById("sub_txt").innerHTML = "サブ";
+      document.getElementById("div_all").style.display='none';
     }else{
-      document.getElementById("sub_txt").innerHTML = "　サブ：";
+      document.getElementById("div_all").style.display='inline';
     }
     this.submode_reset();
     if(document.getElementById('mode_'+mode)){
@@ -790,7 +790,7 @@ class Puzzle{
       }
 
       for(var i in this[pu].number){
-        if(this[pu].number[i][1]===2 && this[pu].number[i][2]==="7"){
+        /*if(this[pu].number[i][1]===2 && this[pu].number[i][2]==="7"){ //sudoku only one number
           var sum = 0,a;
           for(var j=0;j<10;j++){
             if(this[pu].number[i][0][j]===1){
@@ -801,8 +801,8 @@ class Puzzle{
           if(sum === 1){
             sol[4].push(i+","+a);
           }
-        }else if(!isNaN(this[pu].number[i][0])||!this[pu].number[i][0].match(/[^A-Za-z]+/)){
-          if(this[pu].number[i][1]===2 && (this[pu].number[i][2]==="1"||this[pu].number[i][2]==="5"||this[pu].number[i][2]==="6")){
+        }else*/ if(!isNaN(this[pu].number[i][0])||!this[pu].number[i][0].match(/[^A-Za-z]+/)){
+          if(this[pu].number[i][1]===2 && (this[pu].number[i][2]==="1"||this[pu].number[i][2]==="5"||this[pu].number[i][2]==="6"||this[pu].number[i][2]==="10")){
             sol[4].push(i+","+this[pu].number[i][0]);
           }
         }
@@ -1482,6 +1482,18 @@ class Puzzle{
           }
           break;
         case "6":
+          if(this[this.mode.qa].number[this.cursol]&& this[this.mode.qa].number[this.cursol][2] != "2"&&this[this.mode.qa].number[this.cursol][2]!="7"){
+            con = this[this.mode.qa].number[this.cursol][0];
+          }else{
+            con = "";
+          }
+          if(con.length < 10){
+            this.record("number",this.cursol);
+            number = con+key;
+            this[this.mode.qa].number[this.cursol] = [number,this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][1],this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][0]];
+          }
+          break;
+        case "10"://big
           if(this[this.mode.qa].number[this.cursol]&& this[this.mode.qa].number[this.cursol][2] != "2"&&this[this.mode.qa].number[this.cursol][2]!="7"){
             con = this[this.mode.qa].number[this.cursol][0];
           }else{

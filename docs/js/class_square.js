@@ -1153,24 +1153,17 @@ class Puzzle_square extends Puzzle{
           set_font_style(this.ctx,0.4*this.size.toString(10),this[pu].number[i][1]);
           this.ctx.text(this[pu].number[i][0],p_x,p_y+0.03*this.size,this.size*0.8);
           break;
+        case "10"://big
+          this.draw_numbercircle(pu,i,p_x,p_y,0.36);
+          set_font_style(this.ctx,0.6*this.size.toString(10),this[pu].number[i][1]);
+          this.ctx.text(this[pu].number[i][0],p_x,p_y+0.03*this.size,this.size*0.8);
+          break;
         case "7"://sudoku
           this.draw_numbercircle(pu,i,p_x,p_y,0.42);
-          var sum = 0,pos = 0;
+          set_font_style(this.ctx,0.3*this.size.toString(10),this[pu].number[i][1]);
           for(var j=0;j<9;j++){
             if(this[pu].number[i][0][j]===1){
-              sum += 1;
-              pos = j;
-            }
-          }
-          if(sum === 1){
-            set_font_style(this.ctx,0.7*this.size.toString(10),this[pu].number[i][1]);
-            this.ctx.text((pos+1).toString(),p_x,p_y+0.06*this.size,this.size*0.8);
-          }else{
-            set_font_style(this.ctx,0.3*this.size.toString(10),this[pu].number[i][1]);
-            for(var j=0;j<9;j++){
-              if(this[pu].number[i][0][j]===1){
-                this.ctx.text((j+1).toString(),p_x+((j%3-1)*0.28)*this.size,p_y+(((j/3|0)-1)*0.28+0.02)*this.size);
-              }
+              this.ctx.text((j+1).toString(),p_x+((j%3-1)*0.28)*this.size,p_y+(((j/3|0)-1)*0.28+0.02)*this.size);
             }
           }
           break;
