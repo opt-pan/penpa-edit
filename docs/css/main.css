@@ -50,6 +50,7 @@ h3 {
   text-decoration: none;
   background: #fff;/*ボタン色*/
   color: #000;
+  border-width: thin;
   border-radius: 4px;
 }
 
