@@ -184,6 +184,7 @@ var undo_button = document.getElementById("tb_undo")
 var redo_button = document.getElementById("tb_redo")
 undo_button.addEventListener(ondown_key, e => {
   e.preventDefault();
+  undo_button.classList.add('active');
   timer = setInterval(() => {
     count++;
     if(count>20){
@@ -195,6 +196,7 @@ undo_button.addEventListener(ondown_key, e => {
 undo_button.addEventListener(onup_key, e => {
   e.preventDefault();
   if (count) {
+    undo_button.classList.remove('active');
     clearInterval(timer);
     count = 0;
   }
@@ -202,12 +204,14 @@ undo_button.addEventListener(onup_key, e => {
 
 undo_button.addEventListener(onleave_key, e => {
   e.preventDefault();
+  undo_button.classList.remove('active');
   clearInterval(timer);
   count = 0;
 });
 
 redo_button.addEventListener(ondown_key, e => {
   e.preventDefault();
+  redo_button.classList.add('active');
   timer = setInterval(() => {
     count++;
     if(count>20){
@@ -219,6 +223,7 @@ redo_button.addEventListener(ondown_key, e => {
 redo_button.addEventListener(onup_key, e => {
   e.preventDefault();
   if (count) {
+    redo_button.classList.remove('active');
     clearInterval(timer);
     count = 0;
   }
@@ -226,6 +231,7 @@ redo_button.addEventListener(onup_key, e => {
 
 redo_button.addEventListener(onleave_key, e => {
   e.preventDefault();
+  redo_button.classList.remove('active');
   clearInterval(timer);
   count = 0;
 });

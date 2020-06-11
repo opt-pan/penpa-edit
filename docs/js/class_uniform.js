@@ -1109,6 +1109,10 @@ class Puzzle_truncated_square extends Puzzle{
         set_circle_style(ctx,2);
         this.draw_arrowS(ctx,num,x,y);
         break;
+      case "arrow_GP":
+        set_circle_style(ctx,2);
+        this.draw_arrowGP(ctx,num,x,y);
+        break;
       case "arrow_Short":
         set_circle_style(ctx,2);
         this.draw_arrowShort(ctx,num,x,y);
@@ -1629,6 +1633,26 @@ class Puzzle_truncated_square extends Puzzle{
     var w2 = 0.12;
     var ri = -0.2;
     this.draw_arrow(ctx,num,x,y,len1,len2,w1,w2,ri);
+  }
+
+  draw_arrowGP(ctx,num,x,y) {
+    var len1 = 0.35; //nemoto
+    var len2 = 0.35; //tip
+    var w1 = 0.12;
+    var w2 = 0.23;
+    var w3 = 0.34;
+    var r1 = -0.33;
+    var r2 = -0.44;
+    var r3 = -0.32;
+    var th;
+    if(num>0&&num<=8){
+      th = this.rotate_theta((num-1)*45-180);
+      ctx.beginPath();
+      ctx.arrow(x-len1*pu.size*Math.cos(th), y-len1*pu.size*Math.sin(th),x+len2*pu.size*Math.cos(th), y+len2*pu.size*Math.sin(th),
+                [0, w1*pu.size, r1*pu.size, w1*pu.size, r2*pu.size, w2*pu.size, r3*pu.size, w3*pu.size]);
+      ctx.fill();
+      ctx.stroke();
+    }
   }
 
   draw_arrowShort(ctx,num,x,y) {
@@ -4623,6 +4647,26 @@ class Puzzle_iso extends Puzzle_truncated_square{
         ctx.fill();
         ctx.stroke();
         break;
+    }
+  }
+
+  draw_arrowGP(ctx,num,x,y) {
+    var len1 = 0.35; //nemoto
+    var len2 = 0.35; //tip
+    var w1 = 0.12;
+    var w2 = 0.23;
+    var w3 = 0.34;
+    var r1 = -0.33;
+    var r2 = -0.44;
+    var r3 = -0.32;
+    var th;
+    if(num>0&&num<=6){
+      th = this.rotate_theta((num-1)*60-150);
+      ctx.beginPath();
+      ctx.arrow(x-len1*pu.size*Math.cos(th), y-len1*pu.size*Math.sin(th),x+len2*pu.size*Math.cos(th), y+len2*pu.size*Math.sin(th),
+                [0, w1*pu.size, r1*pu.size, w1*pu.size, r2*pu.size, w2*pu.size, r3*pu.size, w3*pu.size]);
+      ctx.fill();
+      ctx.stroke();
     }
   }
 

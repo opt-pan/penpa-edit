@@ -1383,6 +1383,10 @@ class Puzzle_square extends Puzzle{
         set_circle_style(ctx,2);
         this.draw_arrowS(ctx,num,x,y);
         break;
+      case "arrow_GP":
+        set_circle_style(ctx,2);
+        this.draw_arrowGP(ctx,num,x,y);
+        break;
       case "arrow_Short":
         set_circle_style(ctx,2);
         this.draw_arrowShort(ctx,num,x,y);
@@ -1950,6 +1954,26 @@ class Puzzle_square extends Puzzle{
     this.draw_arrow(ctx,num,x,y,len1,len2,w1,w2,ri);
   }
 
+  draw_arrowGP(ctx,num,x,y) {
+    var len1 = 0.35; //nemoto
+    var len2 = 0.35; //tip
+    var w1 = 0.12;
+    var w2 = 0.23;
+    var w3 = 0.34;
+    var r1 = -0.33;
+    var r2 = -0.44;
+    var r3 = -0.32;
+    var th;
+    if(num>0&&num<=8){
+      th = this.rotate_theta((num-1)*45-180);
+      ctx.beginPath();
+      ctx.arrow(x-len1*pu.size*Math.cos(th), y-len1*pu.size*Math.sin(th),x+len2*pu.size*Math.cos(th), y+len2*pu.size*Math.sin(th),
+                [0, w1*pu.size, r1*pu.size, w1*pu.size, r2*pu.size, w2*pu.size, r3*pu.size, w3*pu.size]);
+      ctx.fill();
+      ctx.stroke();
+    }
+  }
+
   draw_arrowShort(ctx,num,x,y) {
     var len1 = 0.3; //nemoto
     var len2 = 0.3; //tip
@@ -2420,7 +2444,7 @@ class Puzzle_square extends Puzzle{
         r = 0.05;
         ctx.setLineDash([]);
         ctx.lineCap = "butt";
-        ctx.fillStyle = ctx.strokeStyle;
+        ctx.fillStyle = "rgba(0,0,0,1)";
         ctx.strokeStyle = "rgba(0,0,0,0)";
         ctx.lineWidth = 2;
         this.draw_circle(ctx,x,y,r);
@@ -2632,6 +2656,54 @@ class Puzzle_square extends Puzzle{
         var r = 0.2 * pu.size;
         var w = 0.8 * pu.size;
         var h = 1.8 * pu.size;
+        x = x - 0.40 * pu.size;
+        y = y - 0.40 * pu.size;
+        ctx.lineCap = "butt";
+        ctx.lineWidth = 2;
+        ctx.setLineDash([]);
+        ctx.fillStyle = "rgba(0,0,0,0)";
+        ctx.strokeStyle = "#000";
+        ctx.beginPath()
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.arcTo(x + w, y, x + w, y + r, r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+        ctx.lineTo(x + r, y + h);
+        ctx.arcTo(x, y + h, x, y + h - r, r);
+        ctx.lineTo(x, y + r);
+        ctx.arcTo(x, y, x + r, y, r);
+        ctx.closePath();
+        ctx.stroke();
+        break;
+      case 6:
+        var r = 0.2 * pu.size;
+        var w = 2.8 * pu.size;
+        var h = 0.8 * pu.size;
+        x = x - 0.40 * pu.size;
+        y = y - 0.40 * pu.size;
+        ctx.lineCap = "butt";
+        ctx.lineWidth = 2;
+        ctx.setLineDash([]);
+        ctx.fillStyle = "rgba(0,0,0,0)";
+        ctx.strokeStyle = "#000";
+        ctx.beginPath()
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.arcTo(x + w, y, x + w, y + r, r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+        ctx.lineTo(x + r, y + h);
+        ctx.arcTo(x, y + h, x, y + h - r, r);
+        ctx.lineTo(x, y + r);
+        ctx.arcTo(x, y, x + r, y, r);
+        ctx.closePath();
+        ctx.stroke();
+        break;
+      case 7:
+        var r = 0.2 * pu.size;
+        var w = 0.8 * pu.size;
+        var h = 2.8 * pu.size;
         x = x - 0.40 * pu.size;
         y = y - 0.40 * pu.size;
         ctx.lineCap = "butt";
