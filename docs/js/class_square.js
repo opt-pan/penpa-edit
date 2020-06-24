@@ -1484,6 +1484,15 @@ class Puzzle_square extends Puzzle{
       case "slovak":
         this.draw_slovak(ctx,num,x,y);
         break;
+      case "arc":
+        this.draw_arc(ctx,num,x,y);
+        break;
+      case "spans":
+        this.draw_spans(ctx,num,x,y);
+        break;
+      case "neighbors":
+        this.draw_neighbors(ctx,num,x,y);
+        break;
     }
   }
 
@@ -2723,6 +2732,70 @@ class Puzzle_square extends Puzzle{
         ctx.arcTo(x, y, x + r, y, r);
         ctx.closePath();
         ctx.stroke();
+        break;
+    }
+  }
+
+  draw_arc(ctx,num,x,y){
+    var r = 0.2,th;
+    ctx.setLineDash([]);
+    ctx.lineCap = "butt";
+    ctx.fillStyle = "#000";
+    ctx.strokeStyle = "#000";
+    ctx.lineWidth = 3;
+    ctx.lineJoin = "bevel"
+    switch(num){
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+        ctx.beginPath();
+        th = this.rotate_theta(90*(num-1));
+        ctx.moveTo((x+Math.sqrt(2)*0.5*pu.size*Math.cos(th+Math.PI*0.25)),(y+Math.sqrt(2)*0.5*pu.size*Math.sin(th+Math.PI*0.25)));
+        ctx.arcTo((x+Math.sqrt(2)*0.5*pu.size*Math.cos(th-Math.PI*0.25)),(y+Math.sqrt(2)*0.5*pu.size*Math.sin(th-Math.PI*0.25)),(x+Math.sqrt(2)*0.5*pu.size*Math.cos(th-Math.PI*0.75)),(y+Math.sqrt(2)*0.5*pu.size*Math.sin(th-Math.PI*0.75)),pu.size);
+        ctx.stroke();
+        break;
+      case 5:
+      case 6:
+        ctx.beginPath();
+        th = this.rotate_theta(90*(num-5));
+        ctx.moveTo((x+Math.sqrt(2)*0.5*pu.size*Math.cos(th+Math.PI*0.25)),(y+Math.sqrt(2)*0.5*pu.size*Math.sin(th+Math.PI*0.25)));
+        ctx.lineTo((x+Math.sqrt(2)*0.5*pu.size*Math.cos(th-Math.PI*0.75)),(y+Math.sqrt(2)*0.5*pu.size*Math.sin(th-Math.PI*0.75)));
+        ctx.stroke();
+    }
+  }
+
+  draw_spans(ctx,num,x,y){
+    var h = 0.15;
+    switch(num){
+      case 1:
+        set_circle_style(ctx,8);
+        ctx.lineWidth = 3;
+        ctx.beginPath()
+        ctx.moveTo(x + 0.5*pu.size, y - h*pu.size);
+        ctx.lineTo(x + 0.5*pu.size, y + h*pu.size);
+        ctx.lineTo(x + h*pu.size, y + 0.5*pu.size);
+        ctx.lineTo(x - h*pu.size, y + 0.5*pu.size);
+        ctx.lineTo(x - 0.5*pu.size, y + h*pu.size);
+        ctx.lineTo(x - 0.5*pu.size, y - h*pu.size);
+        ctx.lineTo(x - h*pu.size, y - 0.5*pu.size);
+        ctx.lineTo(x + h*pu.size, y - 0.5*pu.size);
+        ctx.lineTo(x + 0.5*pu.size, y - h*pu.size);
+        ctx.closePath();
+        ctx.stroke();
+        break;
+    }
+  }
+
+  draw_neighbors(ctx,num,x,y){
+    var r = 0.85;
+    switch(num){
+      case 1:
+        set_circle_style(ctx,1);
+        ctx.fillStyle = "#999";
+        this.draw_polygon(ctx,x,y,1/Math.sqrt(2),4,45);
+        ctx.fillStyle = "#ccc";
+        this.draw_polygon(ctx,x,y,r/Math.sqrt(2),4,45);
         break;
     }
   }

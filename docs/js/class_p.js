@@ -55,7 +55,7 @@ class Puzzle{
     this.ctx = this.canvas.getContext("2d");
     this.obj = document.getElementById("dvique");
     //square
-    this.group1 = ["sub_line2_lb","sub_lineE2_lb","sub_number9_lb","ms_tri","ms_pencils","ms_slovak","ms_arrow_fourtip","ms0_arrow_fouredge","combili_shaka","combili_battleship","combili_arrowS"];
+    this.group1 = ["sub_line2_lb","sub_lineE2_lb","sub_number9_lb","ms_tri","ms_pencils","ms_slovak","ms_arc","ms_spans","ms_neighbors","ms_arrow_fourtip","ms0_arrow_fouredge","combili_shaka","combili_battleship","combili_arrowS"];
     //square,pyramid,hex
     this.group2 = ["mo_wall_lb","sub_number3_lb","sub_number10_lb","ms4","ms5","subc4"];
     //square,tri,hex
