@@ -1301,6 +1301,10 @@ class Puzzle_hex extends Puzzle{
         set_circle_style(ctx,2);
         this.draw_arrowGP(ctx,num,x,y);
         break;
+      case "arrow_GP_C":
+        set_circle_style(ctx,2);
+        this.draw_arrowGP_C(ctx,num,x,y);
+        break;
       case "arrow_Short":
         set_circle_style(ctx,2);
         this.draw_arrowShort(ctx,num,x,y);
@@ -1900,6 +1904,19 @@ class Puzzle_hex extends Puzzle{
                 [0, w1*pu.size, r1*pu.size, w1*pu.size, r2*pu.size, w2*pu.size, r3*pu.size, w3*pu.size]);
       ctx.fill();
       ctx.stroke();
+    }
+  }
+
+  draw_arrowGP_C(ctx,num,x,y) {
+    if(num>0&&num<=8){
+      var th;
+      if(num<=6){
+        th = this.rotate_theta((num-1)*60-180);
+      }else{
+        th = this.rotate_theta((num-7)*180-90);
+      }
+      this.draw_circle(ctx,x,y,0.35);
+      this.draw_arrowGP(ctx,num,x+0.5*pu.size*Math.cos(th),y+0.5*pu.size*Math.sin(th));
     }
   }
 
