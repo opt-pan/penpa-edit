@@ -1915,8 +1915,8 @@ class Puzzle_hex extends Puzzle{
       }else{
         th = this.rotate_theta((num-7)*180-90);
       }
-      this.draw_circle(ctx,x,y,0.35);
-      this.draw_arrowGP(ctx,num,x+0.5*pu.size*Math.cos(th),y+0.5*pu.size*Math.sin(th));
+      this.draw_circle(ctx,x,y,0.4);
+      this.draw_arrowGP(ctx,num,x+0.6*pu.size*Math.cos(th),y+0.6*pu.size*Math.sin(th));
     }
   }
 

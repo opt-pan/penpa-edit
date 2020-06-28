@@ -1989,9 +1989,9 @@ class Puzzle_square extends Puzzle{
 
   draw_arrowGP_C(ctx,num,x,y) {
     if(num>0&&num<=8){
-      this.draw_circle(ctx,x,y,0.35);
+      this.draw_circle(ctx,x,y,0.4);
       var th = this.rotate_theta((num-1)*45-180);
-      this.draw_arrowGP(ctx,num,x+0.5*pu.size*Math.cos(th),y+0.5*pu.size*Math.sin(th));
+      this.draw_arrowGP(ctx,num,x+0.6*pu.size*Math.cos(th),y+0.6*pu.size*Math.sin(th));
     }
   }
 
