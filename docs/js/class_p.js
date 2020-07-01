@@ -685,11 +685,13 @@ class Puzzle{
 
       text += JSON.stringify(list);
 
+      console.log(text);
+
       for (var i=0;i<this.replace.length;i++){
         text = text.split(this.replace[i][0]).join(this.replace[i][1]);
       }
 
-
+      console.log(text);
 
       var u8text = new TextEncoder().encode(text);
       var deflate = new Zlib.RawDeflate(u8text);
@@ -2958,18 +2960,20 @@ class Puzzle{
   }
 
   re_combi_magnets(num){
-    if(!this[this.mode.qa].symbol[num]){
+    if(!this[this.mode.qa].symbol[num] && !this[this.mode.qa].surface[num]){
       this.record("symbol",num);
-      this[this.mode.qa].symbol[num] = [2,"math",2];
-    }else if (this[this.mode.qa].symbol[num][0]===2){
+      this[this.mode.qa].symbol[num] = [2,"math_G",2];
+    }else if (this[this.mode.qa].symbol[num] && this[this.mode.qa].symbol[num][0]===2){
       this.record("symbol",num);
-      this[this.mode.qa].symbol[num] = [3,"math",2];
-    }else if (this[this.mode.qa].symbol[num][0]===3){
-      this.record("symbol",num);
-      this[this.mode.qa].symbol[num] = [8,"ox_B",2];
-    }else{
+      this[this.mode.qa].symbol[num] = [3,"math_G",2];
+    }else if (this[this.mode.qa].symbol[num] && this[this.mode.qa].symbol[num][0]===3){
       this.record("symbol",num);
       delete this[this.mode.qa].symbol[num];
+      this.record("surface",num);
+      this[this.mode.qa].surface[num] = 1;
+    }else if(this[this.mode.qa].surface[num] && this[this.mode.qa].surface[num] == 1){
+      this.record("surface",num);
+      delete this[this.mode.qa].surface[num];
     }
     this.redraw();
   }

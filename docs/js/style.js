@@ -82,6 +82,11 @@ function set_line_style(ctx,type){
         ctx.strokeStyle = "#999";
         ctx.lineWidth = 12;
         break;
+      case 8:
+        ctx.lineCap = "round";
+        ctx.strokeStyle = "#999";
+        ctx.lineWidth = 1;
+        break;
       case 7: // cage gray
       case 107:
         ctx.lineCap = "round";
