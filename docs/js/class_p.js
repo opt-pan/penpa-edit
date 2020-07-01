@@ -843,6 +843,7 @@ class Puzzle{
             }
             break;
           case "math":
+          case "math_G":
             if(this[pu].symbol[i][0] === 2||this[pu].symbol[i][0] === 3){
               sol[5].push(i+","+this[pu].symbol[i][0]+"G");
             }
