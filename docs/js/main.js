@@ -181,16 +181,18 @@ function coord_point(e){
   return {x,y,num};
 }
 
-let count = 0;
+let count_undo = 0;
+let count_redo = 0;
 let timer;
 var undo_button = document.getElementById("tb_undo")
 var redo_button = document.getElementById("tb_redo")
 undo_button.addEventListener(ondown_key, e => {
   e.preventDefault();
   undo_button.classList.add('active');
+  count_redo = 0;
   timer = setInterval(() => {
-    count++;
-    if(count>20){
+    count_undo++;
+    if(count_undo>20){
       pu.undo();
     }
   }, 20);
@@ -198,10 +200,10 @@ undo_button.addEventListener(ondown_key, e => {
 
 undo_button.addEventListener(onup_key, e => {
   e.preventDefault();
-  if (count) {
+  if (count_undo) {
     undo_button.classList.remove('active');
     clearInterval(timer);
-    count = 0;
+    count_undo = 0;
   }
 }, {passive: false});
 
@@ -209,15 +211,16 @@ undo_button.addEventListener(onleave_key, e => {
   e.preventDefault();
   undo_button.classList.remove('active');
   clearInterval(timer);
-  count = 0;
+  count_undo = 0;
 });
 
 redo_button.addEventListener(ondown_key, e => {
   e.preventDefault();
   redo_button.classList.add('active');
+  count_undo = 0;
   timer = setInterval(() => {
-    count++;
-    if(count>20){
+    count_redo++;
+    if(count_redo>20){
       pu.redo();
     }
   }, 20);
@@ -225,10 +228,10 @@ redo_button.addEventListener(ondown_key, e => {
 
 redo_button.addEventListener(onup_key, e => {
   e.preventDefault();
-  if (count) {
+  if (count_redo) {
     redo_button.classList.remove('active');
     clearInterval(timer);
-    count = 0;
+    count_redo = 0;
   }
 }, {passive: false});
 
@@ -236,7 +239,7 @@ redo_button.addEventListener(onleave_key, e => {
   e.preventDefault();
   redo_button.classList.remove('active');
   clearInterval(timer);
-  count = 0;
+  count_redo = 0;
 });
 
 
