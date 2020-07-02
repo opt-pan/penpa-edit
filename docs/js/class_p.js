@@ -138,6 +138,7 @@ class Puzzle{
       ["\"arrows\"","z3"],
       ["\"direction\"","zD"],
       ["\"squareframe\"","z0"],
+      ["\"polygon\"","z5"],
       ["\"deletelineE\"","z4"],
       ["\"__a\"","z_"],
       ["null","zO"],
@@ -685,13 +686,13 @@ class Puzzle{
 
       text += JSON.stringify(list);
 
-      console.log(text);
+      //console.log(text);
 
       for (var i=0;i<this.replace.length;i++){
         text = text.split(this.replace[i][0]).join(this.replace[i][1]);
       }
 
-      console.log(text);
+      //console.log(text);
 
       var u8text = new TextEncoder().encode(text);
       var deflate = new Zlib.RawDeflate(u8text);
@@ -727,6 +728,8 @@ class Puzzle{
       for (var i=0;i<this.replace.length;i++){
         text = text.split(this.replace[i][0]).join(this.replace[i][1]);
       }
+
+      //console.log(text);
 
       var u8text = new TextEncoder().encode(text);
       var deflate = new Zlib.RawDeflate(u8text);
