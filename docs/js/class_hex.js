@@ -1134,20 +1134,44 @@ class Puzzle_hex extends Puzzle{
     switch(sym){
       /* figure */
       case "circle_L":
-        set_circle_style(ctx,num);
-        this.draw_circle(ctx,x,y,0.43);
+        if(num === 0){
+          set_circle_style(ctx,1);
+          this.draw_circle(ctx,x,y,0.43);
+          this.draw_circle(ctx,x,y,0.32);
+        }else{
+          set_circle_style(ctx,num);
+          this.draw_circle(ctx,x,y,0.43);
+        }
         break;
       case "circle_M":
-        set_circle_style(ctx,num);
-        this.draw_circle(ctx,x,y,0.35);
+        if(num === 0){
+          set_circle_style(ctx,1);
+          this.draw_circle(ctx,x,y,0.35);
+          this.draw_circle(ctx,x,y,0.25);
+        }else{
+          set_circle_style(ctx,num);
+          this.draw_circle(ctx,x,y,0.35);
+        }
         break;
       case "circle_S":
-        set_circle_style(ctx,num);
-        this.draw_circle(ctx,x,y,0.22);
+        if(num === 0){
+          set_circle_style(ctx,1);
+          this.draw_circle(ctx,x,y,0.22);
+          this.draw_circle(ctx,x,y,0.14);
+        }else{
+          set_circle_style(ctx,num);
+          this.draw_circle(ctx,x,y,0.22);
+        }
         break;
       case "circle_SS":
-        set_circle_style(ctx,num);
-        this.draw_circle(ctx,x,y,0.13);
+        if(num === 0){
+          set_circle_style(ctx,1);
+          this.draw_circle(ctx,x,y,0.13);
+          this.draw_circle(ctx,x,y,0.07);
+        }else{
+          set_circle_style(ctx,num);
+          this.draw_circle(ctx,x,y,0.13);
+        }
         break;
       case "square_LL":
         set_circle_style(ctx,num);
