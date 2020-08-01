@@ -17,23 +17,26 @@
     <script type="text/javascript" src="./js/class_uniform.js"></script>
     <script type="text/javascript" src="./js/class_panel.js"></script>
 
+    <script type="text/javascript" src="./js/translate.js"></script>
     <script type="text/javascript" src="./js/style.js"></script>
     <script type="text/javascript" src="./js/general.js"></script>
     <script type="text/javascript" src="./js/encoding.js"></script>
   </head>
 
   <body>
+
     <header>
       <h3 id="title">編集モード</h3>
 
       <div id="top_button">
-        <input type="button" id="newboard" value="新規作成・枠変更" class="button"/>
-        <input type="button" id="rotation" value="回転・移動" class="button"/>
+        <input type="button" id="newboard" value="新規 / 枠変更" class="button"/>
+        <input type="button" id="rotation" value="回転 / 移動" class="button"/>
         <input type="button" id="newsize" value="サイズ変更" class="button" style="display:none;"/>
         <input type="button" id="saveimage" value="画像保存" class="button"/>
-        <input type="button" id="savetext" value="アドレス出力" class="button"/>
+        <input type="button" id="savetext" value="アドレス" class="button"/>
         <a id="download_link"></a>
         <input type="button" id="duplicate" value="複製" class="button" onclick="duplicate();"/>
+        <input type="button" id="english" value="English" class="button" onclick="trans();"/>
       </div>
 
       <div id="buttons">
@@ -43,12 +46,9 @@
           <label for="pu_q" class="label" id="pu_q_label">問題</label>
           <input type="radio" name="mode_qa" id="pu_a" value=2 />
           <label for="pu_a" class="label" id="pu_a_label">解答</label>
-          <!--<input type="radio" name="mode_qa" id="pu_m" value=3 />
-          <label for="pu_m" class="label" id="pu_m_label">移動</label>-->
-          <!--<span id="panel_button0" class="label">　　　</span>-->
           <span id="panel_button0" class="label">パネル：</span>
           <span id="panel_button" class="label">OFF</span>
-          <span id="panel_button0" class="label">辺入力：</span>
+          <span id="edge_button0" class="label">辺入力：</span>
           <span id="edge_button" class="label">OFF</span>
         </div>
         <div id="mode_button" class="mode_button">
@@ -66,7 +66,7 @@
           <input type="radio" name="mode" id="mo_move"/>
           <label for="mo_move" class="label_option" id="mo_move_lb">移動</label>
           <br>
-          <label class="label_mode">　　　　</label>
+          <label class="label_mode" id="mode_txt_space">　　　　</label>
           <input type="radio" name="mode" id="mo_number"/>
           <label for="mo_number" class="label" id="mo_number_lb">数字</label>
           <input type="radio" name="mode" id="mo_symbol"/>
@@ -82,7 +82,7 @@
         </div>
         <hr size=1 noshade>
         <div id="submode_button" class="submode_button">
-          <span id="div_all">
+          <span id="div_sub">
             <label class="label_mode" id="sub_txt">　サブ：</label>
           </span>
           <span id="mode_line" style="display:none;">
@@ -112,7 +112,7 @@
           </span>
 
           <span id="mode_number" style="display:none;">
-            <label class="label_mode" id="sub_txt">　サブ：</label>
+            <label class="label_mode" id="sub_txt_n">　サブ：</label>
             <input type="radio" name="mode_number" value="1" id="sub_number1" checked="checked">
             <label for="sub_number1" class="label" id="sub_number1_lb">通常</label>
             <input type="radio" name="mode_number" value="2" id="sub_number2">
@@ -124,7 +124,7 @@
             <input type="radio" name="mode_number" value="9" id="sub_number9">
             <label for="sub_number9" class="label" id="sub_number9_lb">ｺﾝﾊﾟｽ</label>
             <br>
-            <label class="label_mode" id="sub_txt">　　　　</label>
+            <label class="label_mode" id="sub_txt_s">　　　　</label>
             <input type="radio" name="mode_number" value="10" id="sub_number10">
             <label for="sub_number10" class="label" id="sub_number10_lb">大</label>
             <input type="radio" name="mode_number" value="6" id="sub_number6">
@@ -203,7 +203,7 @@
                   <li><span id="ms_degital">デジタル数字</span></li>
                   <li><span id="ms_degital_f">デジタル(枠)</span></li>
                   <li><span id="ms_dice">サイコロ</span></li>
-                  <li><span id="ms_pills">pills</span></li>
+                  <li><span id="ms_pills">Pills</span></li>
                 </ul>
               </li>
               <li><span id="ms3">矢印</span>
@@ -272,10 +272,10 @@
                   <li><span id="ms_firefly">ホタルビーム</span></li>
                   <li><span id="ms_sun_moon">月か太陽</span></li>
                   <li><span id="ms_pencils">ペンシルズ</span></li>
-                  <li><span id="ms_slovak">slovak sums</span></li>
+                  <li><span id="ms_slovak">Slovak sums</span></li>
                   <li><span id="ms_arc">円弧</span></li>
-                  <li><span id="ms_spans">spans</span></li>
-                  <li><span id="ms_neighbors">neighbors</span></li>
+                  <li><span id="ms_spans">Spans</span></li>
+                  <li><span id="ms_neighbors">Neighbors</span></li>
                   <!--<li><span id="ms_Ondo-K">Ondo-K</span></li>-->
                 </ul>
               </li>
@@ -333,7 +333,7 @@
                   <li><span id="combisub_star">スターバトル</span></li>
                   <li><span id="combisub_tents">テント</span></li>
                   <li><span id="combisub_magnets">マグネット</span></li>
-                  <li id="combili_arrowS"><span id="combisub_arrowS">矢印</span></li>
+                  <li id="combili_arrowS"><span id="combisub_arrowS">矢印フリック</span></li>
                 </ul>
               </li>
               <li><span id="subc5">数字埋</span>
@@ -347,8 +347,6 @@
             <label for="sub_combibattleship" class="label" id="sub_combibattleship_lb">船</label>-->
           </span>
         </div>
-
-
         <div id="stylemode_button" class="stylemode_button">
           <span id="div_all">
             <label class="label_mode" id="style_txt">スタイル</label>
@@ -387,8 +385,8 @@
             <label for="st_line5" class="labelL" id="st_line5_lb">灰</label>
             <input type="radio" name="style_line" value="40" id="st_line40">
             <label for="st_line40" class="labelL" id="st_line40_lb">短</label>
-            <input type="radio" name="style_line" value="30" id="st_line8">
-            <label for="st_line8" class="labelL" id="st_line8_lb">二重</label>
+            <input type="radio" name="style_line" value="30" id="st_line30">
+            <label for="st_line30" class="labelL" id="st_line30_lb">二重</label>
           </span>
 
           <span id="style_lineE" style="display:none;">
@@ -404,14 +402,10 @@
             <label for="st_lineE13" class="labelL" id="st_lineE13_lb">太点</label>
             <input type="radio" name="style_lineE" value="5" id="st_lineE5">
             <label for="st_lineE5" class="labelL" id="st_lineE5_lb">灰</label>
-            <input type="radio" name="style_lineE" value="8" id="st_lineE50">
-            <label for="st_lineE50" class="labelL" id="st_lineE50_lb">細灰</label>
-            <input type="radio" name="style_lineE" value="30" id="st_lineE8">
-            <label for="st_lineE8" class="labelL" id="st_lineE8_lb">二重</label>
-          <!--
-            <input type="radio" name="style_lineE" value="40" id="st_lineE9">
-            <label for="st_lineE9" class="labelL" id="st_lineE9_lb">短</label>
-          -->
+            <input type="radio" name="style_lineE" value="8" id="st_lineE8">
+            <label for="st_lineE8" class="labelL" id="st_lineE8_lb">細灰</label>
+            <input type="radio" name="style_lineE" value="30" id="st_lineE30">
+            <label for="st_lineE30" class="labelL" id="st_lineE30_lb">二重</label>
           </span>
 
           <span id="style_wall" style="display:none;">
@@ -430,8 +424,8 @@
             <input type="radio" name="style_wall" value="5" id="st_wall5">
             <label for="st_wall5" class="labelL" id="st_wall5_lb">灰</label>
             <!--
-            <input type="radio" name="style_wall" value="30" id="st_wall8">
-            <label for="st_wall8" class="labelL" id="st_wall8_lb">二重</label>
+            <input type="radio" name="style_wall" value="30" id="st_wall30">
+            <label for="st_wall30" class="labelL" id="st_wall30_lb">二重</label>
           -->
           </span>
 
@@ -459,19 +453,15 @@
             <label for="st_symbol1" class="label" id="st_symbol1_lb">線-奥</label>
             <input type="radio" name="style_symbol" value="2" id="st_symbol2" checked="checked">
             <label for="st_symbol2" class="label" id="st_symbol2_lb">線-前</label>
-            <!--<input type="radio" name="style_symbol2" value="0" id="st_symbol0">
-            <label for="st_symbol0" class="label" id="st_symbol0_lb">ﾚｲﾔｰ1</label>
-            <input type="radio" name="style_symbol2" value="10" id="st_symbol10">
-            <label for="st_symbol10" class="label" id="st_symbol10_lb">ﾚｲﾔｰ2</label>-->
             <span class="symbolmode_display">
-              <span id="panel_button0" class="label">選択中：</span>
+              <span id="panel_buttons0" class="label">選択中：</span>
               <b><span id="symmode_content" class="symmode_content">circle_L</span></b>
             </span>
           </span>
 
           <span id="style_combi" style="display:none;">
             <span class="combimode_display">
-              <span id="panel_button0" class="label">選択中：</span>
+              <span id="panel_buttonc0" class="label">選択中：</span>
               <b><span id="combimode_content" class="combimode_content">blpo</span></b>
             </span>
           </span>
@@ -493,11 +483,13 @@
     <div id="dvique" class="dvique"></div>
 
     <div id="bottom_button">
-      <input type="button" id="tb_undo" value="戻" class="button"/>
-      <input type="button" id="tb_redo" value="進" class="button"/>
-      <input type="button" id="tb_reset" value="選択消去" class="button"/>
-      <input type="button" id="tb_delete" value="問題・解答消去" class="button"/>
-      <br><br><br>
+        <input type="button" id="tb_undo" value="戻" class="button"/>
+        <input type="button" id="tb_redo" value="進" class="button"/>
+        <input type="button" id="tb_reset" value="選択消去" class="button"/>
+        <input type="button" id="tb_delete" value="問題・解答消去" class="button"/>
+        <br><br><br>
+        <span id="footer1">Penpa-editor Ver.2.19 <a href="https://github.com/opt-pan/penpa-edit">opt-pan</a></span>
+        <span id="footer2">要望は<a href="https://github.com/opt-pan/penpa-edit/issues">こちら</a></span>
     </div>
 
     <div id="float-key">
@@ -531,22 +523,19 @@
       </div>
     </div>
 
-
-
-
     <div id="modal" class="modal">
       <div id="modal-content">
         <div id="modal-header">
-          <h3>　新規作成</h3>
+          <h3 id="modal_lb">　新規作成</h3>
         </div>
         <span id="modal-grid">
-          <h4 id="div_all"><label class="label_nb">盤面：</label></h4>
+          <h4 id="div_all"><label class="label_nb" id="nb_type_lb">盤面：</label></h4>
           <select id="gridtype" onchange="changetype()">
-              <option value="square" selected = "selected">正方形</option>
-              <option value="hex">正六角形</option>
-              <option value="tri">正三角形</option>
-              <option value="pyramid">ピラミッド</option>
-              <option value="iso">立方体</option>
+              <option value="square" id="nb_type1_lb" selected = "selected">正方形</option>
+              <option value="hex" id="nb_type2_lb">正六角形</option>
+              <option value="tri" id="nb_type3_lb">正三角形</option>
+              <option value="pyramid" id="nb_type4_lb">ピラミッド</option>
+              <option value="iso" id="nb_type5_lb">立方体</option>
               <!--<option value="truncated_square">Truncated square</option>
               <option value="tetrakis_square">Tetrakis square</option>
               <option value="snub_square">Snub square</option>
@@ -554,7 +543,7 @@
 
           </select>
         </span><br><!--
-      --><h4 id="div_all"><label class="label_nb">サイズ：</label></h4><!--
+      --><h4 id="div_all"><label class="label_nb" id="nb_size_lb">サイズ：</label></h4><!--
       --><span>
           <span id="div_all"><label class="label_nb" id="name_size1">ヨコ：</label></span><!--
        --><input type="number" pattern="\d*" name="nb_size1" id="nb_size1" value="10" min="1" max="50" step="1">
@@ -562,7 +551,7 @@
        --><input type="number" pattern="\d*" name="nb_size2" id="nb_size2" value="10" min="1" max="50" step="1">
         </span>
         <br>
-        <h4 id="div_all"><label class="label_nb">余白：</label></h4>
+        <h4 id="div_all"><label class="label_nb" id="nb_space_lb">余白：</label></h4>
         <!--「マス」モードで設定-->
         <span id="modal-spaceud" style="display:inline;">
           <span id="div_all"><label class="label_nb" id="name_space1">上：</label></span>
@@ -580,14 +569,15 @@
         </span>
         <br>
         <hr size=1 noshade>
+        <h6><label  id="nb_note">"枠変更"では以下の値のみ更新されます</label></h6>
         <br>
-        <h4 id="div_all"><label class="label_nb">表示サイズ：</label></h4><!--
+        <h4 id="div_all"><label class="label_nb" id="nb_sizep_lb">表示サイズ：</label></h4><!--
         --><span id="">
           <input type="number" pattern="\d*" name="nb_size3" id="nb_size3" value="38" min="10" max="60" step="2">
         </span>
 
         <br>
-        <h4 id="div_all"><label class="label_nb">グリッド：</label></h4>
+        <h4 id="div_all"><label class="label_nb" id="nb_grid_lb">グリッド：</label></h4>
         <input type="radio" name="nb_grid" value="1" id="nb_grid1" checked="checked">
         <label for="nb_grid1" class="label" id="nb_grid1_lb">実線</label>
         <input type="radio" name="nb_grid" value="2" id="nb_grid2">
@@ -595,13 +585,13 @@
         <input type="radio" name="nb_grid" value="3" id="nb_grid3">
         <label for="nb_grid3" class="label" id="nb_grid3_lb">なし</label>
         <br>
-        <h4 id="div_all"><label class="label_nb">　格子点：</label></h4>
+        <h4 id="div_all"><label class="label_nb" id="nb_lat_lb">　格子点：</label></h4>
         <input type="radio" name="nb_lat" value="1" id="nb_lat1">
         <label for="nb_lat1" class="label" id="nb_lat1_lb">あり</label>
         <input type="radio" name="nb_lat" value="2" id="nb_lat2" checked="checked">
         <label for="nb_lat2" class="label" id="nb_lat2_lb">なし</label>
         <br>
-        <h4 id="div_all"><label class="label_nb">　　外枠：</label></h4>
+        <h4 id="div_all"><label class="label_nb" id="nb_out_lb">　　外枠：</label></h4>
         <input type="radio" name="nb_out" value="1" id="nb_out1" checked="checked">
         <label for="nb_out1" class="label" id="nb_out1_lb">あり</label>
         <input type="radio" name="nb_out" value="2" id="nb_out2">
@@ -618,10 +608,10 @@
     <div id="modal-newsize" class="modal">
       <div id="modal-newsize-content">
         <div id="modal-header">
-          <h3>　サイズ変更</h3>
+          <h3 id="modal-newsize_lb">　サイズ変更</h3>
         </div>
         <span id="modal-sizeA">
-          <span><label class="label_nb">表示サイズ：</label></span>
+          <span><label class="label_nb" id="modal-newsize_size_lb">表示サイズ：</label></span>
           <input type="number" pattern="\d*" name="nb_size3_r" id="nb_size3_r" value="36" min="10" max="60" step="2">
         </span>
         <br>
@@ -639,19 +629,19 @@
         </div>
 
         <div id="modal-image-body">
-          <h4 id="div_all"><label class="label_imagespace">　余白：</label></h4>
+          <h4 id="div_all"><label class="label_imagespace" id="nb_margin_lb">　余白：</label></h4>
           <input type="radio" name="nb_margin" value="1" id="nb_margin1" checked="checked">
           <label for="nb_margin1" class="label" id="nb_margin1_lb">あり</label>
           <input type="radio" name="nb_margin" value="2" id="nb_margin2">
           <label for="nb_margin2" class="label" id="nb_margin2_lb">なし</label>
           <br>
-          <h4 id="div_all"><label class="label_imagespace">　画質：</label></h4>
+          <h4 id="div_all"><label class="label_imagespace" id="nb_quality_lb">　画質：</label></h4>
           <input type="radio" name="nb_quality" value="1" id="nb_quality1" checked="checked">
           <label for="nb_quality1" class="label" id="nb_quality1_lb">高</label>
           <input type="radio" name="nb_quality" value="2" id="nb_quality2">
           <label for="nb_quality2" class="label" id="nb_quality2_lb">低</label>
           <br><br>
-          <span>ファイル名：<input type="text" value="Image.png" id="saveimagename"></span>
+          <span id="saveimagename_lb">ファイル名：</span><input type="text" value="Image.png" id="saveimagename">
         </div>
         <br>
         <div class="nb_button">
@@ -668,18 +658,18 @@
           <h3 id="savetexttitle">回転・移動</h3>
         </div>
         <div class="nb_button">
-          <h4 id="div_all"><label>　回転：</label></h4>
+          <h4 id="div_all"><label id="rt1_lb">　回転：</label></h4>
           <input type="button" id="rt_left" value="&larr;"/>
           <input type="button" id="rt_right" value="&rarr;"/>
         </div>
         <div class="nb_button">
-          <h4 id="div_all"><label>　反転：</label></h4>
+          <h4 id="div_all"><label id="rt2_lb">　反転：</label></h4>
           <input type="button" id="rt_LR" value="&harr;"/>
           <input type="button" id="rt_UD" value="&#8597;"/>
         </div>
         <br>
         <div class="nb_button">
-          <h4 id="div_all"><label>　移動：</label></h4>
+          <h4 id="div_all"><label id="rt3_lb">　移動：</label></h4>
           <br>
           <input type="button" id="rt_center" value="盤面を中央に移動"/><br>
           <input type="button" id="rt_size" value="画面サイズを盤面に合わせる"/><br>
@@ -705,7 +695,7 @@
         </div>
         <div id="modal-save-body">
           <textarea readonly rows="10" cols="50" id="savetextarea"></textarea>
-          <span>ファイル名：<input type="text" value="Save.txt" id="savetextname"></span>
+          <span id="filename_lb">ファイル名：</span><input type="text" value="Save.txt" id="savetextname">
         </div>
         <div class="nb_button">
           <input type="button" id="closeBtn_save1" value="コピー"/>
@@ -717,57 +707,55 @@
     </div>
 
     <div id="modal-save2" class="modal">
-      <div id="modal-save2-content">
-        <div id="modal-header">
-          <h3 id="save2texttitle">拡張出力</h3>
-        </div>
-        <div class="nb_button">
-          <input type="button" id="solution_open" value="解答判定"/>
-          <input type="button" id="pp_file_open" value="pp_file"/>
-        </div>
-        <div id="modal-save2-solution">
-          <h3 id="save3texttitle">解答判定設定</h3>
+        <div id="modal-save2-content">
+          <div id="modal-header">
+            <h3 id="save2texttitle">拡張出力</h3>
+          </div>
           <div class="nb_button">
-            <h5>判定対象：解答モードの以下</h5>
-            <div align="left" id="solutiontext">
-              <p>黒マス：濃灰・黒・正方形特大2</p>
-              <p>線：緑・二重　辺：緑・二重　壁：緑</p>
-              <p>数字：通常・大・中・小の緑</p>
-              <p>記号：円中1-2、直角三角形1-4、矢印小1-8</p>
-              <p>無限・計算-黒緑2-3</p>
-              <p>固有1-バトルシップ黒1-6、テント2、スター1-3</p>
+            <input type="button" id="solution_open" value="解答判定"/>
+            <input type="button" id="pp_file_open" value="pp_file"/>
+          </div>
+          <div id="modal-save2-solution">
+            <div class="nb_button">
+              <h5 id="savetexttitle_lb">判定対象：解答モードの以下</h5>
+              <div align="left" id="solutiontext">
+                <p id="solutiontext1">黒マス：濃灰・黒・正方形特大2</p>
+                <p id="solutiontext2">線：緑・二重　辺：緑・二重　壁：緑</p>
+                <p id="solutiontext3">数字：通常・大・中・小の緑</p>
+                <p id="solutiontext4">記号：円中1-2、直角三角形1-4、矢印小1-8</p>
+                <p id="solutiontext5">無限・計算-黒緑2-3</p>
+                <p id="solutiontext6">固有1-バトルシップ黒1-6、テント2、スター1-3</p>
+              </div>
+              <!--
+              <input type="checkbox" name="nb_solution_bl" value="solution_bl" id="nb_check_solution_bl" checked = "checked">
+              <label for="nb_check_solution_bl"  id="nb_check_solution_bl_lb">黒マス</label>
+              <input type="checkbox" name="nb_solution_line" value="solution_line" id="nb_check_solution_line" checked = "checked">
+              <label for="nb_check_solution_line"  id="nb_check_solution_line_lb">緑線</label>
+              <input type="checkbox" name="nb_solution_line" value="solution_lineE" id="nb_check_solution_lineE" checked = "checked">
+              <label for="nb_check_solution_lineE"  id="nb_check_solution_lineE_lb">緑辺</label>
+              <input type="checkbox" name="nb_solution_wall" value="solution_wall" id="nb_check_solution_wall" checked = "checked">
+              <label for="nb_check_solution_wall"  id="nb_check_solution_wall_lb">緑壁</label>
+              <br>
+              <input type="checkbox" name="nb_solution_num" value="solution_num" id="nb_check_solution_num" checked = "checked">
+              <label for="nb_check_solution_num"  id="nb_check_solution_num_lb">緑数字</label>
+              <input type="checkbox" name="nb_solution_sym" value="solution_sym" id="nb_check_solution_sym" checked = "checked">
+              <label for="nb_check_solution_sym"  id="nb_check_solution_sym_lb">記号</label>
+              -->
+              <br>
+              <input type="button" id="closeBtn_save5" value="解答判定付き出題用アドレスを出力"/>
             </div>
-            <!--
-            <input type="checkbox" name="nb_solution_bl" value="solution_bl" id="nb_check_solution_bl" checked = "checked">
-            <label for="nb_check_solution_bl"  id="nb_check_solution_bl_lb">黒マス</label>
-            <input type="checkbox" name="nb_solution_line" value="solution_line" id="nb_check_solution_line" checked = "checked">
-            <label for="nb_check_solution_line"  id="nb_check_solution_line_lb">緑線</label>
-            <input type="checkbox" name="nb_solution_line" value="solution_lineE" id="nb_check_solution_lineE" checked = "checked">
-            <label for="nb_check_solution_lineE"  id="nb_check_solution_lineE_lb">緑辺</label>
-            <input type="checkbox" name="nb_solution_wall" value="solution_wall" id="nb_check_solution_wall" checked = "checked">
-            <label for="nb_check_solution_wall"  id="nb_check_solution_wall_lb">緑壁</label>
-            <br>
-            <input type="checkbox" name="nb_solution_num" value="solution_num" id="nb_check_solution_num" checked = "checked">
-            <label for="nb_check_solution_num"  id="nb_check_solution_num_lb">緑数字</label>
-            <input type="checkbox" name="nb_solution_sym" value="solution_sym" id="nb_check_solution_sym" checked = "checked">
-            <label for="nb_check_solution_sym"  id="nb_check_solution_sym_lb">記号</label>
-            -->
-            <br>
-            <input type="button" id="closeBtn_save5" value="解答判定付き出題用アドレスを出力"/>
           </div>
-        </div>
-        <div id="modal-save2-pp" style="display:none;">
-          <h3 id="save4texttitle">pp_file</h3>
-          <h5 id="save5texttitle">ヘッダー</h5>
-          <textarea rows="1" cols="50" id="savetextarea_pp"></textarea>
-          <div class="nb_button">
-            <input type="button" id="pp_file" value="pp_fileを出力"/>
+          <div id="modal-save2-pp" style="display:none;">
+            <h3 id="save4texttitle">pp_file</h3>
+            <h5 id="save5texttitle">ヘッダー</h5>
+            <textarea rows="1" cols="50" id="savetextarea_pp"></textarea>
+            <div class="nb_button">
+              <input type="button" id="pp_file" value="pp_fileを出力"/>
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
-    </div>
-
 
   </body>
 </html>
