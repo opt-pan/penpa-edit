@@ -99,7 +99,7 @@ line-height: 28px;
 display: inline-block;
 margin: 0px;
 text-align: left;
-width: 45px;
+width: 50px;
 height: 25px;
 padding-left: 5px;
 padding-right: 5px;
@@ -141,7 +141,7 @@ border-radius: 3px;
 display: inline-block;
 margin: 0px;
 text-align: left;
-width: 30px;
+width: 32px;
 height: 25px;
 padding-left: 5px;
 padding-right: 5px;
@@ -166,7 +166,7 @@ background: #cccccc;
 color: #000000;
 }
 
-#panel_button0{
+#panel_button0,#edge_button0,#panel_buttons0,#panel_buttonc0{
   width: auto;
   border:none;
   background: none;
