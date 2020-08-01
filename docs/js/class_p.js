@@ -508,11 +508,13 @@ class Puzzle{
 
   mode_set(mode){
     this.mode[this.mode.qa].edit_mode = mode;
+    //numberではサブモードが2行なので調整
     if(mode === "number"){
-      document.getElementById("div_all").style.display='none';
+      document.getElementById("div_sub").style.display='none';
     }else{
-      document.getElementById("div_all").style.display='inline';
+      document.getElementById("div_sub").style.display='inline';
     }
+    //サブ・スタイルモードボタンの表示
     this.submode_reset();
     if(document.getElementById('mode_'+mode)){
       document.getElementById('mode_'+mode).style.display='inline-block';
@@ -520,6 +522,7 @@ class Puzzle{
     if(document.getElementById('style_'+mode)){
       document.getElementById('style_'+mode).style.display='inline-block';
     }
+
     document.getElementById('mo_'+mode).checked = true;
     this.submode_check('sub_'+mode+this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][0]);
     if(mode === "symbol"){
@@ -530,6 +533,8 @@ class Puzzle{
     }
     if(this.mode[this.mode.qa].edit_mode==="symbol"){
       this.subsymbolmode(this.mode[this.mode.qa].symbol[0]);
+    }else if(this.mode[this.mode.qa].edit_mode==="combi"){
+      this.subcombimode(this.mode[this.mode.qa].combi[0]);
     }
     this.redraw();
   }
@@ -538,12 +543,13 @@ class Puzzle{
     if(document.getElementById(name)){
       document.getElementById(name).checked = true;
       this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][0]=document.getElementById(name).value;
-      this.cursolcheck();
+      this.cursolcheck();//override
       this.redraw();//盤面カーソル更新
     }
     this.type = this.type_set();//選択する座標タイプ
   }
 
+//override
   cursolcheck(){
     return;
   }
@@ -551,13 +557,7 @@ class Puzzle{
   stylemode_check(name){
     if(document.getElementById(name)){
       document.getElementById(name).checked = true;
-      if(name === "st_symbol0"){
-        this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][1]=this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][1]%10;
-      }else if(name === "st_symbol10"){
-        this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][1]=this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][1]%10+10;
-      }else{
-        this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][1]=parseInt(document.getElementById(name).value);
-      }
+      this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][1]=parseInt(document.getElementById(name).value);
       panel_pu.draw_panel();//パネル更新
     }
   }
@@ -709,7 +709,7 @@ class Puzzle{
       text = this.gridtype + "," + this.nx.toString() + "," + this.ny.toString() + "," + this.size.toString() + "," +
               this.theta.toString() + "," + this.reflect.toString() + "," + this.canvasx + "," + this.canvasy +","+ this.center_n +","+this.center_n0 +"\n";
       text += JSON.stringify(this.space) + "\n";
-      text += JSON.stringify(this.mode.grid) + "\n";
+      text += JSON.stringify(this.mode.grid) + "~" + JSON.stringify(this.mode["pu_a"]["edit_mode"]) + "~" + JSON.stringify(this.mode["pu_a"][this.mode["pu_a"]["edit_mode"]]) + "\n";
 
       var r = this.pu_q.command_redo.__a;
       var u = this.pu_q.command_undo.__a;
@@ -724,6 +724,8 @@ class Puzzle{
         list.push(this.centerlist[i]-this.centerlist[i-1]);
       }
       text += JSON.stringify(list);
+
+      //console.log(text);
 
       for (var i=0;i<this.replace.length;i++){
         text = text.split(this.replace[i][0]).join(this.replace[i][1]);
@@ -3299,7 +3301,11 @@ class Puzzle{
       var text = JSON.stringify(this.make_solution());
       if(text === this.solution &&this.sol_flag === 0){
         setTimeout(() => {
-          alert("正解です")
+          if(document.getElementById("english").value === "English"){
+            alert("正解です");
+          }else{
+            alert("Solved.")
+          }
         }, 10)
         this.sol_flag = 1;
       }else if(text != this.solution &&this.sol_flag === 1){//答えが変わったら改めて判定

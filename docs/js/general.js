@@ -11,6 +11,12 @@ function boot(){
   }else{
     create();
   }
+
+  var language = (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0,2);
+  if(language != "ja"){
+    document.getElementById("english").value === "JP"
+    trans();
+  }
 }
 
 function boot_parameters(){
@@ -62,7 +68,11 @@ function make_class(gridtype){
       if(nx<=30 && nx>0 && ny<=30 && ny>0 && 12<=size && size<=60 && space1+space2<ny && space3+space4<nx){
         pu = new Puzzle_square(nx,ny,size);
       }else{
-        alert("一辺:1~30 表示サイズ:12~60");
+        if(document.getElementById("english").value === "English"){
+          alert("一辺:1~30 表示サイズ:12~60");
+        }else{
+          alert("Grid:1~30 Display size:12~60");
+        }
       }
       break;
     case "hex":
@@ -71,7 +81,11 @@ function make_class(gridtype){
       if(n0<=10 && n0>0 && 12<=size && size<=60 && space1<n0){
         pu = new Puzzle_hex(n0,n0,size);
       }else{
-        alert("一辺:1~10 表示サイズ:12~60");
+        if(document.getElementById("english").value === "English"){
+          alert("一辺:1~10 表示サイズ:12~60");
+        }else{
+          alert("Grid:1~10 Display size:12~60");
+        }
       }
       break;
     case "tri":
@@ -80,7 +94,11 @@ function make_class(gridtype){
       if(n0<=20 && n0>0 && 12<=size && size<=60 && space1<n0/3){
         pu = new Puzzle_tri(n0,n0,size);
       }else{
-        alert("一辺:1~20 表示サイズ:12~60");
+        if(document.getElementById("english").value === "English"){
+          alert("一辺:1~20 表示サイズ:12~60");
+        }else{
+          alert("Grid:1~20 Display size:12~60");
+        }
       }
       break;
     case "pyramid":
@@ -89,7 +107,11 @@ function make_class(gridtype){
       if(n0<=20 && n0>0 && 12<=size && size<=60 && space1<n0/3){
         pu = new Puzzle_pyramid(n0,n0,size);
       }else{
-        alert("一辺:1~20 表示サイズ:12~60");
+        if(document.getElementById("english").value === "English"){
+          alert("一辺:1~20 表示サイズ:12~60");
+        }else{
+          alert("Grid:1~20 Display size:12~60");
+        }
       }
       break;
     case "iso":
@@ -97,7 +119,11 @@ function make_class(gridtype){
       if(n0<=15 && n0>0 && 12<=size && size<=60){
         pu = new Puzzle_iso(n0,n0,size);
       }else{
-        alert("一辺:1~15 表示サイズ:12~60");
+        if(document.getElementById("english").value === "English"){
+          alert("一辺:1~15 表示サイズ:12~60");
+        }else{
+          alert("Grid:1~15 Display size:12~60");
+        }
       }
       break;
     case "truncated_square":
@@ -105,7 +131,11 @@ function make_class(gridtype){
       if(n0<=10 && n0>0 && 12<=size && size<=60){
         pu = new Puzzle_truncated_square(n0,n0,size);
       }else{
-        alert("一辺:1~10 表示サイズ:12~60");
+        if(document.getElementById("english").value === "English"){
+          alert("一辺:1~10 表示サイズ:12~60");
+        }else{
+          alert("Grid:1~10 Display size:12~60");
+        }
       }
       break;
     case "tetrakis_square":
@@ -113,7 +143,11 @@ function make_class(gridtype){
       if(n0<=10 && n0>0 && 12<=size && size<=60){
         pu = new Puzzle_tetrakis_square(n0,n0,size);
       }else{
-        alert("一辺:1~10 表示サイズ:12~60");
+        if(document.getElementById("english").value === "English"){
+          alert("一辺:1~10 表示サイズ:12~60");
+        }else{
+          alert("Grid:1~10 Display size:12~60");
+        }
       }
       break;
     case "snub_square":
@@ -121,7 +155,11 @@ function make_class(gridtype){
       if(n0<=10 && n0>0 && 12<=size && size<=60){
         pu = new Puzzle_snub_square(n0,n0,size);
       }else{
-        alert("一辺:1~10 表示サイズ:12~60");
+        if(document.getElementById("english").value === "English"){
+          alert("一辺:1~10 表示サイズ:12~60");
+        }else{
+          alert("Grid:1~10 Display size:12~60");
+        }
       }
       break;
     case "cairo_pentagonal":
@@ -129,7 +167,11 @@ function make_class(gridtype){
       if(n0<=10 && n0>0 && 12<=size && size<=60){
         pu = new Puzzle_cairo_pentagonal(n0,n0,size);
       }else{
-        alert("一辺:1~10 表示サイズ:12~60");
+        if(document.getElementById("english").value === "English"){
+          alert("一辺:1~10 表示サイズ:12~60");
+        }else{
+          alert("Grid:1~10 Display size:12~60");
+        }
       }
       break;
 
@@ -140,13 +182,22 @@ function make_class(gridtype){
 function changetype(){
   var gridtype = document.getElementById("gridtype").value;
   var type = ["name_size2","nb_size2","name_space2","name_space3","name_space4","nb_space2","nb_space3","nb_space4"];
+  var type2 = ["name_space1","nb_space1"];
   switch(gridtype){
     case "square":
       for (var i of type){
         document.getElementById(i).style.display = "inline";
       }
-      document.getElementById("name_size1").innerHTML = "ヨコ：";
-      document.getElementById("name_space1").innerHTML = "上：";
+      for (var i of type2){
+        document.getElementById(i).style.display = "inline";
+      }
+      if(document.getElementById("english").value === "English"){
+        document.getElementById("name_size1").innerHTML = "ヨコ：";
+        document.getElementById("name_space1").innerHTML = "上：";
+      }else{
+        document.getElementById("name_size1").innerHTML = "Width：";
+        document.getElementById("name_space1").innerHTML = "Over：";
+      }
       document.getElementById("nb_size1").value = 10;
       document.getElementById("nb_size2").value = 10;
       document.getElementById("nb_size3").value = 38;
@@ -159,8 +210,16 @@ function changetype(){
       for (var i of type){
         document.getElementById(i).style.display = "none";
       }
-      document.getElementById("name_size1").innerHTML = "一辺：";
-      document.getElementById("name_space1").innerHTML = "外周：";
+      for (var i of type2){
+        document.getElementById(i).style.display = "inline";
+      }
+      if(document.getElementById("english").value === "English"){
+        document.getElementById("name_size1").innerHTML = "一辺：";
+        document.getElementById("name_space1").innerHTML = "外周：";
+      }else{
+        document.getElementById("name_size1").innerHTML = "Side：";
+        document.getElementById("name_space1").innerHTML = "Side：";
+      }
       document.getElementById("nb_size1").value = 5;
       document.getElementById("nb_size3").value = 40;
       document.getElementById("nb_space1").value = 0;
@@ -169,8 +228,16 @@ function changetype(){
       for (var i of type){
         document.getElementById(i).style.display = "none";
       }
-      document.getElementById("name_size1").innerHTML = "一辺：";
-      document.getElementById("name_space1").innerHTML = "外周：";
+      for (var i of type2){
+        document.getElementById(i).style.display = "inline";
+      }
+      if(document.getElementById("english").value === "English"){
+        document.getElementById("name_size1").innerHTML = "一辺：";
+        document.getElementById("name_space1").innerHTML = "外周：";
+      }else{
+        document.getElementById("name_size1").innerHTML = "Side：";
+        document.getElementById("name_space1").innerHTML = "Side：";
+      }
       document.getElementById("nb_size1").value = 6;
       document.getElementById("nb_size3").value = 60;
       document.getElementById("nb_space1").value = 0;
@@ -179,59 +246,92 @@ function changetype(){
       for (var i of type){
         document.getElementById(i).style.display = "none";
       }
-      document.getElementById("name_size1").innerHTML = "一辺：";
-      document.getElementById("name_space1").innerHTML = "外周：";
+      for (var i of type2){
+        document.getElementById(i).style.display = "inline";
+      }
+      if(document.getElementById("english").value === "English"){
+        document.getElementById("name_size1").innerHTML = "一辺：";
+        document.getElementById("name_space1").innerHTML = "外周：";
+      }else{
+        document.getElementById("name_size1").innerHTML = "Side：";
+        document.getElementById("name_space1").innerHTML = "Side：";
+      }
       document.getElementById("nb_size1").value = 6;
       document.getElementById("nb_size3").value = 50;
       document.getElementById("nb_space1").value = 0;
       break;
     case "iso":
-      type.push("name_space1");
-      type.push("nb_space1");
       for (var i of type){
         document.getElementById(i).style.display = "none";
       }
-      document.getElementById("name_size1").innerHTML = "一辺：";
+      for (var i of type2){
+        document.getElementById(i).style.display = "none";
+      }
+      if(document.getElementById("english").value === "English"){
+        document.getElementById("name_size1").innerHTML = "一辺：";
+      }else{
+        document.getElementById("name_size1").innerHTML = "Side：";
+      }
       document.getElementById("nb_size1").value = 5;
       document.getElementById("nb_size3").value = 34;
       break;
     case "truncated_square":
-      type.push("name_space1");
-      type.push("nb_space1");
+      for (var i of type2){
+        document.getElementById(i).style.display = "none";
+      }
       for (var i of type){
         document.getElementById(i).style.display = "none";
       }
-      document.getElementById("name_size1").innerHTML = "一辺：";
+      if(document.getElementById("english").value === "English"){
+        document.getElementById("name_size1").innerHTML = "一辺：";
+      }else{
+        document.getElementById("name_size1").innerHTML = "Side：";
+      }
       document.getElementById("nb_size1").value = 5;
       document.getElementById("nb_size3").value = 32;
       break;
     case "tetrakis_square":
-      type.push("name_space1");
-      type.push("nb_space1");
       for (var i of type){
         document.getElementById(i).style.display = "none";
       }
-      document.getElementById("name_size1").innerHTML = "一辺：";
+      for (var i of type2){
+        document.getElementById(i).style.display = "none";
+      }
+      if(document.getElementById("english").value === "English"){
+        document.getElementById("name_size1").innerHTML = "一辺：";
+      }else{
+        document.getElementById("name_size1").innerHTML = "Side：";
+      }
       document.getElementById("nb_size1").value = 4;
       document.getElementById("nb_size3").value = 32;
       break;
     case "snub_square":
-      type.push("name_space1");
-      type.push("nb_space1");
       for (var i of type){
         document.getElementById(i).style.display = "none";
       }
-      document.getElementById("name_size1").innerHTML = "一辺：";
+      for (var i of type2){
+        document.getElementById(i).style.display = "none";
+      }
+      if(document.getElementById("english").value === "English"){
+        document.getElementById("name_size1").innerHTML = "一辺：";
+      }else{
+        document.getElementById("name_size1").innerHTML = "Side：";
+      }
       document.getElementById("nb_size1").value = 4;
       document.getElementById("nb_size3").value = 38;
       break;
     case "cairo_pentagonal":
-      type.push("name_space1");
-      type.push("nb_space1");
       for (var i of type){
         document.getElementById(i).style.display = "none";
       }
-      document.getElementById("name_size1").innerHTML = "一辺：";
+      for (var i of type2){
+        document.getElementById(i).style.display = "none";
+      }
+      if(document.getElementById("english").value === "English"){
+        document.getElementById("name_size1").innerHTML = "一辺：";
+      }else{
+        document.getElementById("name_size1").innerHTML = "Side：";
+      }
       document.getElementById("nb_size1").value = 4;
       document.getElementById("nb_size3").value = 38;
       break;
@@ -247,10 +347,18 @@ function rotation(){
 }
 
 function CreateCheck() {
-  if( confirm("現在の盤面がリセットされます\n\n 表示サイズ・グリッド線は「枠変更」で変更可能") ) {
-    create_newboard();
-    pu.redraw();
+  if(document.getElementById("english").value === "English"){
+    if( confirm("現在の盤面がリセットされます\n\n 表示サイズ・グリッド線は「枠変更」で変更可能") ) {
+      create_newboard();
+      pu.redraw();
+    }
+  }else{
+    if( confirm("Reset the Grid.\n\n Display size and a type of gridline can be changed from 'Change grid'.") ) {
+      create_newboard();
+      pu.redraw();
+    }
   }
+
 }
 
 function newgrid(){
@@ -261,7 +369,11 @@ function newgrid(){
     panel_pu.draw_panel();
     document.getElementById('modal').style.display = 'none';
   }else{
-    alert("表示サイズ:15~60");
+    if(document.getElementById("english").value === "English"){
+      alert("表示サイズ:15~60");
+    }else{
+      alert("Display size:15~60");
+    }
   }
 }
 
@@ -275,7 +387,11 @@ function newgrid_r(){
     panel_pu.draw_panel();
     document.getElementById('modal-newsize').style.display = 'none';
   }else{
-    alert("表示サイズ:15~60");
+    if(document.getElementById("english").value === "English"){
+      alert("表示サイズ:15~60");
+    }else{
+      alert("Display size:15~60");
+    }
   }
 }
 
@@ -310,22 +426,41 @@ function edge_onoff(){
 }
 
 function ResetCheck() {
+  if(document.getElementById("english").value === "English"){
     if( confirm("選択中の記号を消去します") ) {
         pu.reset_selectedmode();
     }
+  }else{
+    if( confirm("Erase current selection") ) {
+        pu.reset_selectedmode();
+    }
+  }
 }
 
 function DeleteCheck() {
   var text;
-  if(document.getElementById("pu_q").checked){
-    text = "問題";
-  }else if(document.getElementById("pu_a").checked){
-    text = "解答";
+  if(document.getElementById("english").value === "English"){
+    if(document.getElementById("pu_q").checked){
+      text = "問題";
+    }else if(document.getElementById("pu_a").checked){
+      text = "解答";
+    }
+    if( confirm(text+"盤面をリセットします") ) {
+        pu.reset_board();
+        pu.redraw();
+    }
+  }else{
+    if(document.getElementById("pu_q").checked){
+      text = "Problem";
+    }else if(document.getElementById("pu_a").checked){
+      text = "Solution";
+    }
+    if( confirm("Reset "+text+" grid.") ) {
+        pu.reset_board();
+        pu.redraw();
+    }
   }
-  if( confirm(text+"盤面をリセットします") ) {
-      pu.reset_board();
-      pu.redraw();
-  }
+
 }
 
 function saveimage() {
@@ -356,7 +491,11 @@ function saveimage_download(){
           downloadLink.click();
       }
     }else{
-      alert("ファイル名に使えない文字列\\/:*?\"<>|が含まれています。")
+      if(document.getElementById("english").value === "English"){
+        alert("ファイル名に使えない文字列\\/:*?\"<>|が含まれています。")
+      }else{
+        alert("\\/:*?\"<>| can't be used.")
+      }
     }
 }
 
@@ -418,7 +557,11 @@ function savetext_copy() {
   sel.removeAllRanges();
   sel.addRange(range);
   textarea.setSelectionRange(0, 1e5);
-  alert("コピーしました。");
+  if(document.getElementById("english").value === "English"){
+    alert("コピーしました。");
+  }else{
+    alert("Copied.")
+  }
   document.execCommand("copy");
 }
 
@@ -452,7 +595,11 @@ function savetext_download(){
       downloadLink.click();
     }
   }else{
-    alert("ファイル名に使えない文字列\\/:*?\"<>|が含まれています。");
+    if(document.getElementById("english").value === "English"){
+      alert("ファイル名に使えない文字列\\/:*?\"<>|が含まれています。")
+    }else{
+      alert("\\/:*?\"<>| can't be used.")
+    }
   }
 }
 
@@ -557,11 +704,16 @@ function load(urlParam){
     }else if(paramArray.m === "solve"){  //solve_mode
       set_solvemode()
       pu.mode.qa = "pu_a";
+
+      //mode初期化
+      var rtext_mode = rtext[2].split('~');
+      pu.mode.grid = JSON.parse(rtext_mode[0]);
       pu.mode_set("surface");
-      pu.mode.grid = JSON.parse(rtext[2]);
+
       pu.pu_q = JSON.parse(rtext[3]);
       if(!pu.pu_q.polygon){pu.pu_q.polygon=[];}
       pu.centerlist = rtext[5];
+
       //classがコピーできないので別
       for (var i of ["pu_q"]){
         for (var j of ["command_redo","command_undo"]){
@@ -604,6 +756,20 @@ function load(urlParam){
     pu.make_frameline();//盤面描画
     panel_pu.draw_panel();
     pu.mode_qa(pu.mode.qa); //include redraw
+
+    if(paramArray.m === "solve"){
+      //solveモードの場合のみ、mode読み込み
+      var rtext_mode = rtext[2].split('~');
+      pu.mode.grid = JSON.parse(rtext_mode[0]);
+      if(rtext_mode[1]){
+        var amode = JSON.parse(rtext_mode[1]);
+         if(amode!="board" && amode!="cage" && amode!="special"){//解答モードにないモードは除外
+           pu.mode[pu.mode.qa].edit_mode = amode;
+           pu.mode[pu.mode.qa][amode] = JSON.parse(rtext_mode[2]);
+         }
+      }
+    }
+
     pu.mode_set(pu.mode[pu.mode.qa].edit_mode); //include redraw
   //}catch(error){
   //  alert("不正なアドレスです");

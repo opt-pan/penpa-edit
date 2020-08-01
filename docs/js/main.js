@@ -3,7 +3,11 @@ onload = function(){
 boot();
 
 document.addEventListener("beforeunload", function(eve){
+  if(document.getElementById("english").value === "English"){
     eve.returnValue = "ページを移動します";
+  }else{
+    eve.returnValue = "Move page.";
+  }
 },{passive: false});
 
 var ua = navigator.userAgent;
