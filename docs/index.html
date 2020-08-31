@@ -1,7 +1,7 @@
-
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Penpa</title>
     <meta charset="utf-8" />
     <meta name="robots" content="noindex,nofollow">
@@ -21,71 +21,71 @@
     <script type="text/javascript" src="./js/style.js"></script>
     <script type="text/javascript" src="./js/general.js"></script>
     <script type="text/javascript" src="./js/encoding.js"></script>
-  </head>
+</head>
 
-  <body>
+<body>
 
     <header>
-      <h3 id="title">編集モード</h3>
+        <h3 id="title">編集モード</h3>
 
-      <div id="top_button">
-        <input type="button" id="newboard" value="新規 / 枠変更" class="button"/>
-        <input type="button" id="rotation" value="回転 / 移動" class="button"/>
-        <input type="button" id="newsize" value="サイズ変更" class="button" style="display:none;"/>
-        <input type="button" id="saveimage" value="画像保存" class="button"/>
-        <input type="button" id="savetext" value="アドレス" class="button"/>
-        <a id="download_link"></a>
-        <input type="button" id="duplicate" value="複製" class="button" onclick="duplicate();"/>
-        <input type="button" id="english" value="English" class="button" onclick="trans();"/>
-      </div>
-
-      <div id="buttons">
-        <div id="edit_button" class="mode_button">
-          <label class="label_mode" id="edit_txt">　編集：</label>
-          <input type="radio" name="mode_qa" id="pu_q" value=1 checked="checked"/>
-          <label for="pu_q" class="label" id="pu_q_label">問題</label>
-          <input type="radio" name="mode_qa" id="pu_a" value=2 />
-          <label for="pu_a" class="label" id="pu_a_label">解答</label>
-          <span id="panel_button0" class="label">パネル：</span>
-          <span id="panel_button" class="label">OFF</span>
-          <span id="edge_button0" class="label">辺入力：</span>
-          <span id="edge_button" class="label">OFF</span>
+        <div id="top_button">
+            <input type="button" id="newboard" value="新規 / 枠変更" class="button" />
+            <input type="button" id="rotation" value="回転 / 移動" class="button" />
+            <input type="button" id="newsize" value="サイズ変更" class="button" style="display:none;" />
+            <input type="button" id="saveimage" value="画像保存" class="button" />
+            <input type="button" id="savetext" value="アドレス" class="button" />
+            <a id="download_link"></a>
+            <input type="button" id="duplicate" value="複製" class="button" onclick="duplicate();" />
+            <input type="button" id="english" value="English" class="button" onclick="trans();" />
         </div>
-        <div id="mode_button" class="mode_button">
-          <label class="label_mode" id="mode_txt">モード：</label>
-          <input type="radio" name="mode" id="mo_surface" checked="checked"/>
-          <label for="mo_surface" class="label" id="mo_surface_lb">黒マス</label>
-          <input type="radio" name="mode" id="mo_line"/>
-          <label for="mo_line" class="label" id="mo_line_lb">線</label>
-          <input type="radio" name="mode" id="mo_lineE"/>
-          <label for="mo_lineE" class="label" id="mo_lineE_lb">辺</label>
-          <input type="radio" name="mode" id="mo_wall"/>
-          <label for="mo_wall" class="label" id="mo_wall_lb">壁</label>
-          <input type="radio" name="mode" id="mo_board"/>
-          <label for="mo_board" class="label_option" id="mo_board_lb">マス</label>
-          <input type="radio" name="mode" id="mo_move"/>
-          <label for="mo_move" class="label_option" id="mo_move_lb">移動</label>
-          <br>
-          <label class="label_mode" id="mode_txt_space">　　　　</label>
-          <input type="radio" name="mode" id="mo_number"/>
-          <label for="mo_number" class="label" id="mo_number_lb">数字</label>
-          <input type="radio" name="mode" id="mo_symbol"/>
-          <label for="mo_symbol" class="label" id="mo_symbol_lb">記号</label>
-          <input type="radio" name="mode" id="mo_special"/>
-          <label for="mo_special" class="label" id="mo_special_lb">特殊</label>
-          <input type="radio" name="mode" id="mo_cage"/>
-          <label for="mo_cage" class="label" id="mo_cage_lb">枠</label>
-          <input type="radio" name="mode" id="mo_combi"/>
-          <label for="mo_combi" class="label_option" id="mo_combi_lb">複合</label>
 
-          <br>
-        </div>
-        <hr size=1 noshade>
-        <div id="submode_button" class="submode_button">
-          <span id="div_sub">
+        <div id="buttons">
+            <div id="edit_button" class="mode_button">
+                <label class="label_mode" id="edit_txt">　編集：</label>
+                <input type="radio" name="mode_qa" id="pu_q" value=1 checked="checked" />
+                <label for="pu_q" class="label" id="pu_q_label">問題</label>
+                <input type="radio" name="mode_qa" id="pu_a" value=2 />
+                <label for="pu_a" class="label" id="pu_a_label">解答</label>
+                <span id="panel_button0" class="label">パネル：</span>
+                <span id="panel_button" class="label">OFF</span>
+                <span id="edge_button0" class="label">辺入力：</span>
+                <span id="edge_button" class="label">OFF</span>
+            </div>
+            <div id="mode_button" class="mode_button">
+                <label class="label_mode" id="mode_txt">モード：</label>
+                <input type="radio" name="mode" id="mo_surface" checked="checked" />
+                <label for="mo_surface" class="label" id="mo_surface_lb">黒マス</label>
+                <input type="radio" name="mode" id="mo_line" />
+                <label for="mo_line" class="label" id="mo_line_lb">線</label>
+                <input type="radio" name="mode" id="mo_lineE" />
+                <label for="mo_lineE" class="label" id="mo_lineE_lb">辺</label>
+                <input type="radio" name="mode" id="mo_wall" />
+                <label for="mo_wall" class="label" id="mo_wall_lb">壁</label>
+                <input type="radio" name="mode" id="mo_board" />
+                <label for="mo_board" class="label_option" id="mo_board_lb">マス</label>
+                <input type="radio" name="mode" id="mo_move" />
+                <label for="mo_move" class="label_option" id="mo_move_lb">移動</label>
+                <br>
+                <label class="label_mode" id="mode_txt_space">　　　　</label>
+                <input type="radio" name="mode" id="mo_number" />
+                <label for="mo_number" class="label" id="mo_number_lb">数字</label>
+                <input type="radio" name="mode" id="mo_symbol" />
+                <label for="mo_symbol" class="label" id="mo_symbol_lb">記号</label>
+                <input type="radio" name="mode" id="mo_special" />
+                <label for="mo_special" class="label" id="mo_special_lb">特殊</label>
+                <input type="radio" name="mode" id="mo_cage" />
+                <label for="mo_cage" class="label" id="mo_cage_lb">枠</label>
+                <input type="radio" name="mode" id="mo_combi" />
+                <label for="mo_combi" class="label_option" id="mo_combi_lb">複合</label>
+
+                <br>
+            </div>
+            <hr size=1 noshade>
+            <div id="submode_button" class="submode_button">
+                <span id="div_sub">
             <label class="label_mode" id="sub_txt">　サブ：</label>
           </span>
-          <span id="mode_line" style="display:none;">
+                <span id="mode_line" style="display:none;">
             <input type="radio" name="mode_line" value="1" id="sub_line1" checked="checked">
             <label for="sub_line1" class="label" id="sub_line1_lb">通常</label>
             <input type="radio" name="mode_line" value="2" id="sub_line2">
@@ -98,7 +98,7 @@
             <label for="sub_line4" class="label" id="sub_line4_lb">補助×</label>
           </span>
 
-          <span id="mode_lineE" style="display:none;">
+                <span id="mode_lineE" style="display:none;">
             <input type="radio" name="mode_lineE" value="1" id="sub_lineE1" checked="checked">
             <label for="sub_lineE1" class="label" id="sub_lineE1_lb">通常</label>
             <input type="radio" name="mode_lineE" value="2" id="sub_lineE2">
@@ -111,7 +111,7 @@
             <label for="sub_lineE5" class="label" id="sub_lineE5_lb">枠消</label>
           </span>
 
-          <span id="mode_number" style="display:none;">
+                <span id="mode_number" style="display:none;">
             <label class="label_mode" id="sub_txt_n">　サブ：</label>
             <input type="radio" name="mode_number" value="1" id="sub_number1" checked="checked">
             <label for="sub_number1" class="label" id="sub_number1_lb">通常</label>
@@ -137,152 +137,152 @@
             <label for="sub_number7" class="label" id="sub_number7_lb">候補</label>
           </span>
 
-          <span id="mode_symbol" class="mode_symbol" style="display:none;">
+                <span id="mode_symbol" class="mode_symbol" style="display:none;">
             <ul class="nav">
               <li><span id="ms1">図形</span>
                 <ul id="mode_symbolul1">
-                  <li><span id="ms1_circle">円</span>
-                    <ul>
-                      <li><span id="ms_circle_L">大</span></li>
-                      <li><span id="ms_circle_M">中</span></li>
-                      <li><span id="ms_circle_S">小</span></li>
-                      <li><span id="ms_circle_SS">極小</span></li>
-                    </ul>
-                  </li>
-                  <li><span id="ms1_square">正方形</span>
-                    <ul>
-                      <li><span id="ms_square_LL">特大</span></li>
-                      <li><span id="ms_square_L">大</span></li>
-                      <li><span id="ms_square_M">中</span></li>
-                      <li><span id="ms_square_S">小</span></li>
-                      <li><span id="ms_square_SS">極小</span></li>
-                    </ul>
-                  </li>
-                  <li><span id="ms1_triup">上三角</span>
-                    <ul>
-                      <li><span id="ms_triup_L">大</span></li>
-                      <li><span id="ms_triup_M">中</span></li>
-                      <li><span id="ms_triup_SS">極小</span></li>
-                    </ul>
-                  </li>
-                  <li><span id="ms1_tridown">下三角</span>
-                    <ul>
-                      <li><span id="ms_tridown_L">大</span></li>
-                      <li><span id="ms_tridown_M">中</span></li>
-                      <li><span id="ms_tridown_SS">極小</span></li>
-                    </ul>
-                  </li>
-                  <li><span id="ms1_diamond">ダイヤ</span>
-                    <ul>
-                      <li><span id="ms_diamond_L">大</span></li>
-                      <li><span id="ms_diamond_M">中</span></li>
-                      <li><span id="ms_diamond_SS">極小</span></li>
-                    </ul>
-                  </li>
-                  <li><span id="ms1_ox">○△□×</span>
-                    <ul>
-                      <li><span id="ms_ox_B">黒</span></li>
-                      <li><span id="ms_ox_E">緑</span></li>
-                      <li><span id="ms_ox_G">灰</span></li>
-                    </ul>
-                  </li>
-                  <li><span id="ms_cross">十字</span></li>
-                  <li><span id="ms_line">線</span></li>
-                  <li><span id="ms_tri">直角三角形</span></li>
+                    <li><span id="ms1_circle">円</span>
+                        <ul>
+                            <li><span id="ms_circle_L">大</span></li>
+                            <li><span id="ms_circle_M">中</span></li>
+                            <li><span id="ms_circle_S">小</span></li>
+                            <li><span id="ms_circle_SS">極小</span></li>
+                        </ul>
+                    </li>
+                    <li><span id="ms1_square">正方形</span>
+                        <ul>
+                            <li><span id="ms_square_LL">特大</span></li>
+                            <li><span id="ms_square_L">大</span></li>
+                            <li><span id="ms_square_M">中</span></li>
+                            <li><span id="ms_square_S">小</span></li>
+                            <li><span id="ms_square_SS">極小</span></li>
+                        </ul>
+                    </li>
+                    <li><span id="ms1_triup">上三角</span>
+                        <ul>
+                            <li><span id="ms_triup_L">大</span></li>
+                            <li><span id="ms_triup_M">中</span></li>
+                            <li><span id="ms_triup_SS">極小</span></li>
+                        </ul>
+                    </li>
+                    <li><span id="ms1_tridown">下三角</span>
+                        <ul>
+                            <li><span id="ms_tridown_L">大</span></li>
+                            <li><span id="ms_tridown_M">中</span></li>
+                            <li><span id="ms_tridown_SS">極小</span></li>
+                        </ul>
+                    </li>
+                    <li><span id="ms1_diamond">ダイヤ</span>
+                        <ul>
+                            <li><span id="ms_diamond_L">大</span></li>
+                            <li><span id="ms_diamond_M">中</span></li>
+                            <li><span id="ms_diamond_SS">極小</span></li>
+                        </ul>
+                    </li>
+                    <li><span id="ms1_ox">○△□×</span>
+                        <ul>
+                            <li><span id="ms_ox_B">黒</span></li>
+                            <li><span id="ms_ox_E">緑</span></li>
+                            <li><span id="ms_ox_G">灰</span></li>
+                        </ul>
+                    </li>
+                    <li><span id="ms_cross">十字</span></li>
+                    <li><span id="ms_line">線</span></li>
+                    <li><span id="ms_tri">直角三角形</span></li>
                 </ul>
-              </li>
-              <li><span id="ms2">数字</span>
-                <ul id="mode_symbolul2">
-                  <li><span id="ms3_math">無限・計算</span>
-                    <ul>
-                      <li><span id="ms_math">黒</span></li>
-                      <li><span id="ms_math_G">緑</span></li>
+                </li>
+                <li><span id="ms2">数字</span>
+                    <ul id="mode_symbolul2">
+                        <li><span id="ms3_math">無限・計算</span>
+                            <ul>
+                                <li><span id="ms_math">黒</span></li>
+                                <li><span id="ms_math_G">緑</span></li>
+                            </ul>
+                        </li>
+                        <li><span id="ms_inequality">不等号</span></li>
+                        <li><span id="ms_degital">デジタル数字</span></li>
+                        <li><span id="ms_degital_f">デジタル(枠)</span></li>
+                        <li><span id="ms_dice">サイコロ</span></li>
+                        <li><span id="ms_pills">Pills</span></li>
                     </ul>
-                  </li>
-                  <li><span id="ms_inequality">不等号</span></li>
-                  <li><span id="ms_degital">デジタル数字</span></li>
-                  <li><span id="ms_degital_f">デジタル(枠)</span></li>
-                  <li><span id="ms_dice">サイコロ</span></li>
-                  <li><span id="ms_pills">Pills</span></li>
+                </li>
+                <li><span id="ms3">矢印</span>
+                    <ul id="mode_symbolul3">
+                        <li><span id="ms3_arrow_B">太</span>
+                            <ul>
+                                <li><span id="ms_arrow_B_B">黒</span></li>
+                                <li><span id="ms_arrow_B_G">灰</span></li>
+                                <li><span id="ms_arrow_B_W">白</span></li>
+                            </ul>
+                        </li>
+                        <li><span id="ms3_arrow_N">細</span>
+                            <ul>
+                                <li><span id="ms_arrow_N_B">黒</span></li>
+                                <li><span id="ms_arrow_N_G">灰</span></li>
+                                <li><span id="ms_arrow_N_W">白</span></li>
+                            </ul>
+                        </li>
+                        <li><span id="ms3_arrow_tri">三角形</span>
+                            <ul>
+                                <li><span id="ms_arrow_tri_B">黒</span></li>
+                                <li><span id="ms_arrow_tri_G">灰</span></li>
+                                <li><span id="ms_arrow_tri_W">白</span></li>
+                            </ul>
+                        </li>
+                        <li id="ms0_arrow_fouredge"><span id="ms3_arrow_fouredge">四辺</span>
+                            <ul>
+                                <li><span id="ms_arrow_fouredge_B">黒</span></li>
+                                <li><span id="ms_arrow_fouredge_G">灰</span></li>
+                                <li><span id="ms_arrow_fouredge_E">緑</span></li>
+                            </ul>
+                        </li>
+                        <li><span id="ms3_arrow_GP">GP</span>
+                            <ul>
+                                <li><span id="ms_arrow_GP">通常</span></li>
+                                <li><span id="ms_arrow_GP_C">丸付き</span></li>
+                            </ul>
+                        </li>
+                        <li><span id="ms_arrow_Short">短太</span></li>
+                        <li><span id="ms_arrow_S">小</span></li>
+                        <li><span id="ms_arrow_cross">十字</span></li>
+                        <li><span id="ms_arrow_eight">八方</span></li>
+                        <li><span id="ms_arrow_fourtip">四端</span></li>
+                    </ul>
+                </li>
+                <li><span id="ms4">固有1</span>
+                    <ul id="mode_symbolul4">
+                        <li><span id="ms4_battleship">バトルシップ</span>
+                            <ul>
+                                <li><span id="ms_battleship_B">黒</span></li>
+                                <li><span id="ms_battleship_G">灰</span></li>
+                                <li><span id="ms_battleship_W">白</span></li>
+                            </ul>
+                        </li>
+                        <li><span id="ms_kakuro">カックロ</span></li>
+                        <li><span id="ms_tents">テント・魚</span></li>
+                        <li><span id="ms_star">スター</span></li>
+                        <li><span id="ms_compass">コンパス</span></li>
+                        <li><span id="ms_sudokuetc">数独特殊記号</span></li>
+                        <li><span id="ms_polyomino">ポリオミノ</span></li>
+                    </ul>
+                </li>
+                <li><span id="ms5">固有2</span>
+                    <ul id="mode_symbolul5">
+                        <li><span id="ms_angleloop">鋭直鈍ループ</span></li>
+                        <li><span id="ms_firefly">ホタルビーム</span></li>
+                        <li><span id="ms_sun_moon">月か太陽</span></li>
+                        <li><span id="ms_pencils">ペンシルズ</span></li>
+                        <li><span id="ms_slovak">Slovak sums</span></li>
+                        <li><span id="ms_arc">円弧</span></li>
+                        <li><span id="ms_spans">Spans</span></li>
+                        <li><span id="ms_neighbors">Neighbors</span></li>
+                        <!--<li><span id="ms_Ondo-K">Ondo-K</span></li>-->
+                    </ul>
+                </li>
                 </ul>
-              </li>
-              <li><span id="ms3">矢印</span>
-                <ul id="mode_symbolul3">
-                  <li><span id="ms3_arrow_B">太</span>
-                    <ul>
-                      <li><span id="ms_arrow_B_B">黒</span></li>
-                      <li><span id="ms_arrow_B_G">灰</span></li>
-                      <li><span id="ms_arrow_B_W">白</span></li>
-                    </ul>
-                  </li>
-                  <li><span id="ms3_arrow_N">細</span>
-                    <ul>
-                      <li><span id="ms_arrow_N_B">黒</span></li>
-                      <li><span id="ms_arrow_N_G">灰</span></li>
-                      <li><span id="ms_arrow_N_W">白</span></li>
-                    </ul>
-                  </li>
-                  <li><span id="ms3_arrow_tri">三角形</span>
-                    <ul>
-                      <li><span id="ms_arrow_tri_B">黒</span></li>
-                      <li><span id="ms_arrow_tri_G">灰</span></li>
-                      <li><span id="ms_arrow_tri_W">白</span></li>
-                    </ul>
-                  </li>
-                  <li id="ms0_arrow_fouredge"><span id="ms3_arrow_fouredge">四辺</span>
-                    <ul>
-                      <li><span id="ms_arrow_fouredge_B">黒</span></li>
-                      <li><span id="ms_arrow_fouredge_G">灰</span></li>
-                      <li><span id="ms_arrow_fouredge_E">緑</span></li>
-                    </ul>
-                  </li>
-                  <li><span id="ms3_arrow_GP">GP</span>
-                    <ul>
-                      <li><span id="ms_arrow_GP">通常</span></li>
-                      <li><span id="ms_arrow_GP_C">丸付き</span></li>
-                    </ul>
-                  </li>
-                  <li><span id="ms_arrow_Short">短太</span></li>
-                  <li><span id="ms_arrow_S">小</span></li>
-                  <li><span id="ms_arrow_cross">十字</span></li>
-                  <li><span id="ms_arrow_eight">八方</span></li>
-                  <li><span id="ms_arrow_fourtip">四端</span></li>
-                </ul>
-              </li>
-              <li><span id="ms4">固有1</span>
-                <ul id="mode_symbolul4">
-                  <li><span id="ms4_battleship">バトルシップ</span>
-                    <ul>
-                      <li><span id="ms_battleship_B">黒</span></li>
-                      <li><span id="ms_battleship_G">灰</span></li>
-                      <li><span id="ms_battleship_W">白</span></li>
-                    </ul>
-                  </li>
-                  <li><span id="ms_kakuro">カックロ</span></li>
-                  <li><span id="ms_tents">テント・魚</span></li>
-                  <li><span id="ms_star">スター</span></li>
-                  <li><span id="ms_compass">コンパス</span></li>
-                  <li><span id="ms_sudokuetc">数独特殊記号</span></li>
-                  <li><span id="ms_polyomino">ポリオミノ</span></li>
-                </ul>
-              </li>
-              <li><span id="ms5">固有2</span>
-                <ul id="mode_symbolul5">
-                  <li><span id="ms_angleloop">鋭直鈍ループ</span></li>
-                  <li><span id="ms_firefly">ホタルビーム</span></li>
-                  <li><span id="ms_sun_moon">月か太陽</span></li>
-                  <li><span id="ms_pencils">ペンシルズ</span></li>
-                  <li><span id="ms_slovak">Slovak sums</span></li>
-                  <li><span id="ms_arc">円弧</span></li>
-                  <li><span id="ms_spans">Spans</span></li>
-                  <li><span id="ms_neighbors">Neighbors</span></li>
-                  <!--<li><span id="ms_Ondo-K">Ondo-K</span></li>-->
-                </ul>
-              </li>
-            </ul>
-          </span>
+                </span>
 
-          <span id="mode_special" style="display:none;">
+                <span id="mode_special" style="display:none;">
             <input type="radio" name="mode_special" value="thermo" id="sub_specialthermo" checked="checked">
             <label for="sub_specialthermo" class="label" id="sub_specialthermo_lb">サーモ</label>
             <input type="radio" name="mode_special" value="arrows" id="sub_specialarrows">
@@ -295,7 +295,7 @@
             <label for="sub_specialpolygon" class="label" id="sub_specialpolygon_lb">多角形</label>
           </span>
 
-          <span id="mode_move" style="display:none;">
+                <span id="mode_move" style="display:none;">
             <input type="radio" name="mode_move" value="1" id="sub_move1" checked="checked">
             <label for="sub_move1" class="label" id="sub_move1_lb">全</label>
             <input type="radio" name="mode_move" value="2" id="sub_move2">
@@ -304,60 +304,62 @@
             <label for="sub_move3" class="label" id="sub_move3_lb">記号</label>
           </span>
 
-          <span id="mode_combi" style="display:none;">
+                <span id="mode_combi" style="display:none;">
             <ul class="nav">
               <li><span id="subc1">塗り</span>
                 <ul>
-                  <li><span id="combisub_blpo">黒・点</span></li>
-                  <li><span id="combisub_blwh">白丸黒丸</span></li>
-                  <li id="combili_shaka"><span id="combisub_shaka">シャカシャカ</span></li>
+                    <li><span id="combisub_blpo">黒・点</span></li>
+                    <li><span id="combisub_blwh">白丸黒丸</span></li>
+                    <li id="combili_shaka"><span id="combisub_shaka">シャカシャカ</span></li>
                 </ul>
-              </li>
-              <li><span id="subc2">ループ</span>
-                <ul>
-                  <li><span id="combisub_linex">線・×</span></li>
-                  <li><span id="combisub_lineox">線・OX</span></li>
-                  <li><span id="combisub_edgexoi">辺・x・内外</span></li>
-                  <li><span id="combisub_yajilin">ヤジリン</span></li>
-                  <li><span id="combisub_hashi">橋をかけろ</span></li>
+                </li>
+                <li><span id="subc2">ループ</span>
+                    <ul>
+                        <li><span id="combisub_linex">線・×</span></li>
+                        <li><span id="combisub_lineox">線・OX</span></li>
+                        <li><span id="combisub_edgexoi">辺・x・内外</span></li>
+                        <li><span id="combisub_yajilin">ヤジリン</span></li>
+                        <li><span id="combisub_hashi">橋をかけろ</span></li>
+                    </ul>
+                </li>
+                <li><span id="subc3">領域</span>
+                    <ul>
+                        <li><span id="combisub_edgesub">辺・補助線</span></li>
+                    </ul>
+                </li>
+                <li><span id="subc4">物体</span>
+                    <ul>
+                        <li id="combili_battleship"><span id="combisub_battleship">バトルシップ</span></li>
+                        <li><span id="combisub_star">スターバトル</span></li>
+                        <li><span id="combisub_tents">テント</span></li>
+                        <li><span id="combisub_magnets">マグネット</span></li>
+                        <li id="combili_arrowS"><span id="combisub_arrowS">矢印フリック</span></li>
+                    </ul>
+                </li>
+                <li><span id="subc5">数字埋</span>
+                    <ul>
+                        <li><span id="combisub_numfl">数字フリック</span></li>
+                        <li><span id="combisub_alfl">英字フリック</span></li>
+                    </ul>
+                </li>
                 </ul>
-              </li>
-              <li><span id="subc3">領域</span>
-                <ul>
-                  <li><span id="combisub_edgesub">辺・補助線</span></li>
-                </ul>
-              </li>
-              <li><span id="subc4">物体</span>
-                <ul>
-                  <li id="combili_battleship"><span id="combisub_battleship">バトルシップ</span></li>
-                  <li><span id="combisub_star">スターバトル</span></li>
-                  <li><span id="combisub_tents">テント</span></li>
-                  <li><span id="combisub_magnets">マグネット</span></li>
-                  <li id="combili_arrowS"><span id="combisub_arrowS">矢印フリック</span></li>
-                </ul>
-              </li>
-              <li><span id="subc5">数字埋</span>
-                <ul>
-                  <li><span id="combisub_numfl">数字フリック</span></li>
-                  <li><span id="combisub_alfl">英字フリック</span></li>
-                </ul>
-              </li>
-            </ul>
-            <!--<input type="radio" name="mode_combi" value="battleship" id="sub_combibattleship" checked="checked">
+                <!--<input type="radio" name="mode_combi" value="battleship" id="sub_combibattleship" checked="checked">
             <label for="sub_combibattleship" class="label" id="sub_combibattleship_lb">船</label>-->
-          </span>
-        </div>
-        <div id="stylemode_button" class="stylemode_button">
-          <span id="div_all">
+                </span>
+            </div>
+            <div id="stylemode_button" class="stylemode_button">
+                <span id="div_all">
             <label class="label_mode" id="style_txt">スタイル</label>
           </span>
-          <span id="style_surface" style="display:'inline-block';">
+                <span id="style_surface" style="display:'inline-block';">
             <input type="radio" name="style_surface" value="1" id="st_surface1" checked="checked">
             <label for="st_surface1" class="labelL" id="st_surface1_lb">濃灰</label>
             <input type="radio" name="style_surface" value="3" id="st_surface3">
             <label for="st_surface3" class="labelL" id="st_surface3_lb">薄灰</label>
             <input type="radio" name="style_surface" value="4" id="st_surface4">
             <label for="st_surface4" class="labelL" id="st_surface4_lb">黒</label>
+            <input type="radio" name="style_surface" value="9" id="st_surface9">
+            <label for="st_surface9" class="labelL" id="st_surface9_lb">青</label>
             <input type="radio" name="style_surface" value="2" id="st_surface2">
             <label for="st_surface2" class="labelL" id="st_surface2_lb">緑</label>
             <input type="radio" name="style_surface" value="5" id="st_surface5">
@@ -370,7 +372,7 @@
             <label for="st_surface8" class="labelL" id="st_surface8_lb">隠灰</label>
           </span>
 
-          <span id="style_line" style="display:none;">
+                <span id="style_line" style="display:none;">
             <input type="radio" name="style_line" value="3" id="st_line3" checked="checked">
             <label for="st_line3" class="labelL" id="st_line3_lb">緑</label>
             <input type="radio" name="style_line" value="80" id="st_line80">
@@ -389,7 +391,7 @@
             <label for="st_line30" class="labelL" id="st_line30_lb">二重</label>
           </span>
 
-          <span id="style_lineE" style="display:none;">
+                <span id="style_lineE" style="display:none;">
             <input type="radio" name="style_lineE" value="3" id="st_lineE3" checked="checked">
             <label for="st_lineE3" class="labelL" id="st_lineE3_lb">緑</label>
             <input type="radio" name="style_lineE" value="80" id="st_lineE80">
@@ -408,7 +410,7 @@
             <label for="st_lineE30" class="labelL" id="st_lineE30_lb">二重</label>
           </span>
 
-          <span id="style_wall" style="display:none;">
+                <span id="style_wall" style="display:none;">
             <input type="radio" name="style_wall" value="3" id="st_wall3" checked="checked">
             <label for="st_wall3" class="labelL" id="st_wall3_lb">緑</label>
             <input type="radio" name="style_wall" value="1" id="st_wall1">
@@ -429,11 +431,13 @@
           -->
           </span>
 
-          <span id="style_number" style="display:none;">
+                <span id="style_number" style="display:none;">
             <input type="radio" name="style_number" value="1" id="st_number1" checked="checked">
             <label for="st_number1" class="labelL" id="st_number1_lb">黒</label>
             <input type="radio" name="style_number" value="2" id="st_number2">
             <label for="st_number2" class="labelL" id="st_number2_lb">緑</label>
+            <input type="radio" name="style_number" value="8" id="st_number8">
+            <label for="st_number8" class="labelL" id="st_number8_lb">青</label>
             <input type="radio" name="style_number" value="3" id="st_number3">
             <label for="st_number3" class="labelL" id="st_number3_lb">灰</label>
             <input type="radio" name="style_number" value="4" id="st_number4">
@@ -448,25 +452,25 @@
             <label for="st_number5" class="label" id="st_number5_lb">白背景</label>
           </span>
 
-          <span id="style_symbol" style="display:none;">
+                <span id="style_symbol" style="display:none;">
             <input type="radio" name="style_symbol" value="1" id="st_symbol1">
             <label for="st_symbol1" class="label" id="st_symbol1_lb">線-奥</label>
             <input type="radio" name="style_symbol" value="2" id="st_symbol2" checked="checked">
             <label for="st_symbol2" class="label" id="st_symbol2_lb">線-前</label>
             <span class="symbolmode_display">
               <span id="panel_buttons0" class="label">選択中：</span>
-              <b><span id="symmode_content" class="symmode_content">circle_L</span></b>
-            </span>
-          </span>
+                <b><span id="symmode_content" class="symmode_content">circle_L</span></b>
+                </span>
+                </span>
 
-          <span id="style_combi" style="display:none;">
+                <span id="style_combi" style="display:none;">
             <span class="combimode_display">
               <span id="panel_buttonc0" class="label">選択中：</span>
-              <b><span id="combimode_content" class="combimode_content">blpo</span></b>
-            </span>
-          </span>
+                <b><span id="combimode_content" class="combimode_content">blpo</span></b>
+                </span>
+                </span>
 
-          <span id="style_cage" style="display:none;">
+                <span id="style_cage" style="display:none;">
             <input type="radio" name="style_cage" value="10" id="st_cage10" checked="checked">
             <label for="st_cage10" class="label" id="st_cage10_lb">点線</label>
             <input type="radio" name="style_cage" value="7" id="st_cage7">
@@ -476,59 +480,77 @@
             <input type="radio" name="style_cage" value="16" id="st_cage16">
             <label for="st_cage16" class="label" id="st_cage16_lb">実線</label>
           </span>
+            </div>
         </div>
-      </div>
     </header>
 
     <div id="dvique" class="dvique"></div>
 
     <div id="bottom_button">
-        <input type="button" id="tb_undo" value="戻" class="button"/>
-        <input type="button" id="tb_redo" value="進" class="button"/>
-        <input type="button" id="tb_reset" value="選択消去" class="button"/>
-        <input type="button" id="tb_delete" value="問題・解答消去" class="button"/>
+        <input type="button" id="tb_undo" value="戻" class="button" />
+        <input type="button" id="tb_redo" value="進" class="button" />
+        <input type="button" id="tb_reset" value="選択消去" class="button" />
+        <input type="button" id="tb_delete" value="問題・解答消去" class="button" />
         <br><br><br>
         <span id="footer1">Penpa-editor Ver.2.19 <a href="https://github.com/opt-pan/penpa-edit">opt-pan</a></span>
         <span id="footer2">要望は<a href="https://github.com/opt-pan/penpa-edit/issues">こちら</a></span>
     </div>
 
     <div id="float-key">
-      <div class="drag-and-drop" id="float-key-header"><h4 id="float-key-header-lb">panel</h4></div>
-      <div id="float-key-body">
-        <div id="float-key-menu">
-          <ul class="panel_menu">
-            <li><span id="panel_1"><label for="panel_1" id="panel_1_lbmenu" class="label_menu"> 1 </label></span></li>
-            <li><span id="panel_A"><label for="panel_A" id="panel_A_lbmenu" class="label_menu">A</label></span></li>
-            <li><span id="panel_a"><label for="panel_a" id="panel_a_lbmenu" class="label_menu">a</label></span></li>
-            <li><span id="panel_ja_K"><label for="panel_ja_K" id="panel_ja_K_lbmenu" class="label_menu">ア</label></span></li>
-            <li><span id="panel_ja_H"><label for="panel_ja_H" id="panel_ja_H_lbmenu" class="label_menu">あ</label></span></li>
-            <li><span id="panel_select"><label for="panel_select" id="panel_select_lbmenu" class="label_select">▶</label></span></li>
-          </ul>
+        <div class="drag-and-drop" id="float-key-header">
+            <h4 id="float-key-header-lb">panel</h4>
         </div>
-        <div id="float-key-select" style="display:none;">
-          <ul class="panel_menu_select">
-            <li><div id="panel_!"><label for="panel_!" id="panel_!_lbmenu" class="label_menu">!</label></div></li><br>
-            <li><div id="panel_Kan"><label for="panel_Kan" id="panel_Kan_lbmenu" class="label_menu">漢</label></div></li><br>
-            <li><div id="panel_Rome"><label for="panel_Rome" id="panel_Rome_lbmenu" class="label_menu">Ⅰ</label></div></li><br>
-            <li><div id="panel_Greek"><label for="panel_Greek" id="panel_Greek_lbmenu" class="label_menu">α</label></div></li><br>
-            <li><div id="panel_europe"><label for="panel_europe" id="panel_europe_lbmenu" class="label_menu">À</label></div></li><br>
-            <li><div id="panel_Cyrillic"><label for="panel_Cyrillic" id="panel_Cyrillic_lbmenu" class="label_menu">Ж</label></div></li><br>
-            <li><div id="panel_Chess"><label for="panel_Chess" id="panel_Chess_lbmenu" class="label_menu">♛</label></div></li><br>
-            <li><div id="panel_card"><label for="panel_card" id="panel_card_lbmenu" class="label_menu">♠</label></div></li>
-          </ul>
+        <div id="float-key-body">
+            <div id="float-key-menu">
+                <ul class="panel_menu">
+                    <li><span id="panel_1"><label for="panel_1" id="panel_1_lbmenu" class="label_menu"> 1 </label></span></li>
+                    <li><span id="panel_A"><label for="panel_A" id="panel_A_lbmenu" class="label_menu">A</label></span></li>
+                    <li><span id="panel_a"><label for="panel_a" id="panel_a_lbmenu" class="label_menu">a</label></span></li>
+                    <li><span id="panel_ja_K"><label for="panel_ja_K" id="panel_ja_K_lbmenu" class="label_menu">ア</label></span></li>
+                    <li><span id="panel_ja_H"><label for="panel_ja_H" id="panel_ja_H_lbmenu" class="label_menu">あ</label></span></li>
+                    <li><span id="panel_select"><label for="panel_select" id="panel_select_lbmenu" class="label_select">▶</label></span></li>
+                </ul>
+            </div>
+            <div id="float-key-select" style="display:none;">
+                <ul class="panel_menu_select">
+                    <li>
+                        <div id="panel_!"><label for="panel_!" id="panel_!_lbmenu" class="label_menu">!</label></div>
+                    </li><br>
+                    <li>
+                        <div id="panel_Kan"><label for="panel_Kan" id="panel_Kan_lbmenu" class="label_menu">漢</label></div>
+                    </li><br>
+                    <li>
+                        <div id="panel_Rome"><label for="panel_Rome" id="panel_Rome_lbmenu" class="label_menu">Ⅰ</label></div>
+                    </li><br>
+                    <li>
+                        <div id="panel_Greek"><label for="panel_Greek" id="panel_Greek_lbmenu" class="label_menu">α</label></div>
+                    </li><br>
+                    <li>
+                        <div id="panel_europe"><label for="panel_europe" id="panel_europe_lbmenu" class="label_menu">À</label></div>
+                    </li><br>
+                    <li>
+                        <div id="panel_Cyrillic"><label for="panel_Cyrillic" id="panel_Cyrillic_lbmenu" class="label_menu">Ж</label></div>
+                    </li><br>
+                    <li>
+                        <div id="panel_Chess"><label for="panel_Chess" id="panel_Chess_lbmenu" class="label_menu">♛</label></div>
+                    </li><br>
+                    <li>
+                        <div id="panel_card"><label for="panel_card" id="panel_card_lbmenu" class="label_menu">♠</label></div>
+                    </li>
+                </ul>
+            </div>
+            <div id="float-key-board">
+                <canvas id="float-canvas" class="float-canvas"></canvas>
+            </div>
         </div>
-        <div id="float-key-board">
-          <canvas id="float-canvas" class="float-canvas"></canvas>
-        </div>
-      </div>
     </div>
 
     <div id="modal" class="modal">
-      <div id="modal-content">
-        <div id="modal-header">
-          <h3 id="modal_lb">　新規作成</h3>
-        </div>
-        <span id="modal-grid">
+        <div id="modal-content">
+            <div id="modal-header">
+                <h3 id="modal_lb">　新規作成</h3>
+            </div>
+            <span id="modal-grid">
           <h4 id="div_all"><label class="label_nb" id="nb_type_lb">盤面：</label></h4>
           <select id="gridtype" onchange="changetype()">
               <option value="square" id="nb_type1_lb" selected = "selected">正方形</option>
@@ -542,191 +564,197 @@
               <option value="cairo_pentagonal">Cairo pentagonal</option>-->
 
           </select>
-        </span><br><!--
-      --><h4 id="div_all"><label class="label_nb" id="nb_size_lb">サイズ：</label></h4><!--
+        </span><br>
+            <!--
+      -->
+            <h4 id="div_all"><label class="label_nb" id="nb_size_lb">サイズ：</label></h4>
+            <!--
       --><span>
-          <span id="div_all"><label class="label_nb" id="name_size1">ヨコ：</label></span><!--
+          <span id="div_all"><label class="label_nb" id="name_size1">ヨコ：</label></span>
+            <!--
        --><input type="number" pattern="\d*" name="nb_size1" id="nb_size1" value="10" min="1" max="50" step="1">
-          <span id="div_all"><label class="label_nb" id="name_size2">タテ：</label></span><!--
+            <span id="div_all"><label class="label_nb" id="name_size2">タテ：</label></span>
+            <!--
        --><input type="number" pattern="\d*" name="nb_size2" id="nb_size2" value="10" min="1" max="50" step="1">
-        </span>
-        <br>
-        <h4 id="div_all"><label class="label_nb" id="nb_space_lb">余白：</label></h4>
-        <!--「マス」モードで設定-->
-        <span id="modal-spaceud" style="display:inline;">
+            </span>
+            <br>
+            <h4 id="div_all"><label class="label_nb" id="nb_space_lb">余白：</label></h4>
+            <!--「マス」モードで設定-->
+            <span id="modal-spaceud" style="display:inline;">
           <span id="div_all"><label class="label_nb" id="name_space1">上：</label></span>
-          <input type="number" pattern="\d*" name="nb_space1" id="nb_space1" value="0" min="0" max="10" step="1">
-          <span id="div_all"><label class="label_nb" id="name_space2">下：</label></span>
-          <input type="number" pattern="\d*" name="nb_space2" id="nb_space2" value="0" min="0" max="10" step="1">
-        </span>
-        <br>
-        <h4 id="div_all"><label class="label_nb">　　　</label></h4>
-        <span id="modal-spacelr" style="display:inline;">
+            <input type="number" pattern="\d*" name="nb_space1" id="nb_space1" value="0" min="0" max="10" step="1">
+            <span id="div_all"><label class="label_nb" id="name_space2">下：</label></span>
+            <input type="number" pattern="\d*" name="nb_space2" id="nb_space2" value="0" min="0" max="10" step="1">
+            </span>
+            <br>
+            <h4 id="div_all"><label class="label_nb">　　　</label></h4>
+            <span id="modal-spacelr" style="display:inline;">
           <span id="div_all"><label class="label_nb" id="name_space3">左：</label></span>
-          <input type="number" pattern="\d*" name="nb_space3" id="nb_space3" value="0" min="0" max="10" step="1">
-          <span id="div_all"><label class="label_nb" id="name_space4">右：</label></span>
-          <input type="number" pattern="\d*" name="nb_space4" id="nb_space4" value="0" min="0" max="10" step="1">
-        </span>
-        <br>
-        <hr size=1 noshade>
-        <h6><label  id="nb_note">"枠変更"では以下の値のみ更新されます</label></h6>
-        <br>
-        <h4 id="div_all"><label class="label_nb" id="nb_sizep_lb">表示サイズ：</label></h4><!--
+            <input type="number" pattern="\d*" name="nb_space3" id="nb_space3" value="0" min="0" max="10" step="1">
+            <span id="div_all"><label class="label_nb" id="name_space4">右：</label></span>
+            <input type="number" pattern="\d*" name="nb_space4" id="nb_space4" value="0" min="0" max="10" step="1">
+            </span>
+            <br>
+            <hr size=1 noshade>
+            <h6><label id="nb_note">"枠変更"では以下の値のみ更新されます</label></h6>
+            <br>
+            <h4 id="div_all"><label class="label_nb" id="nb_sizep_lb">表示サイズ：</label></h4>
+            <!--
         --><span id="">
           <input type="number" pattern="\d*" name="nb_size3" id="nb_size3" value="38" min="10" max="60" step="2">
         </span>
 
-        <br>
-        <h4 id="div_all"><label class="label_nb" id="nb_grid_lb">グリッド：</label></h4>
-        <input type="radio" name="nb_grid" value="1" id="nb_grid1" checked="checked">
-        <label for="nb_grid1" class="label" id="nb_grid1_lb">実線</label>
-        <input type="radio" name="nb_grid" value="2" id="nb_grid2">
-        <label for="nb_grid2" class="label" id="nb_grid2_lb">点線</label>
-        <input type="radio" name="nb_grid" value="3" id="nb_grid3">
-        <label for="nb_grid3" class="label" id="nb_grid3_lb">なし</label>
-        <br>
-        <h4 id="div_all"><label class="label_nb" id="nb_lat_lb">　格子点：</label></h4>
-        <input type="radio" name="nb_lat" value="1" id="nb_lat1">
-        <label for="nb_lat1" class="label" id="nb_lat1_lb">あり</label>
-        <input type="radio" name="nb_lat" value="2" id="nb_lat2" checked="checked">
-        <label for="nb_lat2" class="label" id="nb_lat2_lb">なし</label>
-        <br>
-        <h4 id="div_all"><label class="label_nb" id="nb_out_lb">　　外枠：</label></h4>
-        <input type="radio" name="nb_out" value="1" id="nb_out1" checked="checked">
-        <label for="nb_out1" class="label" id="nb_out1_lb">あり</label>
-        <input type="radio" name="nb_out" value="2" id="nb_out2">
-        <label for="nb_out2" class="label" id="nb_out2_lb">なし</label>
-        <br><br>
-        <div class="nb_button">
-          <input type="button" id="closeBtn_nb1" value="作成"/>
-          <input type="button" id="closeBtn_nb2" value="枠変更"/>
-          <input type="button" id="closeBtn_nb3" value="キャンセル"/>
+            <br>
+            <h4 id="div_all"><label class="label_nb" id="nb_grid_lb">グリッド：</label></h4>
+            <input type="radio" name="nb_grid" value="1" id="nb_grid1" checked="checked">
+            <label for="nb_grid1" class="label" id="nb_grid1_lb">実線</label>
+            <input type="radio" name="nb_grid" value="2" id="nb_grid2">
+            <label for="nb_grid2" class="label" id="nb_grid2_lb">点線</label>
+            <input type="radio" name="nb_grid" value="3" id="nb_grid3">
+            <label for="nb_grid3" class="label" id="nb_grid3_lb">なし</label>
+            <br>
+            <h4 id="div_all"><label class="label_nb" id="nb_lat_lb">　格子点：</label></h4>
+            <input type="radio" name="nb_lat" value="1" id="nb_lat1">
+            <label for="nb_lat1" class="label" id="nb_lat1_lb">あり</label>
+            <input type="radio" name="nb_lat" value="2" id="nb_lat2" checked="checked">
+            <label for="nb_lat2" class="label" id="nb_lat2_lb">なし</label>
+            <br>
+            <h4 id="div_all"><label class="label_nb" id="nb_out_lb">　　外枠：</label></h4>
+            <input type="radio" name="nb_out" value="1" id="nb_out1" checked="checked">
+            <label for="nb_out1" class="label" id="nb_out1_lb">あり</label>
+            <input type="radio" name="nb_out" value="2" id="nb_out2">
+            <label for="nb_out2" class="label" id="nb_out2_lb">なし</label>
+            <br><br>
+            <div class="nb_button">
+                <input type="button" id="closeBtn_nb1" value="作成" />
+                <input type="button" id="closeBtn_nb2" value="枠変更" />
+                <input type="button" id="closeBtn_nb3" value="キャンセル" />
+            </div>
         </div>
-      </div>
     </div>
 
     <div id="modal-newsize" class="modal">
-      <div id="modal-newsize-content">
-        <div id="modal-header">
-          <h3 id="modal-newsize_lb">　サイズ変更</h3>
-        </div>
-        <span id="modal-sizeA">
+        <div id="modal-newsize-content">
+            <div id="modal-header">
+                <h3 id="modal-newsize_lb">　サイズ変更</h3>
+            </div>
+            <span id="modal-sizeA">
           <span><label class="label_nb" id="modal-newsize_size_lb">表示サイズ：</label></span>
-          <input type="number" pattern="\d*" name="nb_size3_r" id="nb_size3_r" value="36" min="10" max="60" step="2">
-        </span>
-        <br>
-        <div class="nb_button">
-          <input type="button" id="closeBtn_size1" value="枠変更"/>
-          <input type="button" id="closeBtn_size2" value="キャンセル"/>
+            <input type="number" pattern="\d*" name="nb_size3_r" id="nb_size3_r" value="36" min="10" max="60" step="2">
+            </span>
+            <br>
+            <div class="nb_button">
+                <input type="button" id="closeBtn_size1" value="枠変更" />
+                <input type="button" id="closeBtn_size2" value="キャンセル" />
+            </div>
         </div>
-      </div>
     </div>
 
     <div id="modal-image" class="modal">
-      <div id="modal-image-content">
-        <div id="modal-header">
-          <h3 id="saveimagetitle">画像保存</h3>
-        </div>
+        <div id="modal-image-content">
+            <div id="modal-header">
+                <h3 id="saveimagetitle">画像保存</h3>
+            </div>
 
-        <div id="modal-image-body">
-          <h4 id="div_all"><label class="label_imagespace" id="nb_margin_lb">　余白：</label></h4>
-          <input type="radio" name="nb_margin" value="1" id="nb_margin1" checked="checked">
-          <label for="nb_margin1" class="label" id="nb_margin1_lb">あり</label>
-          <input type="radio" name="nb_margin" value="2" id="nb_margin2">
-          <label for="nb_margin2" class="label" id="nb_margin2_lb">なし</label>
-          <br>
-          <h4 id="div_all"><label class="label_imagespace" id="nb_quality_lb">　画質：</label></h4>
-          <input type="radio" name="nb_quality" value="1" id="nb_quality1" checked="checked">
-          <label for="nb_quality1" class="label" id="nb_quality1_lb">高</label>
-          <input type="radio" name="nb_quality" value="2" id="nb_quality2">
-          <label for="nb_quality2" class="label" id="nb_quality2_lb">低</label>
-          <br><br>
-          <span id="saveimagename_lb">ファイル名：</span><input type="text" value="Image.png" id="saveimagename">
+            <div id="modal-image-body">
+                <h4 id="div_all"><label class="label_imagespace" id="nb_margin_lb">　余白：</label></h4>
+                <input type="radio" name="nb_margin" value="1" id="nb_margin1" checked="checked">
+                <label for="nb_margin1" class="label" id="nb_margin1_lb">あり</label>
+                <input type="radio" name="nb_margin" value="2" id="nb_margin2">
+                <label for="nb_margin2" class="label" id="nb_margin2_lb">なし</label>
+                <br>
+                <h4 id="div_all"><label class="label_imagespace" id="nb_quality_lb">　画質：</label></h4>
+                <input type="radio" name="nb_quality" value="1" id="nb_quality1" checked="checked">
+                <label for="nb_quality1" class="label" id="nb_quality1_lb">高</label>
+                <input type="radio" name="nb_quality" value="2" id="nb_quality2">
+                <label for="nb_quality2" class="label" id="nb_quality2_lb">低</label>
+                <br><br>
+                <span id="saveimagename_lb">ファイル名：</span><input type="text" value="Image.png" id="saveimagename">
+            </div>
+            <br>
+            <div class="nb_button">
+                <input type="button" id="closeBtn_image1" value="別ウィンドウ" onclick="saveimage_window();" />
+                <input type="button" id="closeBtn_image2" value="ダウンロード" />
+                <input type="button" id="closeBtn_image3" value="キャンセル" />
+            </div>
         </div>
-        <br>
-        <div class="nb_button">
-          <input type="button" id="closeBtn_image1" value="別ウィンドウ" onclick="saveimage_window();"/>
-          <input type="button" id="closeBtn_image2" value="ダウンロード"/>
-          <input type="button" id="closeBtn_image3" value="キャンセル"/>
-        </div>
-      </div>
     </div>
 
     <div id="modal-rotate" class="modal">
-      <div id="modal-rotate-content">
-        <div id="modal-header">
-          <h3 id="savetexttitle">回転・移動</h3>
+        <div id="modal-rotate-content">
+            <div id="modal-header">
+                <h3 id="savetexttitle">回転・移動</h3>
+            </div>
+            <div class="nb_button">
+                <h4 id="div_all"><label id="rt1_lb">　回転：</label></h4>
+                <input type="button" id="rt_left" value="&larr;" />
+                <input type="button" id="rt_right" value="&rarr;" />
+            </div>
+            <div class="nb_button">
+                <h4 id="div_all"><label id="rt2_lb">　反転：</label></h4>
+                <input type="button" id="rt_LR" value="&harr;" />
+                <input type="button" id="rt_UD" value="&#8597;" />
+            </div>
+            <br>
+            <div class="nb_button">
+                <h4 id="div_all"><label id="rt3_lb">　移動：</label></h4>
+                <br>
+                <input type="button" id="rt_center" value="盤面を中央に移動" /><br>
+                <input type="button" id="rt_size" value="画面サイズを盤面に合わせる" /><br>
+                <input type="button" id="rt_reset" value="移動をリセット" />
+            </div>
+            <br>
+            <div class="nb_button">
+                <input type="button" id="closeBtn_rotate1" value="閉じる" />
+            </div>
         </div>
-        <div class="nb_button">
-          <h4 id="div_all"><label id="rt1_lb">　回転：</label></h4>
-          <input type="button" id="rt_left" value="&larr;"/>
-          <input type="button" id="rt_right" value="&rarr;"/>
-        </div>
-        <div class="nb_button">
-          <h4 id="div_all"><label id="rt2_lb">　反転：</label></h4>
-          <input type="button" id="rt_LR" value="&harr;"/>
-          <input type="button" id="rt_UD" value="&#8597;"/>
-        </div>
-        <br>
-        <div class="nb_button">
-          <h4 id="div_all"><label id="rt3_lb">　移動：</label></h4>
-          <br>
-          <input type="button" id="rt_center" value="盤面を中央に移動"/><br>
-          <input type="button" id="rt_size" value="画面サイズを盤面に合わせる"/><br>
-          <input type="button" id="rt_reset" value="移動をリセット"/>
-        </div>
-        <br>
-        <div class="nb_button">
-          <input type="button" id="closeBtn_rotate1" value="閉じる"/>
-        </div>
-      </div>
     </div>
 
     <div id="modal-save" class="modal">
-      <div id="modal-save-content">
-        <div id="modal-header">
-          <h3 id="savetexttitle">アドレス出力</h3>
+        <div id="modal-save-content">
+            <div id="modal-header">
+                <h3 id="savetexttitle">アドレス出力</h3>
+            </div>
+            <div class="nb_button">
+                <input type="button" id="address_edit" value="編集アドレス" />
+                <input type="button" id="address_solve" value="出題用アドレス" />
+                <input type="button" id="expansion" value="拡張出力" />
+                <!--<input type="button" id="pp_file" value="pp_file"/>-->
+            </div>
+            <div id="modal-save-body">
+                <textarea readonly rows="10" cols="50" id="savetextarea"></textarea>
+                <span id="filename_lb">ファイル名：</span><input type="text" value="Save.txt" id="savetextname">
+            </div>
+            <div class="nb_button">
+                <input type="button" id="closeBtn_save1" value="コピー" />
+                <input type="button" id="closeBtn_save2" value="ダウンロード" />
+                <input type="button" id="closeBtn_save3" value="開く" onclick="savetext_window();" />
+                <input type="button" id="closeBtn_save4" value="キャンセル" />
+            </div>
         </div>
-        <div class="nb_button">
-          <input type="button" id="address_edit" value="編集アドレス"/>
-          <input type="button" id="address_solve" value="出題用アドレス"/>
-          <input type="button" id="expansion" value="拡張出力"/>
-          <!--<input type="button" id="pp_file" value="pp_file"/>-->
-        </div>
-        <div id="modal-save-body">
-          <textarea readonly rows="10" cols="50" id="savetextarea"></textarea>
-          <span id="filename_lb">ファイル名：</span><input type="text" value="Save.txt" id="savetextname">
-        </div>
-        <div class="nb_button">
-          <input type="button" id="closeBtn_save1" value="コピー"/>
-          <input type="button" id="closeBtn_save2" value="ダウンロード"/>
-          <input type="button" id="closeBtn_save3" value="開く" onclick="savetext_window();"/>
-          <input type="button" id="closeBtn_save4" value="キャンセル"/>
-        </div>
-      </div>
     </div>
 
     <div id="modal-save2" class="modal">
         <div id="modal-save2-content">
-          <div id="modal-header">
-            <h3 id="save2texttitle">拡張出力</h3>
-          </div>
-          <div class="nb_button">
-            <input type="button" id="solution_open" value="解答判定"/>
-            <input type="button" id="pp_file_open" value="pp_file"/>
-          </div>
-          <div id="modal-save2-solution">
+            <div id="modal-header">
+                <h3 id="save2texttitle">拡張出力</h3>
+            </div>
             <div class="nb_button">
-              <h5 id="savetexttitle_lb">判定対象：解答モードの以下</h5>
-              <div align="left" id="solutiontext">
-                <p id="solutiontext1">黒マス：濃灰・黒・正方形特大2</p>
-                <p id="solutiontext2">線：緑・二重　辺：緑・二重　壁：緑</p>
-                <p id="solutiontext3">数字：通常・大・中・小の緑</p>
-                <p id="solutiontext4">記号：円中1-2、直角三角形1-4、矢印小1-8</p>
-                <p id="solutiontext5">無限・計算-黒緑2-3</p>
-                <p id="solutiontext6">固有1-バトルシップ黒1-6、テント2、スター1-3</p>
-              </div>
-              <!--
+                <input type="button" id="solution_open" value="解答判定" />
+                <input type="button" id="pp_file_open" value="pp_file" />
+            </div>
+            <div id="modal-save2-solution">
+                <div class="nb_button">
+                    <h5 id="savetexttitle_lb">判定対象：解答モードの以下</h5>
+                    <div align="left" id="solutiontext">
+                        <p id="solutiontext1">黒マス：濃灰・黒・正方形特大2</p>
+                        <p id="solutiontext2">線：緑・二重　辺：緑・二重　壁：緑</p>
+                        <p id="solutiontext3">数字：通常・大・中・小の緑</p>
+                        <p id="solutiontext4">記号：円中1-2、直角三角形1-4、矢印小1-8</p>
+                        <p id="solutiontext5">無限・計算-黒緑2-3</p>
+                        <p id="solutiontext6">固有1-バトルシップ黒1-6、テント2、スター1-3</p>
+                    </div>
+                    <!--
               <input type="checkbox" name="nb_solution_bl" value="solution_bl" id="nb_check_solution_bl" checked = "checked">
               <label for="nb_check_solution_bl"  id="nb_check_solution_bl_lb">黒マス</label>
               <input type="checkbox" name="nb_solution_line" value="solution_line" id="nb_check_solution_line" checked = "checked">
@@ -741,21 +769,22 @@
               <input type="checkbox" name="nb_solution_sym" value="solution_sym" id="nb_check_solution_sym" checked = "checked">
               <label for="nb_check_solution_sym"  id="nb_check_solution_sym_lb">記号</label>
               -->
-              <br>
-              <input type="button" id="closeBtn_save5" value="解答判定付き出題用アドレスを出力"/>
+                    <br>
+                    <input type="button" id="closeBtn_save5" value="解答判定付き出題用アドレスを出力" />
+                </div>
             </div>
-          </div>
-          <div id="modal-save2-pp" style="display:none;">
-            <h3 id="save4texttitle">pp_file</h3>
-            <h5 id="save5texttitle">ヘッダー</h5>
-            <textarea rows="1" cols="50" id="savetextarea_pp"></textarea>
-            <div class="nb_button">
-              <input type="button" id="pp_file" value="pp_fileを出力"/>
+            <div id="modal-save2-pp" style="display:none;">
+                <h3 id="save4texttitle">pp_file</h3>
+                <h5 id="save5texttitle">ヘッダー</h5>
+                <textarea rows="1" cols="50" id="savetextarea_pp"></textarea>
+                <div class="nb_button">
+                    <input type="button" id="pp_file" value="pp_fileを出力" />
+                </div>
             </div>
-          </div>
 
         </div>
-      </div>
+    </div>
 
-  </body>
+</body>
+
 </html>
