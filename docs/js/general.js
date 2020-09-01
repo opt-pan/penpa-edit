@@ -14,9 +14,9 @@ function boot() {
 
     var language = (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0, 2);
     if (language != "ja") {
-        document.getElementById("english").value = "JP";
+        document.getElementById("english").value = "English";
     } else {
-        document.getElementById("english").value = "ttttt";
+        document.getElementById("english").value = "JP";
     }
     trans();
 }
