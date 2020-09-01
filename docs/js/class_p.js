@@ -252,13 +252,12 @@ class Puzzle {
                 this[this.mode.qa][this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][0]] = [];
                 break;
         }
-        redraw();
+        this.redraw();
     }
 
     reset_frame_newgrid() {
         this.canvasxy_update();
         this.create_point();
-        this.search_center();
         this.canvas_size_setting();
         this.point_move((this.canvasx * 0.5 - this.point[this.center_n].x + 0.5), (this.canvasy * 0.5 - this.point[this.center_n].y + 0.5), this.theta);
         if (this.reflect[0] === -1) {
@@ -342,6 +341,31 @@ class Puzzle {
         this.center_n = parseInt(num);
     }
 
+    search_center_pixel() {
+        var { yu, yd, xl, xr } = this.gridspace_calculate();
+        var x = (xl + xr) / 2;
+        var y = (yu + yd) / 2;
+        this.width = (xr - xl) / this.size + 1;
+        this.height = (yd - yu) / this.size + 1;
+
+        var min0, min = 10e6;
+        var num = 0;
+        for (var i in this.point) {
+            min0 = (x - this.point[i].x) ** 2 + (y - this.point[i].y) ** 2;
+            if (min0 < min) {
+                min = min0;
+                num = i;
+            }
+        }
+        this.center_n = parseInt(num);
+
+        var out = 1;
+        if (yu <= 0 || yd >= this.canvasy || xl <= 0 || xr >= this.canvasx) {
+            out = 0;
+        }
+        return out;
+    }
+
     rotate_UD() {
         this.point_reflect_UD();
         this.reflect[1] *= -1;
@@ -371,27 +395,34 @@ class Puzzle {
     }
 
     rotate_center() {
-        this.search_center();
+        var out = this.search_center_pixel(); //ピクセルデータから中心座標を算出
         this.point_move((this.canvasx * 0.5 - this.point[this.center_n].x + 0.5), (this.canvasy * 0.5 - this.point[this.center_n].y + 0.5), 0);
         this.point_usecheck();
         this.redraw();
     }
 
     rotate_size() {
-        this.search_center();
-        this.width_c = this.width;
-        this.height_c = this.height;
-        this.canvasxy_update();
-        this.canvas_size_setting();
-        this.point_move((this.canvasx * 0.5 - this.point[this.center_n].x + 0.5), (this.canvasy * 0.5 - this.point[this.center_n].y + 0.5), 0);
-        this.point_usecheck();
-        this.redraw();
+        var out = 0;
+        var i = 0;
+        while (out === 0 && i < 10) { //画像がはみ出していたらもう一度、５回まで
+            out = this.search_center_pixel();
+            this.width_c = this.width;
+            this.height_c = this.height;
+            this.canvasxy_update();
+            this.canvas_size_setting();
+            this.point_move((this.canvasx * 0.5 - this.point[this.center_n].x + 0.5), (this.canvasy * 0.5 - this.point[this.center_n].y + 0.5), 0);
+            this.point_usecheck();
+            this.redraw();
+            console.log(i);
+            i++;
+        }
+
     }
 
     rotate_reset() {
         this.width_c = this.width0;
         this.height_c = this.height0;
-        this.center_n = this.center_n0; //reset for maketext
+        this.center_n = this.center_n0; //初期状態のcenter_nにリセット
         this.canvasxy_update();
         this.canvas_size_setting();
         this.point_move((this.canvasx * 0.5 - this.point[this.center_n].x + 0.5), (this.canvasy * 0.5 - this.point[this.center_n].y + 0.5), 0);

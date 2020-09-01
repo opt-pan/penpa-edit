@@ -192,7 +192,7 @@ function trans() {
         "sub_lineE3_lb": ["45px", "50px"],
         "sub_lineE4_lb": ["45px", "60px"],
         "sub_lineE5_lb": ["45px", "50px"],
-        "sub_number7_lb": ["50px", "70px"],
+        "sub_number7_lb": ["45px", "70px"],
         "st_surface1_lb": ["32px", "30px"],
         "st_surface3_lb": ["32px", "30px"],
         "st_surface4_lb": ["24px", "30px"],

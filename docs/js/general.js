@@ -12,6 +12,7 @@ function boot() {
         create();
     }
 
+    //翻訳、ボタン色サイズ調整
     var language = (navigator.browserLanguage || navigator.language || navigator.userLanguage).substr(0, 2);
     if (language != "ja") {
         document.getElementById("english").value = "English";
@@ -647,6 +648,7 @@ function load(urlParam) {
         return;
     }
 
+
     //初期設定を読み込み
     var rtext_para = rtext[0].split(',');
     document.getElementById("gridtype").value = rtext_para[0];
@@ -667,6 +669,8 @@ function load(urlParam) {
 
     pu.canvasx = parseInt(rtext_para[7]);
     pu.canvasy = parseInt(rtext_para[8]);
+    pu.width_c = pu.canvasx / rtext_para[3];
+    pu.height_c = pu.canvasy / rtext_para[3]; //newgrid更新の際、canvasxyupdateでwidth_cを使うので記録しておく
     pu.center_n = parseInt(rtext_para[9]);
     pu.center_n0 = parseInt(rtext_para[10]);
 
