@@ -342,7 +342,11 @@ class Puzzle {
     }
 
     search_center_pixel() {
-        var { yu, yd, xl, xr } = this.gridspace_calculate();
+        var obj = this.gridspace_calculate();
+        var yu = obj.yu,
+            yd = obj.yd,
+            xl = obj.xl,
+            xr = obj.xr;
         var x = (xl + xr) / 2;
         var y = (yu + yd) / 2;
         this.width = (xr - xl) / this.size + 1;
@@ -466,7 +470,11 @@ class Puzzle {
 
         this.mode[this.mode.qa].edit_mode = "surface"; //選択枠削除用
         if (document.getElementById("nb_margin2").checked) {
-            var { yu, yd, xl, xr } = this.gridspace_calculate();
+            var obj = this.gridspace_calculate();
+            var yu = obj.yu,
+                yd = obj.yd,
+                xl = obj.xl,
+                xr = obj.xr;
             this.canvasx = xr - xl;
             this.canvasy = yd - yu;
             this.point_move(-xl, -yu, 0);
@@ -550,7 +558,12 @@ class Puzzle {
             }
         }
 
-        return { yu, yd, xl, xr };
+        var obj = new Object();
+        obj.yu = yu;
+        obj.yd = yd;
+        obj.xl = xl;
+        obj.xr = xr;
+        return obj;
     }
 
     mode_set(mode) {
@@ -703,7 +716,6 @@ class Puzzle {
                 break;
             case "symbol":
                 this[this.mode.qa].symbol = {};
-                //this[this.mode.qa].symbol2 = {};
                 break;
             case "cage":
                 this[this.mode.qa].cage = {};
@@ -1584,7 +1596,7 @@ class Puzzle {
                     } else {
                         con = "";
                     }
-                    if (con.length < 50) {
+                    if (con.length < 60) {
                         this.record("number", this.cursol);
                         number = con + key;
                         this[this.mode.qa].number[this.cursol] = [number, this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][1], this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][0]];
@@ -3355,39 +3367,6 @@ class Puzzle {
                 this.ctx.fill();
             }
         }
-        /*else if(this.mode[this.mode.qa].edit_mode === "move"){//移動モードのカーソル
-              set_line_style(this.ctx,99);
-              this.ctx.strokeStyle = "#999999";
-              this.ctx.fillStyle = "rgba(0,0,0,0)";
-              if(document.getElementById('edge_button').textContent === "ON"){
-                this.draw_polygon(this.ctx,this.point[this.cursol].x,this.point[this.cursol].y,0.2,4,45);
-              }else{
-                this.ctx.beginPath();
-                this.ctx.moveTo(this.point[this.point[this.cursol].surround[0]].x,this.point[this.point[this.cursol].surround[0]].y);
-                for(var j=1;j<this.point[this.cursol].surround.length;j++){
-                  this.ctx.lineTo(this.point[this.point[this.cursol].surround[j]].x,this.point[this.point[this.cursol].surround[j]].y);
-                }
-                this.ctx.closePath();
-                this.ctx.stroke();
-                this.ctx.fill();
-              }
-              if(this.last != -1){
-                set_line_style(this.ctx,99);
-                this.ctx.fillStyle = "rgba(0,0,0,0)";
-                if(document.getElementById('edge_button').textContent === "ON"){
-                  this.draw_polygon(this.ctx,this.point[this.last].x,this.point[this.last].y,0.2,4,45);
-                }else{
-                  this.ctx.beginPath();
-                  this.ctx.moveTo(this.point[this.point[this.last].surround[0]].x,this.point[this.point[this.last].surround[0]].y);
-                  for(var j=1;j<this.point[this.last].surround.length;j++){
-                    this.ctx.lineTo(this.point[this.point[this.last].surround[j]].x,this.point[this.point[this.last].surround[j]].y);
-                  }
-                  this.ctx.closePath();
-                  this.ctx.stroke();
-                  this.ctx.fill();
-                }
-              }
-            }*/
     }
 
     check_solution() {
@@ -3401,6 +3380,8 @@ class Puzzle {
                         alert("Solved.")
                     }
                 }, 10)
+                this.mouse_mode = "out";
+                this.mouseevent(0, 0, 0);
                 this.sol_flag = 1;
             } else if (text != this.solution && this.sol_flag === 1) { //答えが変わったら改めて判定
                 this.sol_flag = 0;

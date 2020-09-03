@@ -177,7 +177,6 @@ function make_class(gridtype) {
                 }
             }
             break;
-
     }
     return pu;
 }
@@ -535,19 +534,17 @@ function savetext_edit() {
 
 function savetext_solve() {
     var text = pu.maketext_solve();
-    //text = text.split("?")[0]+"?m=solve&"+text.split("?")[1];
     document.getElementById("savetextarea").value = text;
 }
 
 function savetext_withsolution() {
     var text = pu.maketext_solve_solution();
-    //text = text.split("?")[0]+"?m=solve&"+text.split("?")[1];
     document.getElementById("savetextarea").value = text;
+    document.getElementById("modal-save2").style.display = 'none';
 }
 
 function make_ppfile() {
     var text = pu.maketext_ppfile();
-    //text = text.split("?")[0]+"?m=solve&"+text.split("?")[1];
     document.getElementById("savetextarea").value = text;
 }
 
@@ -804,7 +801,6 @@ function loadver1(paramArray, rtext) {
 
     pu.canvasx = (parseInt(rtext_para[1]) + 1) * parseInt(rtext_para[3]);
     pu.canvasy = (parseInt(rtext_para[2]) + 1) * parseInt(rtext_para[3]);
-    //pu.center_n = parseInt(rtext_para[9]);
     pu.search_center();
     pu.center_n0 = pu.center;
 
@@ -1219,11 +1215,9 @@ function set_solvemode() {
     document.getElementById("newsize").style.display = "inline";
     document.getElementById("pu_a").checked = true;
     document.getElementById("pu_q_label").style.display = "none";
-    //document.getElementById("savetext").style.display = "none";
     document.getElementById("newboard").style.display = "none";
     document.getElementById("rotation").style.display = "none";
     document.getElementById("mo_cage_lb").style.display = "none";
-    //document.getElementById("mo_move_lb").style.display = "none";
     document.getElementById("mo_special_lb").style.display = "none";
     document.getElementById("mo_board_lb").style.display = "none";
     document.getElementById("sub_lineE5_lb").style.display = "none";
