@@ -68,26 +68,26 @@ function make_class(gridtype) {
             var space2 = parseInt(document.getElementById("nb_space2").value, 10);
             var space3 = parseInt(document.getElementById("nb_space3").value, 10);
             var space4 = parseInt(document.getElementById("nb_space4").value, 10);
-            if (nx <= 30 && nx > 0 && ny <= 30 && ny > 0 && 12 <= size && size <= 60 && space1 + space2 < ny && space3 + space4 < nx) {
+            if (nx <= 32 && nx > 0 && ny <= 32 && ny > 0 && 12 <= size && size <= 60 && space1 + space2 < ny && space3 + space4 < nx) {
                 pu = new Puzzle_square(nx, ny, size);
             } else {
                 if (document.getElementById("english").value === "English") {
-                    alert("一辺:1~30 表示サイズ:12~60");
+                    alert("一辺:1~32 表示サイズ:12~60");
                 } else {
-                    alert("Grid:1~30 Display size:12~60");
+                    alert("Grid:1~32 Display size:12~60");
                 }
             }
             break;
         case "hex":
             var n0 = parseInt(document.getElementById("nb_size1").value, 10);
             var space1 = parseInt(document.getElementById("nb_space1").value, 10);
-            if (n0 <= 10 && n0 > 0 && 12 <= size && size <= 60 && space1 < n0) {
+            if (n0 <= 12 && n0 > 0 && 12 <= size && size <= 60 && space1 < n0) {
                 pu = new Puzzle_hex(n0, n0, size);
             } else {
                 if (document.getElementById("english").value === "English") {
-                    alert("一辺:1~10 表示サイズ:12~60");
+                    alert("一辺:1~12 表示サイズ:12~60");
                 } else {
-                    alert("Grid:1~10 Display size:12~60");
+                    alert("Grid:1~12 Display size:12~60");
                 }
             }
             break;
@@ -119,13 +119,13 @@ function make_class(gridtype) {
             break;
         case "iso":
             var n0 = parseInt(document.getElementById("nb_size1").value, 10);
-            if (n0 <= 15 && n0 > 0 && 12 <= size && size <= 60) {
+            if (n0 <= 16 && n0 > 0 && 12 <= size && size <= 60) {
                 pu = new Puzzle_iso(n0, n0, size);
             } else {
                 if (document.getElementById("english").value === "English") {
-                    alert("一辺:1~15 表示サイズ:12~60");
+                    alert("一辺:1~16 表示サイズ:12~60");
                 } else {
-                    alert("Grid:1~15 Display size:12~60");
+                    alert("Grid:1~16 Display size:12~60");
                 }
             }
             break;
