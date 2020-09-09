@@ -492,7 +492,7 @@
         <input type="button" id="tb_reset" value="選択消去" class="button" />
         <input type="button" id="tb_delete" value="問題・解答消去" class="button" />
         <br><br><br>
-        <span id="footer1">Penpa-editor Ver.2.23 <a href="https://github.com/opt-pan/penpa-edit">opt-pan</a></span>
+        <span id="footer1">Penpa-editor Ver.2.22 <a href="https://github.com/opt-pan/penpa-edit">opt-pan</a></span>
         <span id="footer2">要望は<a href="https://github.com/opt-pan/penpa-edit/issues">こちら</a></span>
     </div>
 
@@ -506,19 +506,24 @@
                     <li><span id="panel_1"><label for="panel_1" id="panel_1_lbmenu" class="label_menu"> 1 </label></span></li>
                     <li><span id="panel_A"><label for="panel_A" id="panel_A_lbmenu" class="label_menu">A</label></span></li>
                     <li><span id="panel_a"><label for="panel_a" id="panel_a_lbmenu" class="label_menu">a</label></span></li>
-                    <li><span id="panel_ja_K"><label for="panel_ja_K" id="panel_ja_K_lbmenu" class="label_menu">ア</label></span></li>
-                    <li><span id="panel_ja_H"><label for="panel_ja_H" id="panel_ja_H_lbmenu" class="label_menu">あ</label></span></li>
+                    <li><span id="panel_Text"><label for="panel_Text" id="panel_Text_lbmenu" class="label_menu">Text</label></span></li>
                     <li><span id="panel_select"><label for="panel_select" id="panel_select_lbmenu" class="label_select">▶</label></span></li>
                 </ul>
             </div>
             <div id="float-key-select" style="display:none;">
                 <ul class="panel_menu_select">
                     <li>
-                        <div id="panel_!"><label for="panel_!" id="panel_!_lbmenu" class="label_menu">!</label></div>
+                        <div id="panel_ja_K"><label for="panel_ja_K" id="panel_ja_K_lbmenu" class="label_menu">ア</label></div>
                     </li><br>
                     <li>
-                        <div id="panel_Kan"><label for="panel_Kan" id="panel_Kan_lbmenu" class="label_menu">漢</label></div>
+                        <div id="panel_ja_H"><label for="panel_ja_H" id="panel_ja_H_lbmenu" class="label_menu">あ</label></div>
                     </li><br>
+                    <li>
+                        <div id="panel_!"><label for="panel_!" id="panel_!_lbmenu" class="label_menu">!</label></div>
+                    </li><br>
+                    <!--
+                    <li><div id="panel_Kan"><label for="panel_Kan" id="panel_Kan_lbmenu" class="label_menu">漢</label></div></li><br>
+                    -->
                     <li>
                         <div id="panel_Rome"><label for="panel_Rome" id="panel_Rome_lbmenu" class="label_menu">Ⅰ</label></div>
                     </li><br>
@@ -541,6 +546,11 @@
             </div>
             <div id="float-key-board">
                 <canvas id="float-canvas" class="float-canvas"></canvas>
+            </div>
+            <div id="float-key-text">
+                <textarea rows="1" cols="20" maxlength="100" id="inputtext"></textarea>
+                <input type="button" id="closeBtn_input1" value="挿入" />
+                <input type="button" id="closeBtn_input2" value="クリア" />
             </div>
         </div>
     </div>
