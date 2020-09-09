@@ -259,6 +259,8 @@ function trans() {
         "closeBtn_save4": ["キャンセル", "Cancel"],
         "solution_open": ["解答判定", "Answer descision"],
         "closeBtn_save5": ["解答判定付き出題用アドレスを出力", "Generate URL with answer check"],
+        "closeBtn_input1": ["挿入", "Insert"],
+        "closeBtn_input2": ["クリア", "Clear"],
         "pp_file": ["pp_fileを出力", "pp_file output"]
     }
     var label_text = {
