@@ -1457,21 +1457,25 @@ class Puzzle_truncated_square extends Puzzle {
                 ctx.text("\u{221E}", x, y);
                 break;
             case 2:
+                ctx.font = 0.7 * pu.size + "px Helvetica,Arial";
                 ctx.text("＋", x, y);
                 break;
             case 3:
+                ctx.font = 0.7 * pu.size + "px Helvetica,Arial";
                 ctx.text("－", x, y);
                 break;
             case 4:
                 ctx.text("×", x, y);
                 break;
             case 5:
+                ctx.font = 0.7 * pu.size + "px Helvetica,Arial";
                 ctx.text("＊", x, y);
                 break;
             case 6:
                 ctx.text("÷", x, y);
                 break;
             case 7:
+                ctx.font = 0.7 * pu.size + "px Helvetica,Arial";
                 ctx.text("＝", x, y);
                 break;
             case 8:
@@ -1483,7 +1487,6 @@ class Puzzle_truncated_square extends Puzzle {
             case 0:
                 ctx.text("≧", x, y);
                 break;
-
         }
     }
 

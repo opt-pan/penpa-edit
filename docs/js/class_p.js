@@ -417,7 +417,6 @@ class Puzzle {
             this.point_move((this.canvasx * 0.5 - this.point[this.center_n].x + 0.5), (this.canvasy * 0.5 - this.point[this.center_n].y + 0.5), 0);
             this.point_usecheck();
             this.redraw();
-            console.log(i);
             i++;
         }
 
@@ -1471,6 +1470,8 @@ class Puzzle {
         var con, conA;
         var arrow, mode;
         var str_num = "1234567890";
+        var str_replace = ["+-=*", "＋－＝＊"];
+        if (str_replace[0].indexOf(key) != -1) { key = str_replace[1][str_replace[0].indexOf(key)]; } //記号を大文字に
         if (this.mode[this.mode.qa].edit_mode === "number") {
             switch (this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][0]) {
                 case "1":
@@ -1698,13 +1699,14 @@ class Puzzle {
                             } else {
                                 number = number.slice(0, -1);
                             }
-                        } else if (this[this.mode.qa].number[this.cursol][2] === "7") {
-                            key_space();
+                            this[this.mode.qa].number[this.cursol][0] = number;
+                        } else if (this[this.mode.qa].number[this.cursol][2] === "7") { //候補数字
+                            this.key_space();
                         } else {
                             number = number.slice(0, -1);
+                            this[this.mode.qa].number[this.cursol][0] = number;
                         }
                     }
-                    this[this.mode.qa].number[this.cursol][0] = number;
                 }
             }
         }
