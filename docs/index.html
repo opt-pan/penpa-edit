@@ -172,6 +172,20 @@
                             <li><span id="ms_tridown_SS">極小</span></li>
                         </ul>
                     </li>
+                    <li id="msli_triright"><span id="ms1_triright">右三角</span>
+                        <ul>
+                            <li><span id="ms_triright_L">大</span></li>
+                            <li><span id="ms_triright_M">中</span></li>
+                            <li><span id="ms_triright_SS">極小</span></li>
+                        </ul>
+                    </li>
+                    <li id="msli_trileft"><span id="ms1_trileft">左三角</span>
+                        <ul>
+                            <li><span id="ms_trileft_L">大</span></li>
+                            <li><span id="ms_trileft_M">中</span></li>
+                            <li><span id="ms_trileft_SS">極小</span></li>
+                        </ul>
+                    </li>
                     <li><span id="ms1_diamond">ダイヤ</span>
                         <ul>
                             <li><span id="ms_diamond_L">大</span></li>
@@ -274,6 +288,7 @@
                         <li><span id="ms_pencils">ペンシルズ</span></li>
                         <li><span id="ms_slovak">Slovak sums</span></li>
                         <li><span id="ms_arc">円弧</span></li>
+                        <li><span id="ms_darts">Darts</span></li>
                         <li><span id="ms_spans">Spans</span></li>
                         <li><span id="ms_neighbors">Neighbors</span></li>
                         <!--<li><span id="ms_Ondo-K">Ondo-K</span></li>-->
@@ -358,8 +373,6 @@
             <label for="st_surface3" class="labelL" id="st_surface3_lb">薄灰</label>
             <input type="radio" name="style_surface" value="4" id="st_surface4">
             <label for="st_surface4" class="labelL" id="st_surface4_lb">黒</label>
-            <input type="radio" name="style_surface" value="9" id="st_surface9">
-            <label for="st_surface9" class="labelL" id="st_surface9_lb">青</label>
             <input type="radio" name="style_surface" value="2" id="st_surface2">
             <label for="st_surface2" class="labelL" id="st_surface2_lb">緑</label>
             <input type="radio" name="style_surface" value="5" id="st_surface5">
@@ -436,8 +449,6 @@
             <label for="st_number1" class="labelL" id="st_number1_lb">黒</label>
             <input type="radio" name="style_number" value="2" id="st_number2">
             <label for="st_number2" class="labelL" id="st_number2_lb">緑</label>
-            <input type="radio" name="style_number" value="8" id="st_number8">
-            <label for="st_number8" class="labelL" id="st_number8_lb">青</label>
             <input type="radio" name="style_number" value="3" id="st_number3">
             <label for="st_number3" class="labelL" id="st_number3_lb">灰</label>
             <input type="radio" name="style_number" value="4" id="st_number4">
@@ -492,7 +503,7 @@
         <input type="button" id="tb_reset" value="選択消去" class="button" />
         <input type="button" id="tb_delete" value="問題・解答消去" class="button" />
         <br><br><br>
-        <span id="footer1">Penpa-editor Ver.2.24 <a href="https://github.com/opt-pan/penpa-edit">opt-pan</a></span>
+        <span id="footer1">Penpa-editor Ver.2.20 <a href="https://github.com/opt-pan/penpa-edit">opt-pan</a></span>
         <span id="footer2">要望は<a href="https://github.com/opt-pan/penpa-edit/issues">こちら</a></span>
     </div>
 
@@ -506,24 +517,19 @@
                     <li><span id="panel_1"><label for="panel_1" id="panel_1_lbmenu" class="label_menu"> 1 </label></span></li>
                     <li><span id="panel_A"><label for="panel_A" id="panel_A_lbmenu" class="label_menu">A</label></span></li>
                     <li><span id="panel_a"><label for="panel_a" id="panel_a_lbmenu" class="label_menu">a</label></span></li>
-                    <li><span id="panel_Text"><label for="panel_Text" id="panel_Text_lbmenu" class="label_menu">Text</label></span></li>
+                    <li><span id="panel_ja_K"><label for="panel_ja_K" id="panel_ja_K_lbmenu" class="label_menu">ア</label></span></li>
+                    <li><span id="panel_ja_H"><label for="panel_ja_H" id="panel_ja_H_lbmenu" class="label_menu">あ</label></span></li>
                     <li><span id="panel_select"><label for="panel_select" id="panel_select_lbmenu" class="label_select">▶</label></span></li>
                 </ul>
             </div>
             <div id="float-key-select" style="display:none;">
                 <ul class="panel_menu_select">
                     <li>
-                        <div id="panel_ja_K"><label for="panel_ja_K" id="panel_ja_K_lbmenu" class="label_menu">ア</label></div>
-                    </li><br>
-                    <li>
-                        <div id="panel_ja_H"><label for="panel_ja_H" id="panel_ja_H_lbmenu" class="label_menu">あ</label></div>
-                    </li><br>
-                    <li>
                         <div id="panel_!"><label for="panel_!" id="panel_!_lbmenu" class="label_menu">!</label></div>
                     </li><br>
-                    <!--
-                    <li><div id="panel_Kan"><label for="panel_Kan" id="panel_Kan_lbmenu" class="label_menu">漢</label></div></li><br>
-                    -->
+                    <li>
+                        <div id="panel_Kan"><label for="panel_Kan" id="panel_Kan_lbmenu" class="label_menu">漢</label></div>
+                    </li><br>
                     <li>
                         <div id="panel_Rome"><label for="panel_Rome" id="panel_Rome_lbmenu" class="label_menu">Ⅰ</label></div>
                     </li><br>
@@ -547,11 +553,6 @@
             <div id="float-key-board">
                 <canvas id="float-canvas" class="float-canvas"></canvas>
             </div>
-            <div id="float-key-text">
-                <textarea rows="1" cols="20" maxlength="100" id="inputtext"></textarea>
-                <input type="button" id="closeBtn_input1" value="挿入" />
-                <input type="button" id="closeBtn_input2" value="クリア" />
-            </div>
         </div>
     </div>
 
@@ -568,12 +569,11 @@
               <option value="tri" id="nb_type3_lb">正三角形</option>
               <option value="pyramid" id="nb_type4_lb">ピラミッド</option>
               <option value="iso" id="nb_type5_lb">立方体</option>
-              <!--
-              <option value="truncated_square">Truncated square</option>
+              <!--<option value="truncated_square">Truncated square</option>
               <option value="tetrakis_square">Tetrakis square</option>
               <option value="snub_square">Snub square</option>
-              <option value="cairo_pentagonal">Cairo pentagonal</option>
-              -->
+              <option value="cairo_pentagonal">Cairo pentagonal</option>-->
+
           </select>
         </span><br>
             <!--
@@ -766,20 +766,20 @@
                         <p id="solutiontext6">固有1-バトルシップ黒1-6、テント2、スター1-3</p>
                     </div>
                     <!--
-                        <input type="checkbox" name="nb_solution_bl" value="solution_bl" id="nb_check_solution_bl" checked = "checked">
-                        <label for="nb_check_solution_bl"  id="nb_check_solution_bl_lb">黒マス</label>
-                        <input type="checkbox" name="nb_solution_line" value="solution_line" id="nb_check_solution_line" checked = "checked">
-                        <label for="nb_check_solution_line"  id="nb_check_solution_line_lb">緑線</label>
-                        <input type="checkbox" name="nb_solution_line" value="solution_lineE" id="nb_check_solution_lineE" checked = "checked">
-                        <label for="nb_check_solution_lineE"  id="nb_check_solution_lineE_lb">緑辺</label>
-                        <input type="checkbox" name="nb_solution_wall" value="solution_wall" id="nb_check_solution_wall" checked = "checked">
-                        <label for="nb_check_solution_wall"  id="nb_check_solution_wall_lb">緑壁</label>
-                        <br>
-                        <input type="checkbox" name="nb_solution_num" value="solution_num" id="nb_check_solution_num" checked = "checked">
-                        <label for="nb_check_solution_num"  id="nb_check_solution_num_lb">緑数字</label>
-                        <input type="checkbox" name="nb_solution_sym" value="solution_sym" id="nb_check_solution_sym" checked = "checked">
-                        <label for="nb_check_solution_sym"  id="nb_check_solution_sym_lb">記号</label>
-                        -->
+              <input type="checkbox" name="nb_solution_bl" value="solution_bl" id="nb_check_solution_bl" checked = "checked">
+              <label for="nb_check_solution_bl"  id="nb_check_solution_bl_lb">黒マス</label>
+              <input type="checkbox" name="nb_solution_line" value="solution_line" id="nb_check_solution_line" checked = "checked">
+              <label for="nb_check_solution_line"  id="nb_check_solution_line_lb">緑線</label>
+              <input type="checkbox" name="nb_solution_line" value="solution_lineE" id="nb_check_solution_lineE" checked = "checked">
+              <label for="nb_check_solution_lineE"  id="nb_check_solution_lineE_lb">緑辺</label>
+              <input type="checkbox" name="nb_solution_wall" value="solution_wall" id="nb_check_solution_wall" checked = "checked">
+              <label for="nb_check_solution_wall"  id="nb_check_solution_wall_lb">緑壁</label>
+              <br>
+              <input type="checkbox" name="nb_solution_num" value="solution_num" id="nb_check_solution_num" checked = "checked">
+              <label for="nb_check_solution_num"  id="nb_check_solution_num_lb">緑数字</label>
+              <input type="checkbox" name="nb_solution_sym" value="solution_sym" id="nb_check_solution_sym" checked = "checked">
+              <label for="nb_check_solution_sym"  id="nb_check_solution_sym_lb">記号</label>
+              -->
                     <br>
                     <input type="button" id="closeBtn_save5" value="解答判定付き出題用アドレスを出力" />
                 </div>
