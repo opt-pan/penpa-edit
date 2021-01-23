@@ -170,12 +170,12 @@ class Puzzle_square extends Puzzle {
 
         this.centerlist = []
         for (var j = 2; j < this.ny0 - 2; j++) {
-            for (var i = 2; i < this.nx0 - 2; i++) { //上と左端は未使用
+            for (var i = 2; i < this.nx0 - 2; i++) { //上下と左右端は未使用
                 this.centerlist.push(i + j * (this.nx0));
             }
         }
-        this.search_center();
-        this.center_n0 = this.center_n;
+        this.search_center(); //centerlistの中心を探す
+        this.center_n0 = this.center_n; //center_n0に初期状態のcenter_nを保存
         this.canvasxy_update();
         this.canvas_size_setting();
         this.point_move((this.canvasx * 0.5 - this.point[this.center_n].x + 0.5), (this.canvasy * 0.5 - this.point[this.center_n].y + 0.5), this.theta);
@@ -1804,21 +1804,25 @@ class Puzzle_square extends Puzzle {
                 ctx.text("\u{221E}", x, y);
                 break;
             case 2:
+                ctx.font = 0.7 * pu.size + "px Helvetica,Arial";
                 ctx.text("＋", x, y);
                 break;
             case 3:
+                ctx.font = 0.7 * pu.size + "px Helvetica,Arial";
                 ctx.text("－", x, y);
                 break;
             case 4:
                 ctx.text("×", x, y);
                 break;
             case 5:
+                ctx.font = 0.7 * pu.size + "px Helvetica,Arial";
                 ctx.text("＊", x, y);
                 break;
             case 6:
                 ctx.text("÷", x, y);
                 break;
             case 7:
+                ctx.font = 0.7 * pu.size + "px Helvetica,Arial";
                 ctx.text("＝", x, y);
                 break;
             case 8:
@@ -2796,7 +2800,8 @@ class Puzzle_square extends Puzzle {
     }
 
     draw_arc(ctx, num, x, y) {
-        var th;
+        var r = 0.2,
+            th;
         ctx.setLineDash([]);
         ctx.lineCap = "butt";
         ctx.fillStyle = "#000";
