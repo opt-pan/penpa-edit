@@ -146,6 +146,6 @@
 * 2019/07/07 β版
 
 ## 免責事項
-コードの二次配布は禁止です。
-当ソフトを使用して作成した画像は、自由に使用して構いません。
-当ソフトを使用したことによって生じた損害等の一切の責任を負いかねます。
+Copyright (c) 2019 opt-pan
+Released under the MIT license
+https://github.com/opt-pan/penpa-edit/edit/master/MIT-LICENSE.txt
