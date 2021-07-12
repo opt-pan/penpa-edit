@@ -1513,6 +1513,23 @@ class Puzzle_square extends Puzzle {
                 ctx.lineWidth = 2;
                 this.draw_battleship(ctx, num, x, y);
                 break;
+            case "battleship_B+":
+                set_circle_style(ctx, 2);
+                this.draw_battleshipplus(ctx, num, x, y);
+                break;
+            case "battleship_G+":
+                set_circle_style(ctx, 3);
+                ctx.fillStyle = "#999";
+                this.draw_battleshipplus(ctx, num, x, y);
+                break;
+            case "battleship_W+":
+                ctx.setLineDash([]);
+                ctx.lineCap = "butt";
+                ctx.fillStyle = "rgba(0,0,0,0)";
+                ctx.strokeStyle = "rgba(0,0,0,1)";
+                ctx.lineWidth = 2;
+                this.draw_battleshipplus(ctx, num, x, y);
+                break;
             case "angleloop":
                 this.draw_angleloop(ctx, num, x, y);
                 break;
@@ -2529,6 +2546,39 @@ class Puzzle_square extends Puzzle {
         ctx.lineTo(x + r * Math.sqrt(2) * pu.size * Math.sin(th + 45 / 180 * Math.PI), y - r * Math.sqrt(2) * pu.size * Math.cos(th + 45 / 180 * Math.PI));
         ctx.lineTo(x + r * Math.sqrt(2) * pu.size * Math.sin(th + 135 / 180 * Math.PI), y - r * Math.sqrt(2) * pu.size * Math.cos(th + 135 / 180 * Math.PI));
         ctx.lineTo(x + r * pu.size * Math.sin(th + Math.PI), y - r * pu.size * Math.cos(th + Math.PI));
+        ctx.fill();
+        ctx.stroke();
+    }
+
+    draw_battleshipplus(ctx, num, x, y) {
+        var r = 0.4;
+        var th;
+        switch (num) {
+            case 1:
+                this.draw_battleship_tipplus(ctx, x, y, 0);
+                break;
+            case 2:
+                this.draw_battleship_tipplus(ctx, x, y, 90);
+                break;
+            case 3:
+                this.draw_battleship_tipplus(ctx, x, y, 180);
+                break;
+            case 4:
+                this.draw_battleship_tipplus(ctx, x, y, 270);
+                break;
+        }
+    }
+
+    draw_battleship_tipplus(ctx, x, y, th) {
+        var r = 0.36;
+        th = this.rotate_theta(th);
+        ctx.beginPath();
+        ctx.arc(x, y, r * pu.size, Math.PI * 0.5 + th, Math.PI * 1.0 + th, false);
+        ctx.moveTo(x - r * pu.size * Math.sin(th), y + r * pu.size * Math.cos(th));
+        ctx.lineTo(x + r * Math.sqrt(2) * pu.size * Math.sin(-th + 45 / 180 * Math.PI), y + r * Math.sqrt(2) * pu.size * Math.cos(-th + 45 / 180 * Math.PI));
+        ctx.lineTo(x + r * Math.sqrt(2) * pu.size * Math.sin(-th + 135 / 180 * Math.PI), y + r * Math.sqrt(2) * pu.size * Math.cos(-th + 135 / 180 * Math.PI));
+        ctx.lineTo(x + r * Math.sqrt(2) * pu.size * Math.sin(-th + 225 / 180 * Math.PI), y + r * Math.sqrt(2) * pu.size * Math.cos(-th + 225 / 180 * Math.PI));
+        ctx.lineTo(x - r * pu.size * Math.sin(-th + 0.5 * Math.PI), y - r * pu.size * Math.cos(-th + 0.5 * Math.PI));
         ctx.fill();
         ctx.stroke();
     }
