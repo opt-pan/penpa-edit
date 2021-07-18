@@ -903,6 +903,11 @@ class Puzzle {
                         sol[5].push(i + "," + this[pu].symbol[i][0] + "D");
                     }
                     break;
+                case "battleship_B+":
+                    if (this[pu].symbol[i][0] >= 1 && this[pu].symbol[i][0] <= 4) {
+                        sol[5].push(i + "," + this[pu].symbol[i][0] + "D+");
+                    }
+                    break;
                 case "star": //starは色を無視
                     if (this[pu].symbol[i][0] >= 1 && this[pu].symbol[i][0] <= 3) {
                         sol[5].push(i + "," + 1 + "E");
