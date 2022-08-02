@@ -1,0 +1,253 @@
+/* Dark Mode */
+/* Defaults */
+:root {
+    /* Colors: should be the same as in style.js */
+    --black: #000000;
+    --blackLight: #232323;
+    --blue: #0000ff;
+    --blueDark: #1e50a2;
+    --blueLight: #187bcd;
+    --blueLightMedium: #4795d4;
+    --blueLightVery: #c0e0ff;
+    --bluesky: #3085d6;
+    --blueskyMedium: #00BDFE;
+    --brownLight: #eecab1;
+    --green: #208020;
+    --greenLight: #4c9900;
+    --greenLightVery: #b3ffb3;
+    --grey: #999999;
+    --greyDark: #777777;
+    --greyDarkVery: #444444;
+    --greyLight: #cccccc;
+    --greyLightMedium: #dddddd;
+    --greyLightVery: #f0f0f0;
+    --orange: #ffa500;
+    --orangeLight: #ffcc80;
+    --pinkLight: #ffb3ff;
+    --purpleLight: #cc99ff;
+    --red: #ff0000;
+    --redLight: #ffa3a3;
+    --transparentBlack: rgba(0, 0, 0, 0);
+    --transparentWhite: rgba(255, 255, 255, 0);
+    --transparent30: rgba(0, 0, 0, 0.7);
+    --transparent40: rgba(0, 0, 0, 0.6);
+    --transparent50: rgba(0, 0, 0, 0.5);
+    --transparent70: rgba(0, 0, 0, 0.3);
+    --white: #ffffff;
+    --yellow: #ffffa3;
+
+    --bgPage: var(--blackLight);
+    --bgMain: var(--black);
+    --bgMedium: var(--greyDarkVery);
+    --fgMain: var(--white);
+}
+
+.solving {
+    background: var(--blueDark);
+}
+
+#tb_undo,
+#tb_redo {
+    color: var(--white);
+}
+#tb_undo:disabled,
+#tb_redo:disabled {
+    color: var(--greyLight);
+}
+
+#modal-help-body a.button {
+    background: var(--greyDarkVery);
+    border: 1px solid var(--greyDark);
+    color: var(--white) !important;
+}
+
+#modal-help-body a.button:hover {
+    background: var(--greyDark);
+}
+
+#tab-dropdown-lite-btn,
+.button.sw {
+    background-color: var(--blueLight);
+    color: var(--white);
+}
+
+#tab-dropdown-lite-btn:hover,
+.button.sw:hover {
+    background-color: var(--blueDark);
+    color: var(--white);
+}
+
+.label_mode {
+    color: var(--white);
+}
+
+.label {
+    color: var(--white);
+    border: 1px solid var(--blueskyMedium);
+}
+
+.labelSu {
+    color: var(--white);
+    border: 1px solid var(--blueskyMedium);
+}
+
+.label_option {
+    color: var(--white);
+    border: 2px solid var(--blueDark);
+}
+
+.label:hover {
+    background: var(--greyLightVery);
+    color: var(--black);
+}
+
+.label_option:hover {
+    background: var(--greyLightVery);
+    color: var(--black);
+}
+
+.labelL {
+    color: var(--white);
+    border: 1px solid var(--blueskyMedium);
+}
+
+.labelL:hover {
+    background: var(--greyLightVery);
+    color: var(--black);
+}
+
+.nav li span {
+    color: var(--white);
+    background: var(--black);
+    border: 1px solid var(--blueDark);
+}
+
+.nav>li:hover>span {
+    /*layer-1*/
+    color: var(--black);
+    background: var(--greyLight);
+}
+
+.nav>li li:hover>span {
+    /*layer-2*/
+    color: var(--black);
+    background: var(--greyLight);
+}
+
+.nav li ul li span {
+    color: var(--white);
+    background: var(--black);
+    border: 1px solid var(--blueDark);
+}
+
+.nav li ul li ul:before {
+    border-left: 5px solid var(--white);
+}
+
+.nav>li.symbolmode_display:hover>span {
+    /*layer-1*/
+    color: var(--white);
+    background: none;
+}
+
+#puzzleinfo,
+#contestinfo {
+    color: var(--blueLightMedium);
+}
+
+#dvique {
+    background: var(--black);
+    border: 1px solid var(--blackLight);
+}
+
+#pause_canvas {
+    background: var(--blackLight);
+    border: 0px none black;
+}
+
+#canvas {
+    background: var(--black);
+}
+
+#float-key {
+    background-color: var(--black);
+}
+
+.modal-content,
+#modal-image-content,
+#modal-save-content,
+#modal-input-content,
+#modal-load-content,
+#modal-save-tag-content,
+#modal-save2-content {
+    background-color: var(--black);
+}
+
+header,
+#float-key-header,
+#float-key-body,
+#float-key-menu,
+#float-key-select,
+.modal-header,
+.modal-subheader {
+    background: var(--greyDarkVery);
+    color: var(--white);
+}
+
+#save3texttitle,
+#nb_note {
+    color: var(--white);
+}
+
+.tooltip .tooltiptext {
+    background-color: var(--greyDarkVery);
+    color: var(--white);
+}
+
+.tooltip .tooltiptext::after {
+    border-color: var(--greyDarkVery) transparent transparent transparent;
+}
+
+.DM {
+    color: var(--white);
+}
+
+.label_nb {
+    color: var(--white);
+}
+
+/* Hyper Links */
+a:link {
+    color: var(--orange);
+}
+
+a:visited {
+    color: var(--green);
+}
+
+a:active {
+    color: var(--red);
+}
+
+/*Shape/Composite Selection*/
+
+#symmode_content,
+#combimode_content {
+    color: var(--white);
+}
+
+/* Solution Code Message */
+#answer_key {
+    color: var(--white);
+}
+
+#puzzletitle,
+#puzzleauthor,
+#puzzlesource,
+#solution_check {
+    color: var(--white);
+}
+
+#visibility_button {
+    border: 1px solid var(--blueskyMedium);
+}
