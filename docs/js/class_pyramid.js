@@ -9,7 +9,7 @@ class Puzzle_pyramid extends Puzzle {
         this.margin = -1; //for arrow of number pointing outside of the grid
 
         this.top_n = parseInt(this.nx0 * 2.5);
-
+        this.sudoku = [0, 0, 0, 0]; // This is for sudoku settings
         this.width0 = this.nx + 1;
         this.height0 = this.ny + 1;
         this.width_c = this.width0;
@@ -36,19 +36,73 @@ class Puzzle_pyramid extends Puzzle {
     }
 
     erase_buttons() {
-        for (var i of this.group1) {
+        // One time operation when the grid is created
+        // Remove all modes, square grid is the reference as it has all the modes
+        for (var i of penpa_modes["square"]['mode']) {
+            document.getElementById("mo_" + i + "_lb").style.display = "none";
+        }
+        for (var i of penpa_modes["square"]['sub']) {
+            document.getElementById("sub_" + i + "_lb").style.display = "none";
+        }
+        for (var i of penpa_modes["square"]['customcolor']) {
             document.getElementById(i).style.display = "none";
         }
-        for (var i of this.group2) {
+        for (var i of penpa_modes["square"]['ms']) {
+            document.getElementById("ms_" + i).parentElement.style.display = "none";
+        }
+        for (var i of penpa_modes["square"]['ms1']) {
+            document.getElementById("ms1_" + i).parentElement.style.display = "none";
+        }
+        for (var i of penpa_modes["square"]['ms3']) {
+            document.getElementById("ms3_" + i).parentElement.style.display = "none";
+        }
+        for (var i of penpa_modes["square"]['shapemodes']) {
+            document.getElementById(i).style.display = "none";
+        }
+        for (var i of penpa_modes["square"]['combisub']) {
+            document.getElementById("combisub_" + i).parentElement.style.display = "none";
+        }
+        for (var i of penpa_modes["square"]['subcombi']) {
+            document.getElementById(i).style.display = "none";
+        }
+        for (var i of penpa_modes["square"]['top_buttons']) {
+            document.getElementById(i).style.display = "none";
+        }
+        for (var i of penpa_modes["square"]['exceptions']) {
+            document.getElementById(i).style.display = "none";
+        }
+        // Add all modes only applicable to this grid type
+        for (var i of penpa_modes[this.gridtype]['mode']) {
+            document.getElementById("mo_" + i + "_lb").style.display = "inline-block";
+        }
+        for (var i of penpa_modes[this.gridtype]['sub']) {
+            document.getElementById("sub_" + i + "_lb").style.display = "inline-block";
+        }
+        for (var i of penpa_modes[this.gridtype]['customcolor']) {
+            document.getElementById(i).style.display = "table-row";
+        }
+        for (var i of penpa_modes[this.gridtype]['ms']) {
+            document.getElementById("ms_" + i).parentElement.style.display = "list-item";
+        }
+        for (var i of penpa_modes[this.gridtype]['ms1']) {
+            document.getElementById("ms1_" + i).parentElement.style.display = "list-item";
+        }
+        for (var i of penpa_modes[this.gridtype]['ms3']) {
+            document.getElementById("ms3_" + i).parentElement.style.display = "list-item";
+        }
+        for (var i of penpa_modes[this.gridtype]['shapemodes']) {
             document.getElementById(i).style.display = "inline-block";
         }
-        for (var i of this.group3) {
-            document.getElementById(i).style.display = "none";
+        for (var i of penpa_modes[this.gridtype]['combisub']) {
+            document.getElementById("combisub_" + i).parentElement.style.display = "list-item";
         }
-        for (var i of this.group4) {
-            document.getElementById(i).style.display = "none";
+        for (var i of penpa_modes[this.gridtype]['subcombi']) {
+            document.getElementById(i).style.display = "inline-block";
         }
-        for (var i of this.group5) {
+        for (var i of penpa_modes[this.gridtype]['top_buttons']) {
+            document.getElementById(i).style.display = "inline-block";
+        }
+        for (var i of penpa_modes[this.gridtype]['exceptions']) {
             document.getElementById(i).style.display = "inline-block";
         }
     }
@@ -201,7 +255,7 @@ class Puzzle_pyramid extends Puzzle {
                 break;
             case "symbol":
             case "move":
-                if (document.getElementById('edge_button').textContent === "OFF") {
+                if (!UserSettings.draw_edges) {
                     type = [0];
                 } else {
                     type = [0, 1, 2, 3];
@@ -211,7 +265,7 @@ class Puzzle_pyramid extends Puzzle {
                 if (this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][0] === "3") {
                     type = [4];
                 } else {
-                    if (document.getElementById('edge_button').textContent === "OFF") {
+                    if (!UserSettings.draw_edges) {
                         type = [0];
                     } else {
                         type = [0, 1, 2, 3];
@@ -250,18 +304,19 @@ class Puzzle_pyramid extends Puzzle {
                 switch (this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][0]) {
                     case "tents":
                     case "linex":
+                    case "yajilin":
                         type = [0, 2, 3];
                         break;
+                    case "edgex":
                     case "edgexoi":
+                    case "star":
                         type = [0, 1, 2, 3];
                         break;
                     case "blpo":
                     case "blwh":
                     case "battleship":
-                    case "star":
                     case "magnets":
                     case "lineox":
-                    case "yajilin":
                     case "hashi":
                     case "arrowS":
                     case "shaka":
@@ -272,7 +327,16 @@ class Puzzle_pyramid extends Puzzle {
                     case "edgesub":
                         type = [0, 1];
                         break;
+                    case "akari":
+                        type = [0, 2, 3];
+                        break;
+                    case "mines":
+                        type = [0, 1, 2, 3];
+                        break;
                 }
+                break;
+            case "sudoku":
+                type = [0];
                 break;
         }
         return type;
@@ -287,6 +351,26 @@ class Puzzle_pyramid extends Puzzle {
                 if (min0 < min) {
                     if (this.point[i].type === 2 || this.point[i].type === 3) {
                         if (min0 > (0.7 * this.size) ** 2) {
+                            break;
+                        }
+                    }
+                    min = min0;
+                    num = i;
+                }
+            }
+        }
+        return parseInt(num);
+    }
+
+    coord_p_edgex_star(x, y, hitboxfactor) {
+        var min0, min = 10e6;
+        var num = 0;
+        for (var i = 0; i < this.point.length; i++) {
+            if (this.type.indexOf(this.point[i].type) != -1) {
+                min0 = (x - this.point[i].x) ** 2 + (y - this.point[i].y) ** 2;
+                if (min0 < min) {
+                    if (this.point[i].type === 1 || this.point[i].type === 2 || this.point[i].type === 3) {
+                        if (min0 > (hitboxfactor * this.size) ** 2) {
                             break;
                         }
                     }
@@ -322,7 +406,7 @@ class Puzzle_pyramid extends Puzzle {
         }
     }
 
-    key_arrow(key_code) {
+    key_arrow(key_code, ctrl_key = false) {
         var a, b, c;
         if (this.theta === 0) { b = [0, 1, 2, 3]; } else if (this.theta === 90) { b = [3, 0, 1, 2]; } else if (this.theta === 180) { b = [2, 3, 0, 1]; } else if (this.theta === 270) { b = [1, 2, 3, 0]; }
         if (this.reflect[0] === -1) {
@@ -394,28 +478,28 @@ class Puzzle_pyramid extends Puzzle {
     }
 
     direction_arrow8(x, y, x0, y0) {
-            var angle = Math.atan2(y - y0, x - x0) * 360 / 2 / Math.PI + 180;
-            if (this.reflect[0] === -1) { angle = (180 - angle + 360) % 360; }
-            if (this.reflect[1] === -1) { angle = (360 - angle + 360) % 360; }
-            angle = (angle - this.theta + 360) % 360;
-            angle -= 180;
-            var a;
-            if (angle < -150 || angle > 150) {
-                a = 2;
-            } else if (angle > -150 && angle < -90) {
-                a = 0;
-            } else if (angle > -90 && angle < -30) {
-                a = 1;
-            } else if (angle > -30 && angle < 30) {
-                a = 3;
-            } else if (angle > 30 && angle < 90) {
-                a = 5;
-            } else if (angle > 90 && angle < 150) {
-                a = 4;
-            }
-            return a;
+        var angle = Math.atan2(y - y0, x - x0) * 360 / 2 / Math.PI + 180;
+        if (this.reflect[0] === -1) { angle = (180 - angle + 360) % 360; }
+        if (this.reflect[1] === -1) { angle = (360 - angle + 360) % 360; }
+        angle = (angle - this.theta + 360) % 360;
+        angle -= 180;
+        var a;
+        if (angle < -150 || angle > 150) {
+            a = 2;
+        } else if (angle > -150 && angle < -90) {
+            a = 0;
+        } else if (angle > -90 && angle < -30) {
+            a = 1;
+        } else if (angle > -30 && angle < 30) {
+            a = 3;
+        } else if (angle > 30 && angle < 90) {
+            a = 5;
+        } else if (angle > 90 && angle < 150) {
+            a = 4;
         }
-        ////////////////override/////////////////////
+        return a;
+    }
+    ////////////////override/////////////////////
     re_wallmove(num) {
         if (this.drawing && this.last != num) {
             var line_style = this.mode[this.mode.qa][this.mode[this.mode.qa].edit_mode][1];
@@ -432,79 +516,69 @@ class Puzzle_pyramid extends Puzzle {
     ////////////////draw/////////////////////
 
     draw() {
-        this.draw_surface("pu_q");
-        this.draw_surface("pu_a");
-        this.draw_squareframe("pu_q");
-        this.draw_squareframe("pu_a");
-        this.draw_thermo("pu_q");
-        this.draw_thermo("pu_a");
-        this.draw_arrowsp("pu_q");
-        this.draw_arrowsp("pu_a");
-        this.draw_symbol("pu_q", 1);
-        this.draw_symbol("pu_a", 1);
-        this.draw_wall("pu_q");
-        this.draw_wall("pu_a");
-        this.draw_frame();
-        this.draw_polygonsp("pu_q");
-        this.draw_polygonsp("pu_a");
-        this.draw_freeline("pu_q");
-        this.draw_freeline("pu_a");
-        this.draw_line("pu_q");
-        this.draw_line("pu_a");
-        this.draw_direction("pu_q");
-        this.draw_direction("pu_a");
-        this.draw_lattice();
-        this.draw_frameBold();
-        this.draw_symbol("pu_q", 2);
-        this.draw_symbol("pu_a", 2);
-        //this.draw_cage("pu_q");
-        //this.draw_cage("pu_a");
-        this.draw_number("pu_q");
-        this.draw_number("pu_a");
-        this.draw_cursol();
-        this.draw_freecircle();
-
-        //this.draw_point();
-    }
-
-    draw_point() {
-        set_font_style(this.ctx, (0.2 * this.size).toString(), 1);
-        for (var i in this.point) {
-            if (this.point[i].type === 0) {
-                this.ctx.fillStyle = "#000";
-                this.ctx.text(i, this.point[i].x, this.point[i].y, 0.8 * this.size);
-            } else if (this.point[i].type === 1) {
-                this.ctx.fillStyle = "blue";
-                this.ctx.text(i, this.point[i].x, this.point[i].y, 0.8 * this.size);
-            } else if (this.point[i].type === 2) {
-                this.ctx.fillStyle = "red";
-                this.ctx.text(i, this.point[i].x, this.point[i].y, 0.8 * this.size);
-                this.ctx.fillStyle = "rgba(0,0,0,0)";
-            } else if (this.point[i].type === 3) {
-                this.ctx.fillStyle = "orange";
-                this.ctx.text(i, this.point[i].x, this.point[i].y, 0.8 * this.size);
-                this.ctx.fillStyle = "rgba(0,0,0,0)";
-            } else if (this.point[i].type === 4) {
-                this.ctx.fillStyle = "green";
-                this.ctx.text(i, this.point[i].x, this.point[i].y, 0.8 * this.size);
-                this.ctx.fillStyle = "rgba(0,0,0,0)";
-            } else if (this.point[i].type === 5) {
-                this.ctx.fillStyle = "green";
-                //this.ctx.text(i,this.point[i].x,this.point[i].y,0.8*this.size);
-                this.ctx.fillStyle = "rgba(0,0,0,0)";
-            }
-            this.ctx.beginPath();
-            //this.ctx.arc(this.point[i].x,this.point[i].y,2.5,0,2*Math.PI,true);
-            this.ctx.fill();
+        var present_mode = this.mode.qa;
+        if (present_mode !== "pu_q" || UserSettings.show_solution) {
+            this.draw_frameBold();
+            this.draw_surface("pu_q");
+            this.draw_surface("pu_a");
+            this.draw_squareframe("pu_q");
+            this.draw_squareframe("pu_a");
+            this.draw_thermo("pu_q");
+            this.draw_thermo("pu_a");
+            this.draw_nobulbthermo("pu_q");
+            this.draw_nobulbthermo("pu_a");
+            this.draw_arrowsp("pu_q");
+            this.draw_arrowsp("pu_a");
+            this.draw_symbol("pu_q", 1);
+            this.draw_symbol("pu_a", 1);
+            this.draw_wall("pu_q");
+            this.draw_wall("pu_a");
+            this.draw_frame();
+            this.draw_polygonsp("pu_q");
+            this.draw_polygonsp("pu_a");
+            this.draw_freeline("pu_q");
+            this.draw_freeline("pu_a");
+            this.draw_line("pu_q");
+            this.draw_line("pu_a");
+            this.draw_direction("pu_q");
+            this.draw_direction("pu_a");
+            this.draw_lattice();
+            this.draw_selection();
+            this.draw_symbol("pu_q", 2);
+            this.draw_symbol("pu_a", 2);
+            this.draw_number("pu_q");
+            this.draw_number("pu_a");
+            this.draw_cursol();
+            this.draw_freecircle();
+        } else {
+            this.draw_frameBold();
+            this.draw_surface("pu_q");
+            this.draw_squareframe("pu_q");
+            this.draw_thermo("pu_q");
+            this.draw_nobulbthermo("pu_q");
+            this.draw_arrowsp("pu_q");
+            this.draw_symbol("pu_q", 1);
+            this.draw_wall("pu_q");
+            this.draw_frame();
+            this.draw_polygonsp("pu_q");
+            this.draw_freeline("pu_q");
+            this.draw_line("pu_q");
+            this.draw_direction("pu_q");
+            this.draw_lattice();
+            this.draw_selection();
+            this.draw_symbol("pu_q", 2);
+            this.draw_number("pu_q");
+            this.draw_cursol();
+            this.draw_freecircle();
         }
     }
 
     draw_lattice() {
         if (this.mode.grid[1] === "1") {
-            this.ctx.fillStyle = "#000";
+            this.ctx.fillStyle = Color.BLACK;
             var verticelist = [];
             for (var i = 0; i < this.centerlist.length; i++) {
-                for (var j of[0, 2, 3, 5]) {
+                for (var j of [0, 2, 3, 5]) {
                     verticelist.push(this.point[this.centerlist[i]].surround[j]);
                 }
                 if (this.centerlist.indexOf(this.point[this.centerlist[i]].surround[0]) != -1 || this.centerlist.indexOf(this.point[this.centerlist[i]].surround[1]) != -1) {
@@ -556,7 +630,7 @@ class Puzzle_pyramid extends Puzzle {
             if (this[pu].squareframe[i][0]) {
                 this.ctx.setLineDash([]);
                 this.ctx.lineCap = "square";
-                this.ctx.strokeStyle = "#ccc";
+                this.ctx.strokeStyle = Color.GREY_LIGHT;
                 this.ctx.lineWidth = this.size * 0.8;
                 this.ctx.beginPath();
                 this.ctx.moveTo(this.point[this[pu].squareframe[i][0]].x, this.point[this[pu].squareframe[i][0]].y);
@@ -571,12 +645,12 @@ class Puzzle_pyramid extends Puzzle {
     draw_thermo(pu) {
         for (var i = 0; i < this[pu].thermo.length; i++) {
             if (this[pu].thermo[i][0]) {
-                this.ctx.strokeStyle = "rgba(0,0,0,0)";
-                this.ctx.fillStyle = "#ccc";
+                this.ctx.strokeStyle = Color.TRANSPARENTBLACK;
+                this.ctx.fillStyle = Color.GREY_LIGHT;
                 this.draw_circle(this.ctx, this.point[this[pu].thermo[i][0]].x, this.point[this[pu].thermo[i][0]].y, 0.4);
                 this.ctx.setLineDash([]);
                 this.ctx.lineCap = "square";
-                this.ctx.strokeStyle = "#ccc";
+                this.ctx.strokeStyle = Color.GREY_LIGHT;
                 this.ctx.lineWidth = this.size * 0.4;
                 this.ctx.beginPath();
                 this.ctx.moveTo(this.point[this[pu].thermo[i][0]].x, this.point[this[pu].thermo[i][0]].y);
@@ -588,12 +662,33 @@ class Puzzle_pyramid extends Puzzle {
         }
     }
 
+    draw_nobulbthermo(pu) {
+        if (this[pu].nobulbthermo) {
+            for (var i = 0; i < this[pu].nobulbthermo.length; i++) {
+                if (this[pu].nobulbthermo[i][0]) {
+                    this.ctx.strokeStyle = Color.TRANSPARENTBLACK;
+                    this.ctx.fillStyle = Color.GREY_LIGHT;
+                    this.ctx.setLineDash([]);
+                    this.ctx.lineCap = "square";
+                    this.ctx.strokeStyle = Color.GREY_LIGHT;
+                    this.ctx.lineWidth = this.size * 0.4;
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(this.point[this[pu].nobulbthermo[i][0]].x, this.point[this[pu].nobulbthermo[i][0]].y);
+                    for (var j = 1; j < this[pu].nobulbthermo[i].length; j++) {
+                        this.ctx.lineTo(this.point[this[pu].nobulbthermo[i][j]].x, this.point[this[pu].nobulbthermo[i][j]].y);
+                    }
+                    this.ctx.stroke();
+                }
+            }
+        }
+    }
+
     draw_arrowsp(pu) {
         for (var i = 0; i < this[pu].arrows.length; i++) {
             if (this[pu].arrows[i][0]) {
                 this.ctx.setLineDash([]);
                 this.ctx.lineCap = "square";
-                this.ctx.strokeStyle = "#ccc";
+                this.ctx.strokeStyle = Color.GREY_LIGHT;
                 this.ctx.lineWidth = 3;
                 this.ctx.beginPath();
                 this.ctx.moveTo(this.point[this[pu].arrows[i][0]].x, this.point[this[pu].arrows[i][0]].y);
@@ -606,12 +701,13 @@ class Puzzle_pyramid extends Puzzle {
                 this.ctx.lineJoin = "bevel";
                 this.ctx.beginPath();
                 this.ctx.arrow(this.point[this[pu].arrows[i][j - 1]].x, this.point[this[pu].arrows[i][j - 1]].y,
-                    this.point[this[pu].arrows[i][j]].x, this.point[this[pu].arrows[i][j]].y, [-0.00001, 0, -0.3 * this.size, 0.3 * this.size]);
+                    this.point[this[pu].arrows[i][j]].x, this.point[this[pu].arrows[i][j]].y,
+                    [-0.00001, 0, -0.3 * this.size, 0.3 * this.size]);
                 this.ctx.stroke();
                 this.ctx.setLineDash([]);
                 this.ctx.lineJoin = "miter";
-                this.ctx.strokeStyle = "rgba(192,192,192,1)";
-                this.ctx.fillStyle = "rgba(255,255,255,1)";
+                this.ctx.strokeStyle = Color.GREY_LIGHT;
+                this.ctx.fillStyle = Color.WHITE;
                 this.ctx.lineWidth = 3;
 
                 this.draw_circle(this.ctx, this.point[this[pu].arrows[i][0]].x, this.point[this[pu].arrows[i][0]].y, 0.4);
@@ -624,7 +720,7 @@ class Puzzle_pyramid extends Puzzle {
             if (this[pu].direction[i][0]) {
                 this.ctx.setLineDash([]);
                 this.ctx.lineCap = "square";
-                this.ctx.strokeStyle = "#999";
+                this.ctx.strokeStyle = Color.GREY;
                 this.ctx.lineWidth = 3;
                 this.ctx.beginPath();
                 this.ctx.moveTo(this.point[this[pu].direction[i][0]].x, this.point[this[pu].direction[i][0]].y);
@@ -637,7 +733,8 @@ class Puzzle_pyramid extends Puzzle {
                 this.ctx.lineJoin = "bevel";
                 this.ctx.beginPath();
                 this.ctx.arrow(this.point[this[pu].direction[i][j - 1]].x, this.point[this[pu].direction[i][j - 1]].y,
-                    this.point[this[pu].direction[i][j]].x, this.point[this[pu].direction[i][j]].y, [-0.00001, 0, -0.25 * this.size, 0.25 * this.size]);
+                    this.point[this[pu].direction[i][j]].x, this.point[this[pu].direction[i][j]].y,
+                    [-0.00001, 0, -0.25 * this.size, 0.25 * this.size]);
                 this.ctx.stroke();
                 this.ctx.lineJoin = "miter";
             }
@@ -750,6 +847,27 @@ class Puzzle_pyramid extends Puzzle {
             }
             this.ctx.stroke();
         }
+        for (var i in this[pu].freelineE) {
+            set_line_style(this.ctx, this[pu].freelineE[i]);
+            var i1 = i.split(",")[0];
+            var i2 = i.split(",")[1];
+            this.ctx.beginPath();
+            if (this[pu].freelineE[i] === 30) {
+                var r = 0.15 * this.size;
+                var dx = this.point[i1].x - this.point[i2].x;
+                var dy = this.point[i1].y - this.point[i2].y;
+                var d = Math.sqrt(dx ** 2 + dy ** 2);
+                this.ctx.moveTo(this.point[i1].x - r / d * dy, this.point[i1].y + r / d * dx);
+                this.ctx.lineTo(this.point[i2].x - r / d * dy, this.point[i2].y + r / d * dx);
+                this.ctx.stroke();
+                this.ctx.moveTo(this.point[i1].x + r / d * dy, this.point[i1].y - r / d * dx);
+                this.ctx.lineTo(this.point[i2].x + r / d * dy, this.point[i2].y - r / d * dx);
+            } else {
+                this.ctx.moveTo(this.point[i1].x, this.point[i1].y);
+                this.ctx.lineTo(this.point[i2].x, this.point[i2].y);
+            }
+            this.ctx.stroke();
+        }
     }
 
     draw_wall(pu) {
@@ -804,7 +922,8 @@ class Puzzle_pyramid extends Puzzle {
                             this.ctx.text(this[pu].number[i][0].slice(0, -2), this.point[i].x - 0.1 * this.size, this.point[i].y + 0.15 * this.size, this.size * 0.8);
                             this.ctx.beginPath();
                             this.ctx.arrow(this.point[i].x + (arrowlength * 0.25 + 0.15) * this.size, this.point[i].y + (arrowlength * 0.25 * Math.sqrt(3) - 0.15) * this.size,
-                                this.point[i].x + (-arrowlength * 0.25 + 0.15) * this.size, this.point[i].y + (-arrowlength * 0.25 * Math.sqrt(3) - 0.15) * this.size, [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
+                                this.point[i].x + (-arrowlength * 0.25 + 0.15) * this.size, this.point[i].y + (-arrowlength * 0.25 * Math.sqrt(3) - 0.15) * this.size,
+                                [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
                             this.ctx.stroke();
                             this.ctx.fill();
                             break;
@@ -812,7 +931,8 @@ class Puzzle_pyramid extends Puzzle {
                             this.ctx.text(this[pu].number[i][0].slice(0, -2), this.point[i].x - 0.1 * this.size, this.point[i].y + 0.15 * this.size, this.size * 0.8);
                             this.ctx.beginPath();
                             this.ctx.arrow(this.point[i].x + (-arrowlength * 0.25 + 0.2) * this.size, this.point[i].y + (-arrowlength * 0.25 * Math.sqrt(3) - 0.1) * this.size,
-                                this.point[i].x + (arrowlength * 0.25 + 0.2) * this.size, this.point[i].y + (arrowlength * 0.25 * Math.sqrt(3) - 0.1) * this.size, [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
+                                this.point[i].x + (arrowlength * 0.25 + 0.2) * this.size, this.point[i].y + (arrowlength * 0.25 * Math.sqrt(3) - 0.1) * this.size,
+                                [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
                             this.ctx.stroke();
                             this.ctx.fill();
                             break;
@@ -820,7 +940,8 @@ class Puzzle_pyramid extends Puzzle {
                             this.ctx.text(this[pu].number[i][0].slice(0, -2), this.point[i].x + 0.1 * this.size, this.point[i].y + 0.15 * this.size, this.size * 0.8);
                             this.ctx.beginPath();
                             this.ctx.arrow(this.point[i].x - (arrowlength * 0.25 + 0.15) * this.size, this.point[i].y + (arrowlength * 0.25 * Math.sqrt(3) - 0.15) * this.size,
-                                this.point[i].x - (-arrowlength * 0.25 + 0.15) * this.size, this.point[i].y + (-arrowlength * 0.25 * Math.sqrt(3) - 0.15) * this.size, [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
+                                this.point[i].x - (-arrowlength * 0.25 + 0.15) * this.size, this.point[i].y + (-arrowlength * 0.25 * Math.sqrt(3) - 0.15) * this.size,
+                                [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
                             this.ctx.stroke();
                             this.ctx.fill();
                             break;
@@ -828,7 +949,8 @@ class Puzzle_pyramid extends Puzzle {
                             this.ctx.text(this[pu].number[i][0].slice(0, -2), this.point[i].x + 0.1 * this.size, this.point[i].y + 0.15 * this.size, this.size * 0.8);
                             this.ctx.beginPath();
                             this.ctx.arrow(this.point[i].x - (-arrowlength * 0.25 + 0.2) * this.size, this.point[i].y + (-arrowlength * 0.25 * Math.sqrt(3) - 0.1) * this.size,
-                                this.point[i].x - (arrowlength * 0.25 + 0.2) * this.size, this.point[i].y + (arrowlength * 0.25 * Math.sqrt(3) - 0.1) * this.size, [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
+                                this.point[i].x - (arrowlength * 0.25 + 0.2) * this.size, this.point[i].y + (arrowlength * 0.25 * Math.sqrt(3) - 0.1) * this.size,
+                                [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
                             this.ctx.stroke();
                             this.ctx.fill();
                             break;
@@ -836,7 +958,8 @@ class Puzzle_pyramid extends Puzzle {
                             this.ctx.text(this[pu].number[i][0].slice(0, -2), this.point[i].x + 0.0 * this.size, this.point[i].y + 0.15 * this.size, this.size * 0.8);
                             this.ctx.beginPath();
                             this.ctx.arrow(this.point[i].x + (arrowlength * 0.5 + 0.0) * this.size, this.point[i].y + (arrowlength * 0.0 - 0.3) * this.size,
-                                this.point[i].x + (-arrowlength * 0.5 + 0.0) * this.size, this.point[i].y + (-arrowlength * 0.0 - 0.3) * this.size, [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
+                                this.point[i].x + (-arrowlength * 0.5 + 0.0) * this.size, this.point[i].y + (-arrowlength * 0.0 - 0.3) * this.size,
+                                [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
                             this.ctx.stroke();
                             this.ctx.fill();
                             break;
@@ -844,7 +967,8 @@ class Puzzle_pyramid extends Puzzle {
                             this.ctx.text(this[pu].number[i][0].slice(0, -2), this.point[i].x + 0.0 * this.size, this.point[i].y + 0.15 * this.size, this.size * 0.8);
                             this.ctx.beginPath();
                             this.ctx.arrow(this.point[i].x - (arrowlength * 0.5 + 0.0) * this.size, this.point[i].y + (arrowlength * 0.0 - 0.3) * this.size,
-                                this.point[i].x - (-arrowlength * 0.5 + 0.0) * this.size, this.point[i].y + (-arrowlength * 0.0 - 0.3) * this.size, [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
+                                this.point[i].x - (-arrowlength * 0.5 + 0.0) * this.size, this.point[i].y + (-arrowlength * 0.0 - 0.3) * this.size,
+                                [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
                             this.ctx.stroke();
                             this.ctx.fill();
                             break;
@@ -852,7 +976,8 @@ class Puzzle_pyramid extends Puzzle {
                             this.ctx.text(this[pu].number[i][0].slice(0, -2), this.point[i].x - 0.0 * this.size, this.point[i].y + 0.15 * this.size, this.size * 0.8);
                             this.ctx.beginPath();
                             this.ctx.arrow(this.point[i].x + (arrowlength * 0.25 * Math.sqrt(3) + 0.1) * this.size, this.point[i].y + (arrowlength * 0.25 - 0.2) * this.size,
-                                this.point[i].x + (-arrowlength * 0.25 * Math.sqrt(3) + 0.1) * this.size, this.point[i].y + (-arrowlength * 0.25 - 0.2) * this.size, [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
+                                this.point[i].x + (-arrowlength * 0.25 * Math.sqrt(3) + 0.1) * this.size, this.point[i].y + (-arrowlength * 0.25 - 0.2) * this.size,
+                                [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
                             this.ctx.stroke();
                             this.ctx.fill();
                             break;
@@ -860,7 +985,8 @@ class Puzzle_pyramid extends Puzzle {
                             this.ctx.text(this[pu].number[i][0].slice(0, -2), this.point[i].x - 0.0 * this.size, this.point[i].y + 0.15 * this.size, this.size * 0.8);
                             this.ctx.beginPath();
                             this.ctx.arrow(this.point[i].x + (-arrowlength * 0.25 * Math.sqrt(3) + 0.15) * this.size, this.point[i].y + (-arrowlength * 0.25 - 0.15) * this.size,
-                                this.point[i].x + (arrowlength * 0.25 * Math.sqrt(3) + 0.15) * this.size, this.point[i].y + (arrowlength * 0.25 - 0.15) * this.size, [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
+                                this.point[i].x + (arrowlength * 0.25 * Math.sqrt(3) + 0.15) * this.size, this.point[i].y + (arrowlength * 0.25 - 0.15) * this.size,
+                                [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
                             this.ctx.stroke();
                             this.ctx.fill();
                             break;
@@ -868,7 +994,8 @@ class Puzzle_pyramid extends Puzzle {
                             this.ctx.text(this[pu].number[i][0].slice(0, -2), this.point[i].x + 0.0 * this.size, this.point[i].y + 0.15 * this.size, this.size * 0.8);
                             this.ctx.beginPath();
                             this.ctx.arrow(this.point[i].x - (arrowlength * 0.25 * Math.sqrt(3) + 0.1) * this.size, this.point[i].y + (arrowlength * 0.25 - 0.2) * this.size,
-                                this.point[i].x - (-arrowlength * 0.25 * Math.sqrt(3) + 0.1) * this.size, this.point[i].y + (-arrowlength * 0.25 - 0.2) * this.size, [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
+                                this.point[i].x - (-arrowlength * 0.25 * Math.sqrt(3) + 0.1) * this.size, this.point[i].y + (-arrowlength * 0.25 - 0.2) * this.size,
+                                [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
                             this.ctx.stroke();
                             this.ctx.fill();
                             break;
@@ -876,7 +1003,8 @@ class Puzzle_pyramid extends Puzzle {
                             this.ctx.text(this[pu].number[i][0].slice(0, -2), this.point[i].x + 0.0 * this.size, this.point[i].y + 0.15 * this.size, this.size * 0.8);
                             this.ctx.beginPath();
                             this.ctx.arrow(this.point[i].x - (-arrowlength * 0.25 * Math.sqrt(3) + 0.15) * this.size, this.point[i].y + (-arrowlength * 0.25 - 0.15) * this.size,
-                                this.point[i].x - (arrowlength * 0.25 * Math.sqrt(3) + 0.15) * this.size, this.point[i].y + (arrowlength * 0.25 - 0.15) * this.size, [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
+                                this.point[i].x - (arrowlength * 0.25 * Math.sqrt(3) + 0.15) * this.size, this.point[i].y + (arrowlength * 0.25 - 0.15) * this.size,
+                                [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
                             this.ctx.stroke();
                             this.ctx.fill();
                             break;
@@ -884,7 +1012,8 @@ class Puzzle_pyramid extends Puzzle {
                             this.ctx.text(this[pu].number[i][0].slice(0, -2), this.point[i].x - 0.1 * this.size, this.point[i].y + 0.05 * this.size, this.size * 0.8);
                             this.ctx.beginPath();
                             this.ctx.arrow(this.point[i].x + (arrowlength * 0.0 + 0.25) * this.size, this.point[i].y + (arrowlength * 0.5 - 0.0) * this.size,
-                                this.point[i].x + (-arrowlength * 0.0 + 0.25) * this.size, this.point[i].y + (-arrowlength * 0.5 - 0.0) * this.size, [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
+                                this.point[i].x + (-arrowlength * 0.0 + 0.25) * this.size, this.point[i].y + (-arrowlength * 0.5 - 0.0) * this.size,
+                                [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
                             this.ctx.stroke();
                             this.ctx.fill();
                             break;
@@ -892,7 +1021,8 @@ class Puzzle_pyramid extends Puzzle {
                             this.ctx.text(this[pu].number[i][0].slice(0, -2), this.point[i].x - 0.1 * this.size, this.point[i].y + 0.05 * this.size, this.size * 0.8);
                             this.ctx.beginPath();
                             this.ctx.arrow(this.point[i].x + (arrowlength * 0.0 + 0.25) * this.size, this.point[i].y + (-arrowlength * 0.5 - 0.0) * this.size,
-                                this.point[i].x + (-arrowlength * 0.0 + 0.25) * this.size, this.point[i].y + (arrowlength * 0.5 - 0.0) * this.size, [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
+                                this.point[i].x + (-arrowlength * 0.0 + 0.25) * this.size, this.point[i].y + (arrowlength * 0.5 - 0.0) * this.size,
+                                [0, 1, -0.25 * this.size, 1, -0.25 * this.size, 3]);
                             this.ctx.stroke();
                             this.ctx.fill();
                             break;
@@ -1003,6 +1133,9 @@ class Puzzle_pyramid extends Puzzle {
         } else if (this[pu].number[i][1] === 7) {
             set_circle_style(this.ctx, 2);
             this.draw_circle(this.ctx, this.point[i].x, this.point[i].y, size);
+        } else if (this[pu].number[i][1] === 11) {
+            set_circle_style(this.ctx, 11);
+            this.draw_circle(this.ctx, this.point[i].x, this.point[i].y, size);
         }
     }
 
@@ -1101,31 +1234,75 @@ class Puzzle_pyramid extends Puzzle {
                 set_circle_style(ctx, num);
                 this.draw_polygon(ctx, x, y, 0.35, 4, 0);
                 break;
+            case "diamond_S":
+                set_circle_style(ctx, num);
+                this.draw_polygon(ctx, x, y, 0.22, 4, 0);
+                break;
             case "diamond_SS":
                 set_circle_style(ctx, num);
                 this.draw_polygon(ctx, x, y, 0.13, 4, 0);
                 break;
+            case "hexpoint_LL":
+                set_circle_style(ctx, num);
+                this.draw_polygon(ctx, x, y, 0.48, 6, 30);
+                break;
+            case "hexpoint_L":
+                set_circle_style(ctx, num);
+                this.draw_polygon(ctx, x, y, 0.4, 6, 30);
+                break;
+            case "hexpoint_M":
+                set_circle_style(ctx, num);
+                this.draw_polygon(ctx, x, y, 0.3, 6, 30);
+                break;
+            case "hexpoint_S":
+                set_circle_style(ctx, num);
+                this.draw_polygon(ctx, x, y, 0.2, 6, 30);
+                break;
+            case "hexpoint_SS":
+                set_circle_style(ctx, num);
+                this.draw_polygon(ctx, x, y, 0.13, 6, 30);
+                break;
+            case "hexflat_LL":
+                set_circle_style(ctx, num);
+                this.draw_polygon(ctx, x, y, 0.48, 6, 0);
+                break;
+            case "hexflat_L":
+                set_circle_style(ctx, num);
+                this.draw_polygon(ctx, x, y, 0.4, 6, 0);
+                break;
+            case "hexflat_M":
+                set_circle_style(ctx, num);
+                this.draw_polygon(ctx, x, y, 0.3, 6, 0);
+                break;
+            case "hexflat_S":
+                set_circle_style(ctx, num);
+                this.draw_polygon(ctx, x, y, 0.2, 6, 0);
+                break;
+            case "hexflat_SS":
+                set_circle_style(ctx, num);
+                this.draw_polygon(ctx, x, y, 0.13, 6, 0);
+                break;
             case "ox_B":
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.fillStyle = "rgba(255,255,255,0)";
-                ctx.strokeStyle = "rgba(0,0,0,1)";
+                ctx.fillStyle = Color.TRANSPARENTWHITE;
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 2;
                 this.draw_ox(ctx, num, x, y);
                 break;
             case "ox_E":
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.fillStyle = "rgba(255,255,255,0)";
-                ctx.strokeStyle = "rgba(32,128,32,1)";
+                ctx.fillStyle = Color.TRANSPARENTWHITE;
+                ctx.strokeStyle = Color.GREEN;
                 ctx.lineWidth = 2;
                 this.draw_ox(ctx, num, x, y);
                 break;
             case "ox_G":
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.fillStyle = "rgba(255,255,255,0)";
-                ctx.strokeStyle = "rgba(153,153,153,1)";
+                ctx.fillStyle = Color.TRANSPARENTWHITE;
+                ctx.strokeStyle = Color.GREY;
                 ctx.lineWidth = 2;
                 this.draw_ox(ctx, num, x, y);
                 break;
@@ -1135,13 +1312,16 @@ class Puzzle_pyramid extends Puzzle {
             case "cross":
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.fillStyle = "rgba(0,0,0,0)";
-                ctx.strokeStyle = "rgba(0,0,0,1)";
+                ctx.fillStyle = Color.TRANSPARENTBLACK;
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 3;
                 this.draw_cross(ctx, num, x, y);
                 break;
             case "line":
                 this.draw_linesym(ctx, num, x, y);
+                break;
+            case "frameline":
+                this.draw_framelinesym(ctx, num, x, y);
                 break;
 
                 //number
@@ -1253,14 +1433,14 @@ class Puzzle_pyramid extends Puzzle {
                 break;
             case "battleship_G":
                 set_circle_style(ctx, 3);
-                ctx.fillStyle = "#999";
+                ctx.fillStyle = Color.GREY;
                 this.draw_battleship(ctx, num, x, y);
                 break;
             case "battleship_W":
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.fillStyle = "rgba(0,0,0,0)";
-                ctx.strokeStyle = "rgba(0,0,0,1)";
+                ctx.fillStyle = Color.TRANSPARENTBLACK;
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 2;
                 this.draw_battleship(ctx, num, x, y);
                 break;
@@ -1363,7 +1543,7 @@ class Puzzle_pyramid extends Puzzle {
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
                 ctx.fillStyle = ctx.strokeStyle;
-                ctx.strokeStyle = "rgba(0,0,0,0)";
+                ctx.strokeStyle = Color.TRANSPARENTBLACK;
                 ctx.lineWidth = 2;
                 this.draw_circle(ctx, x, y, r);
                 break;
@@ -1477,8 +1657,8 @@ class Puzzle_pyramid extends Puzzle {
         var r = 0.32;
         ctx.setLineDash([]);
         ctx.lineCap = "round";
-        ctx.fillStyle = "rgba(0,0,0,0)";
-        ctx.strokeStyle = "rgba(0,0,0,1)";
+        ctx.fillStyle = Color.TRANSPARENTBLACK;
+        ctx.strokeStyle = Color.BLACK;
         ctx.lineWidth = 3;
         switch (num) {
             case 1:
@@ -1538,6 +1718,90 @@ class Puzzle_pyramid extends Puzzle {
                 break;
         }
     }
+
+    draw_framelinesym(ctx, num, x, y) {
+        var r = 0.32;
+        ctx.setLineDash([]);
+        ctx.lineCap = "round";
+        ctx.fillStyle = Color.TRANSPARENTBLACK;
+        ctx.strokeStyle = Color.BLACK;
+        ctx.lineWidth = 3;
+        switch (num) {
+            case 1:
+                set_line_style(ctx, 115)
+                r = r / Math.sqrt(2);
+                ctx.beginPath();
+                ctx.moveTo(x + r * pu.size, y - r * pu.size);
+                ctx.lineTo(x - r * pu.size, y + r * pu.size);
+                ctx.closePath();
+                ctx.stroke();
+                break;
+            case 2:
+                set_line_style(ctx, 15)
+                r = r / Math.sqrt(2);
+                ctx.beginPath();
+                ctx.moveTo(x + r * pu.size, y - r * pu.size);
+                ctx.lineTo(x - r * pu.size, y + r * pu.size);
+                ctx.closePath();
+                ctx.stroke();
+                break;
+            case 3:
+                set_line_style(ctx, 16)
+                r = r / Math.sqrt(2);
+                ctx.beginPath();
+                ctx.moveTo(x + r * pu.size, y - r * pu.size);
+                ctx.lineTo(x - r * pu.size, y + r * pu.size);
+                ctx.closePath();
+                ctx.stroke();
+                break;
+            case 4:
+                set_line_style(ctx, 110)
+                r = r / Math.sqrt(2);
+                ctx.beginPath();
+                ctx.moveTo(x + r * pu.size, y - r * pu.size);
+                ctx.lineTo(x - r * pu.size, y + r * pu.size);
+                ctx.closePath();
+                ctx.stroke();
+                break;
+            case 5:
+                set_line_style(ctx, 115)
+                r = r / Math.sqrt(2);
+                ctx.beginPath();
+                ctx.moveTo(x - r * pu.size, y - r * pu.size);
+                ctx.lineTo(x + r * pu.size, y + r * pu.size);
+                ctx.closePath();
+                ctx.stroke();
+                break;
+            case 6:
+                set_line_style(ctx, 15)
+                r = r / Math.sqrt(2);
+                ctx.beginPath();
+                ctx.moveTo(x - r * pu.size, y - r * pu.size);
+                ctx.lineTo(x + r * pu.size, y + r * pu.size);
+                ctx.closePath();
+                ctx.stroke();
+                break;
+            case 7:
+                set_line_style(ctx, 16)
+                r = r / Math.sqrt(2);
+                ctx.beginPath();
+                ctx.moveTo(x - r * pu.size, y - r * pu.size);
+                ctx.lineTo(x + r * pu.size, y + r * pu.size);
+                ctx.closePath();
+                ctx.stroke();
+                break;
+            case 8:
+                set_line_style(ctx, 110)
+                r = r / Math.sqrt(2);
+                ctx.beginPath();
+                ctx.moveTo(x - r * pu.size, y - r * pu.size);
+                ctx.lineTo(x + r * pu.size, y + r * pu.size);
+                ctx.closePath();
+                ctx.stroke();
+                break;
+        }
+    }
+
 
     draw_inequality(ctx, num, x, y) {
         var th;
@@ -1622,7 +1886,6 @@ class Puzzle_pyramid extends Puzzle {
                 ctx.text("≧", x, y);
                 break;
 
-
         }
     }
 
@@ -1638,49 +1901,56 @@ class Puzzle_pyramid extends Puzzle {
                 w1 = z1;
                 w2 = -2 * (z1 + z2);
                 ctx.beginPath();
-                ctx.arrow(x - w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + w2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+                ctx.arrow(x - w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + w2 * pu.size,
+                    [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
                 ctx.fill();
             }
             if (num[1] === 1) {
                 w1 = -(z1 + z2);
                 w2 = -2 * z1;
                 ctx.beginPath();
-                ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y - 2 * z2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+                ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y - 2 * z2 * pu.size,
+                    [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
                 ctx.fill();
             }
             if (num[2] === 1) {
                 w1 = z1 + z2;
                 w2 = -2 * z1;
                 ctx.beginPath();
-                ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y - 2 * z2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+                ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y - 2 * z2 * pu.size,
+                    [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
                 ctx.fill();
             }
             if (num[3] === 1) {
                 w1 = z1;
                 w2 = 0;
                 ctx.beginPath();
-                ctx.arrow(x - w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + w2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+                ctx.arrow(x - w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + w2 * pu.size,
+                    [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
                 ctx.fill();
             }
             if (num[4] === 1) {
                 w1 = -(z1 + z2);
                 w2 = 2 * z1;
                 ctx.beginPath();
-                ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + 2 * z2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+                ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + 2 * z2 * pu.size,
+                    [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
                 ctx.fill();
             }
             if (num[5] === 1) {
                 w1 = z1 + z2;
                 w2 = 2 * z1;
                 ctx.beginPath();
-                ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + 2 * z2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+                ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + 2 * z2 * pu.size,
+                    [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
                 ctx.fill();
             }
             if (num[6] === 1) {
                 w1 = z1;
                 w2 = 2 * (z1 + z2);
                 ctx.beginPath();
-                ctx.arrow(x - w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + w2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+                ctx.arrow(x - w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + w2 * pu.size,
+                    [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
                 ctx.fill();
             }
         }
@@ -1697,43 +1967,50 @@ class Puzzle_pyramid extends Puzzle {
         w1 = z1;
         w2 = -2 * (z1 + z2);
         ctx.beginPath();
-        ctx.arrow(x - w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + w2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+        ctx.arrow(x - w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + w2 * pu.size,
+            [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
         ctx.stroke();
         ctx.fill();
         w1 = -(z1 + z2);
         w2 = -2 * z1;
         ctx.beginPath();
-        ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y - 2 * z2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+        ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y - 2 * z2 * pu.size,
+            [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
         ctx.stroke();
         ctx.fill();
         w1 = z1 + z2;
         w2 = -2 * z1;
         ctx.beginPath();
-        ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y - 2 * z2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+        ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y - 2 * z2 * pu.size,
+            [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
         ctx.stroke();
         ctx.fill();
         w1 = z1;
         w2 = 0;
         ctx.beginPath();
-        ctx.arrow(x - w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + w2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+        ctx.arrow(x - w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + w2 * pu.size,
+            [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
         ctx.stroke();
         ctx.fill();
         w1 = -(z1 + z2);
         w2 = 2 * z1;
         ctx.beginPath();
-        ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + 2 * z2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+        ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + 2 * z2 * pu.size,
+            [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
         ctx.stroke();
         ctx.fill();
         w1 = z1 + z2;
         w2 = 2 * z1;
         ctx.beginPath();
-        ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + 2 * z2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+        ctx.arrow(x + w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + 2 * z2 * pu.size,
+            [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
         ctx.stroke();
         ctx.fill();
         w1 = z1;
         w2 = 2 * (z1 + z2);
         ctx.beginPath();
-        ctx.arrow(x - w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + w2 * pu.size, [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
+        ctx.arrow(x - w1 * pu.size, y + w2 * pu.size, x + w1 * pu.size, y + w2 * pu.size,
+            [w3 * pu.size, w4 * pu.size, -w3 * pu.size, w4 * pu.size]);
         ctx.stroke();
         ctx.fill();
 
@@ -1751,7 +2028,7 @@ class Puzzle_pyramid extends Puzzle {
 
     draw_pills(ctx, num, x, y) {
         var r = 0.15;
-        ctx.fillStyle = "#999"
+        ctx.fillStyle = Color.GREY
         switch (num) {
             case 1:
                 this.draw_circle(ctx, x, y, r);
@@ -1826,7 +2103,8 @@ class Puzzle_pyramid extends Puzzle {
                 th = this.rotate_theta((num - 7) * 180 - 90);
             }
             ctx.beginPath();
-            ctx.arrow(x - len1 * pu.size * Math.cos(th), y - len1 * pu.size * Math.sin(th), x + len2 * pu.size * Math.cos(th), y + len2 * pu.size * Math.sin(th), [0, w1 * pu.size, r1 * pu.size, w1 * pu.size, r2 * pu.size, w2 * pu.size, r3 * pu.size, w3 * pu.size]);
+            ctx.arrow(x - len1 * pu.size * Math.cos(th), y - len1 * pu.size * Math.sin(th), x + len2 * pu.size * Math.cos(th), y + len2 * pu.size * Math.sin(th),
+                [0, w1 * pu.size, r1 * pu.size, w1 * pu.size, r2 * pu.size, w2 * pu.size, r3 * pu.size, w3 * pu.size]);
             ctx.fill();
             ctx.stroke();
         }
@@ -1868,13 +2146,15 @@ class Puzzle_pyramid extends Puzzle {
         if (num > 0 && num <= 6) {
             th = this.rotate_theta((num - 1) * 60 - 180);
             ctx.beginPath();
-            ctx.arrow(x - len1 * pu.size * Math.cos(th), y - len1 * pu.size * Math.sin(th), x + len2 * pu.size * Math.cos(th), y + len2 * pu.size * Math.sin(th), [0, w1 * pu.size, ri * pu.size, w1 * pu.size, ri * pu.size, w2 * pu.size]);
+            ctx.arrow(x - len1 * pu.size * Math.cos(th), y - len1 * pu.size * Math.sin(th), x + len2 * pu.size * Math.cos(th), y + len2 * pu.size * Math.sin(th),
+                [0, w1 * pu.size, ri * pu.size, w1 * pu.size, ri * pu.size, w2 * pu.size]);
             ctx.fill();
             ctx.stroke();
         } else if (num >= 7 && num <= 8) {
             th = this.rotate_theta((num - 7) * 180 - 90);
             ctx.beginPath();
-            ctx.arrow(x - len1 * pu.size * Math.cos(th), y - len1 * pu.size * Math.sin(th), x + len2 * pu.size * Math.cos(th), y + len2 * pu.size * Math.sin(th), [0, w1 * pu.size, ri * pu.size, w1 * pu.size, ri * pu.size, w2 * pu.size]);
+            ctx.arrow(x - len1 * pu.size * Math.cos(th), y - len1 * pu.size * Math.sin(th), x + len2 * pu.size * Math.cos(th), y + len2 * pu.size * Math.sin(th),
+                [0, w1 * pu.size, ri * pu.size, w1 * pu.size, ri * pu.size, w2 * pu.size]);
             ctx.fill();
             ctx.stroke();
         }
@@ -1891,7 +2171,8 @@ class Puzzle_pyramid extends Puzzle {
             if (num[i] === 1) {
                 th = this.rotate_theta(i * 60 - 180);
                 ctx.beginPath();
-                ctx.arrow(x - len1 * pu.size * Math.cos(th), y - len1 * pu.size * Math.sin(th), x + len2 * pu.size * Math.cos(th), y + len2 * pu.size * Math.sin(th), [0, w1 * pu.size, ri * pu.size, w1 * pu.size, ri * pu.size, w2 * pu.size]);
+                ctx.arrow(x - len1 * pu.size * Math.cos(th), y - len1 * pu.size * Math.sin(th), x + len2 * pu.size * Math.cos(th), y + len2 * pu.size * Math.sin(th),
+                    [0, w1 * pu.size, ri * pu.size, w1 * pu.size, ri * pu.size, w2 * pu.size]);
                 ctx.fill();
             }
         }
@@ -1914,53 +2195,53 @@ class Puzzle_pyramid extends Puzzle {
         var th = this.rotate_theta(45) * 180 / Math.PI;
         switch (num) {
             case 1:
-                ctx.fillStyle = "#000";
-                ctx.strokeStyle = "rgba(255,255,255,0)";
+                ctx.fillStyle = Color.BLACK;
+                ctx.strokeStyle = Color.TRANSPARENTWHITE;
                 ctx.lineWidth = 1;
                 this.draw_polygon(ctx, x, y, 0.5 * Math.sqrt(2), 4, th);
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "#fff";
+                ctx.strokeStyle = Color.WHITE;
                 ctx.lineWidth = 1;
                 this.draw_slash(ctx, x, y, 0.5 * Math.sqrt(2));
                 break;
             case 2:
-                ctx.fillStyle = "#000";
-                ctx.strokeStyle = "rgba(255,255,255,0)";
+                ctx.fillStyle = Color.BLACK;
+                ctx.strokeStyle = Color.TRANSPARENTWHITE;
                 ctx.lineWidth = 1;
                 this.draw_polygon(ctx, x, y, 0.5 * Math.sqrt(2), 4, th);
                 break;
             case 3:
-                ctx.fillStyle = "#ccc";
-                ctx.strokeStyle = "rgba(0,0,0,1)";
+                ctx.fillStyle = Color.GREY_LIGHT;
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
                 this.draw_polygon(ctx, x, y, 0.5 * Math.sqrt(2), 4, th);
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "#000";
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
                 this.draw_slash(ctx, x, y, 0.5 * Math.sqrt(2));
                 break;
             case 4:
-                ctx.fillStyle = "#ccc";
-                ctx.strokeStyle = "rgba(0,0,0,1)";
+                ctx.fillStyle = Color.GREY_LIGHT;
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
                 this.draw_polygon(ctx, x, y, 0.5 * Math.sqrt(2), 4, th);
                 break;
             case 5:
-                ctx.fillStyle = "#fff";
-                ctx.strokeStyle = "rgba(0,0,0,1)";
+                ctx.fillStyle = Color.WHITE;
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
                 this.draw_polygon(ctx, x, y, 0.5 * Math.sqrt(2), 4, th);
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "#000";
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
                 this.draw_slash(ctx, x, y, 0.5 * Math.sqrt(2));
                 break;
             case 6:
-                ctx.fillStyle = "#fff";
-                ctx.strokeStyle = "rgba(0,0,0,1)";
+                ctx.fillStyle = Color.WHITE;
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
                 this.draw_polygon(ctx, x, y, 0.5 * Math.sqrt(2), 4, th);
                 break;
@@ -1974,7 +2255,7 @@ class Puzzle_pyramid extends Puzzle {
                 var r = 0.5;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "#000";
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
                 this.draw_ast(ctx, x, y, r * Math.sqrt(2));
                 break;
@@ -1982,7 +2263,7 @@ class Puzzle_pyramid extends Puzzle {
                 var r = 0.33;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "#000";
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
                 this.draw_ast(ctx, x, y, r * Math.sqrt(2));
                 break;
@@ -1990,7 +2271,7 @@ class Puzzle_pyramid extends Puzzle {
                 var r = 0.5;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "#fff";
+                ctx.strokeStyle = Color.WHITE;
                 ctx.lineWidth = 1;
                 this.draw_ast(ctx, x, y, r * Math.sqrt(2));
                 break;
@@ -2004,9 +2285,9 @@ class Puzzle_pyramid extends Puzzle {
                 var r2;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "rgba(0,0,0,1)";
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
-                ctx.fillStyle = "#fff";
+                ctx.fillStyle = Color.WHITE;
                 r1 = 0.1;
                 r2 = 0.4;
                 ctx.beginPath();
@@ -2022,8 +2303,8 @@ class Puzzle_pyramid extends Puzzle {
                 r2 = 0.4;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "rgba(0,0,0,1)";
-                ctx.fillStyle = "#999";
+                ctx.strokeStyle = Color.BLACK;
+                ctx.fillStyle = Color.GREY;
                 ctx.lineWidth = 1;
                 ctx.beginPath();
                 ctx.moveTo(x - r1 * Math.cos(90 * (Math.PI / 180)) * pu.size, y - (r1 * Math.sin(90 * (Math.PI / 180)) + 0) * pu.size);
@@ -2040,8 +2321,8 @@ class Puzzle_pyramid extends Puzzle {
             case 2:
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "#000";
-                ctx.fillStyle = "#ccc";
+                ctx.strokeStyle = Color.BLACK;
+                ctx.fillStyle = Color.GREY_LIGHT;
                 ctx.lineWidth = 1;
                 r1 = 0.3;
                 r2 = 0.4;
@@ -2057,8 +2338,8 @@ class Puzzle_pyramid extends Puzzle {
             case 3: //anglers
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "#000";
-                ctx.fillStyle = "rgba(0,0,0,0)";
+                ctx.strokeStyle = Color.BLACK;
+                ctx.fillStyle = Color.TRANSPARENTBLACK;
                 ctx.lineWidth = 2;
                 ctx.beginPath();
                 ctx.moveTo(x - 0.35 * pu.size, y);
@@ -2082,74 +2363,74 @@ class Puzzle_pyramid extends Puzzle {
         var r2 = 0.382 * r1;
         switch (num) {
             case 1:
-                ctx.fillStyle = "#fff";
+                ctx.fillStyle = Color.WHITE;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "#000";
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
                 this.draw_star0(ctx, x, y + 0.03 * pu.size, r1, r2, 5);
                 break;
             case 2:
-                ctx.fillStyle = "#000"; //"#009826";
+                ctx.fillStyle = Color.BLACK;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "rgba(0,0,0,0)";
+                ctx.strokeStyle = Color.TRANSPARENTBLACK;
                 ctx.lineWidth = 1;
                 this.draw_star0(ctx, x, y + 0.03 * pu.size, r1, r2, 5);
                 break;
             case 3:
-                ctx.fillStyle = "#999";
+                ctx.fillStyle = Color.GREY;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "rgba(0,0,0,0)";
+                ctx.strokeStyle = Color.TRANSPARENTBLACK;
                 ctx.lineWidth = 1;
                 this.draw_star0(ctx, x, y + 0.03 * pu.size, r1, r2, 5);
                 break;
             case 4:
-                ctx.fillStyle = "#fff";
+                ctx.fillStyle = Color.WHITE;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "#000";
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
                 this.draw_star0(ctx, x, y, r1, r2 * 0.9, 4);
                 break;
             case 5:
-                ctx.fillStyle = "#000"; //"#009826";
+                ctx.fillStyle = Color.BLACK;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "rgba(0,0,0,0)";
+                ctx.strokeStyle = Color.TRANSPARENTBLACK;
                 ctx.lineWidth = 1;
                 this.draw_star0(ctx, x, y, r1, r2 * 0.9, 4);
                 break;
             case 6:
-                ctx.fillStyle = "#999";
+                ctx.fillStyle = Color.GREY;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "rgba(0,0,0,0)";
+                ctx.strokeStyle = Color.TRANSPARENTBLACK;
                 ctx.lineWidth = 1;
                 this.draw_star0(ctx, x, y, r1, r2 * 0.9, 4);
                 break;
             case 7:
-                ctx.fillStyle = "#fff";
+                ctx.fillStyle = Color.WHITE;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "#000";
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
                 this.draw_star0(ctx, x, y, r2 * 0.9, r1, 4);
                 break;
             case 8:
-                ctx.fillStyle = "#000"; //"#009826";
+                ctx.fillStyle = Color.BLACK;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "rgba(0,0,0,0)";
+                ctx.strokeStyle = Color.TRANSPARENTBLACK;
                 ctx.lineWidth = 1;
                 this.draw_star0(ctx, x, y, r2 * 0.9, r1, 4);
                 break;
             case 9:
-                ctx.fillStyle = "#999";
+                ctx.fillStyle = Color.GREY;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "rgba(0,0,0,0)";
+                ctx.strokeStyle = Color.TRANSPARENTBLACK;
                 ctx.lineWidth = 1;
                 this.draw_star0(ctx, x, y, r2 * 0.9, r1, 4);
                 break;
@@ -2157,7 +2438,7 @@ class Puzzle_pyramid extends Puzzle {
                 var r = 0.4;
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.strokeStyle = "#999";
+                ctx.strokeStyle = Color.BLACK;
                 ctx.lineWidth = 1;
                 this.draw_x(ctx, x, y, r)
                 break;
@@ -2248,7 +2529,7 @@ class Puzzle_pyramid extends Puzzle {
             case 2:
                 r = 0.24;
                 set_circle_style(ctx, 5);
-                ctx.fillStyle = "#999";
+                ctx.fillStyle = Color.GREY;
                 this.draw_polygon(ctx, x, y, r, 4, 45);
                 break;
             case 3:
@@ -2281,8 +2562,8 @@ class Puzzle_pyramid extends Puzzle {
                 var th = this.rotate_theta((num - 1) * 60 - 180);
                 set_circle_style(ctx, 1);
                 this.draw_circle(ctx, x, y, r1);
-                ctx.fillStyle = "#000";
-                ctx.strokeStyle = "rgba(0,0,0,0)";
+                ctx.fillStyle = Color.BLACK;
+                ctx.strokeStyle = Color.TRANSPARENTBLACK;
                 ctx.lineWidth = 2;
                 this.draw_circle(ctx, x - r1 * pu.size * Math.cos(th), y - r1 * pu.size * Math.sin(th), r2);
                 break;
@@ -2309,6 +2590,14 @@ class Puzzle_pyramid extends Puzzle {
                 ctx.closePath();
                 ctx.fill();
                 break;
+            case 3:
+                set_font_style(ctx, 0.6 * pu.size.toString(10), 10);
+                ctx.text("💡", x, y, 0.7 * pu.size, this.size * 0.8);
+                break;
+            case 4:
+                set_font_style(ctx, 0.6 * pu.size.toString(10), 10);
+                ctx.text("💣", x, y, 0.7 * pu.size, this.size * 0.8);
+                break;
         }
     }
 
@@ -2316,8 +2605,8 @@ class Puzzle_pyramid extends Puzzle {
         var r = 0.2;
         ctx.setLineDash([]);
         ctx.lineCap = "butt";
-        ctx.fillStyle = "#000";
-        ctx.strokeStyle = "#000";
+        ctx.fillStyle = Color.BLACK;
+        ctx.strokeStyle = Color.BLACK;
         ctx.lineWidth = 2;
         ctx.lineJoin = "bevel"
         switch (num) {
@@ -2384,19 +2673,19 @@ class Puzzle_pyramid extends Puzzle {
         switch (num) {
             case 1:
                 var r = 0.14;
-                ctx.strokeStyle = "rgba(0,0,0,0)";
-                ctx.fillStyle = "#ccc";
+                ctx.strokeStyle = Color.TRANSPARENTBLACK;
+                ctx.fillStyle = Color.GREY_LIGHT;
                 this.draw_polygon(ctx, x - r * pu.size, y + r * pu.size, r * Math.sqrt(2), 4, 45);
                 this.draw_polygon(ctx, x + r * pu.size, y - r * pu.size, r * Math.sqrt(2), 4, 45);
-                ctx.fillStyle = "#666";
+                ctx.fillStyle = Color.GREY_DARK;
                 this.draw_polygon(ctx, x - r * pu.size, y - r * pu.size, r * Math.sqrt(2), 4, 45);
                 this.draw_polygon(ctx, x + r * pu.size, y + r * pu.size, r * Math.sqrt(2), 4, 45);
                 break;
             case 2:
                 ctx.setLineDash([]);
                 ctx.lineCap = "butt";
-                ctx.fillStyle = "rgba(0,0,0,0)";
-                ctx.strokeStyle = "#ccc";
+                ctx.fillStyle = Color.TRANSPARENTBLACK;
+                ctx.strokeStyle = Color.GREY_LIGHT;
                 ctx.lineWidth = 4;
                 this.draw_circle(ctx, x, y, 0.71);
                 break;
@@ -2420,8 +2709,8 @@ class Puzzle_pyramid extends Puzzle {
                 ctx.lineCap = "butt";
                 ctx.lineWidth = 2;
                 ctx.setLineDash([]);
-                ctx.fillStyle = "rgba(0,0,0,0)";
-                ctx.strokeStyle = "#000";
+                ctx.fillStyle = Color.TRANSPARENTBLACK;
+                ctx.strokeStyle = Color.BLACK;
                 ctx.beginPath()
                 ctx.moveTo(x + r, y);
                 ctx.lineTo(x + w - r, y);
@@ -2444,8 +2733,8 @@ class Puzzle_pyramid extends Puzzle {
                 ctx.lineCap = "butt";
                 ctx.lineWidth = 2;
                 ctx.setLineDash([]);
-                ctx.fillStyle = "rgba(0,0,0,0)";
-                ctx.strokeStyle = "#000";
+                ctx.fillStyle = Color.TRANSPARENTBLACK;
+                ctx.strokeStyle = Color.BLACK;
                 ctx.beginPath()
                 ctx.moveTo(x + r, y);
                 ctx.lineTo(x + w - r, y);
@@ -2464,8 +2753,8 @@ class Puzzle_pyramid extends Puzzle {
 
     draw_polyomino(ctx, num, x, y) {
         ctx.setLineDash([]);
-        ctx.fillStyle = "rgba(200,200,200,1)";
-        ctx.strokeStyle = "#000";
+        ctx.fillStyle = Color.GREY_LIGHT;
+        ctx.strokeStyle = Color.BLACK;
         ctx.lineWidth = 1.2;
         ctx.lineCap = "butt";
         var r = 0.25;

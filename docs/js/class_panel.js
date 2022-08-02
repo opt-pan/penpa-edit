@@ -8,9 +8,10 @@ class Panel {
         this.fkb = document.getElementById("float-key-body");
 
         this.spacef = 3;
-        this.sizef = 36; //Math.min(45,Math.max(pu.size,28));
+        this.sizef = 36; // Math.min(45,Math.max(pu.size,28));
         this.nxf = 4;
         this.nyf = 3;
+        this.offset = 0.47; // to center the display of symbols/numbers in the Panel
 
         this.cont = [];
         this.str = "";
@@ -23,25 +24,12 @@ class Panel {
     }
 
     select_open() {
-        document.getElementById("float-key-select").style.display = "inline";
+        document.getElementById("float-key-select").style.display = "block";
         document.getElementById("float-key-select").style.left = this.fkh.style.width;
     }
 
     select_close() {
         document.getElementById("float-key-select").style.display = "none";
-    }
-
-    inputtext() {
-        var input_text = "";
-        input_text = document.getElementById("inputtext").value;
-        pu.key_space();
-        for (var i = 0; i < input_text.length; i++) {
-            pu.key_number(input_text[i]);
-        }
-    }
-
-    cleartext() {
-        var input_message = document.getElementById("inputtext").value = "";
     }
 
     canvas_size_setting(height) {
@@ -62,8 +50,8 @@ class Panel {
         }
         for (var i = 0; i < this.nxf * this.nyf; i++) {
             set_font_style(this.ctxf, 0.8 * this.sizef.toString(10), pu.mode[pu.mode.qa][pu.mode[pu.mode.qa].edit_mode][1]);
-            if (this.ctxf.fillStyle === "#ffffff") { this.ctxf.fillStyle = "#000000"; }
-            this.ctxf.text(this.cont[i].toString(), (i % this.nxf + 0.45) * (this.sizef + this.spacef), ((i / this.nxf | 0) + 0.55) * (this.sizef + this.spacef));
+            if (this.ctxf.fillStyle === Color.WHITE) { this.ctxf.fillStyle = Color.BLACK; }
+            this.ctxf.text(this.cont[i].toString(), (i % this.nxf + this.offset) * (this.sizef + this.spacef), ((i / this.nxf | 0) + 0.55) * (this.sizef + this.spacef));
         }
     }
 
@@ -74,12 +62,25 @@ class Panel {
         }
         for (var i = 0; i < this.nxf * this.nyf; i++) {
             set_font_style(this.ctxf, 0.8 * this.sizef.toString(10), pu.mode[pu.mode.qa][pu.mode[pu.mode.qa].edit_mode][1]);
-            if (this.ctxf.fillStyle === "#ffffff") { this.ctxf.fillStyle = "#000000"; }
-            this.ctxf.text(this.cont[i], (i % this.nxf + 0.45) * (this.sizef + this.spacef), ((i / this.nxf | 0) + 0.55) * (this.sizef + this.spacef));
+            if (this.ctxf.fillStyle === Color.WHITE) { this.ctxf.fillStyle = Color.BLACK; }
+            this.ctxf.text(this.cont[i], (i % this.nxf + this.offset) * (this.sizef + this.spacef), ((i / this.nxf | 0) + 0.55) * (this.sizef + this.spacef));
         }
     }
 
+    inputtext() {
+        let input_text = [...document.getElementById("inputtext").value];
+        pu.key_space();
+        for (var i = 0; i < input_text.length; i++) {
+            pu.key_number(input_text[i]);
+        }
+    }
+
+    cleartext() {
+        var input_message = document.getElementById("inputtext").value = "";
+    }
+
     draw_panel() {
+        var canvas_size_setting_constant = 65;
         this.select_close();
         document.getElementById("float-key-board").style.display = "inline";
         document.getElementById("float-key-text").style.display = "none";
@@ -89,7 +90,7 @@ class Panel {
                     this.nxf = 4;
                     this.nyf = 3;
                     this.sizef = 36;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
@@ -99,24 +100,24 @@ class Panel {
                 case "number":
                     this.nxf = 4;
                     this.nyf = 3;
-                    this.sizef = 36;
-                    this.canvas_size_setting(45);
+                    this.sizef = 50;
+                    this.canvas_size_setting(65);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
-                    this.cont = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "\u{21B2}", ""];
+                    this.cont = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "\u{232B}", "\u{2421}"];
                     this.draw_number();
                     break;
                 case "alphabet":
                     this.nxf = 6;
                     this.nyf = 5;
                     this.sizef = 36;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
                     this.cont = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
-                        "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "!", "?", "\u{2423}", ""
+                        "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "!", "?", "\u{2423}", "\u{2421}"
                     ];
                     this.draw_number();
                     break;
@@ -124,12 +125,12 @@ class Panel {
                     this.nxf = 6;
                     this.nyf = 5;
                     this.sizef = 36;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
                     this.cont = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
-                        "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "!", "?", "\u{2423}", ""
+                        "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "!", "?", "\u{2423}", "\u{2421}"
                     ];
                     this.draw_number();
                     break;
@@ -137,7 +138,7 @@ class Panel {
                     this.nxf = 6;
                     this.nyf = 5;
                     this.sizef = 36;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
@@ -149,7 +150,7 @@ class Panel {
                     this.nxf = 10;
                     this.nyf = 9;
                     this.sizef = 28;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
@@ -162,7 +163,7 @@ class Panel {
                     this.nxf = 10;
                     this.nyf = 9;
                     this.sizef = 28;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
@@ -175,7 +176,7 @@ class Panel {
                     this.nxf = 10;
                     this.nyf = 9;
                     this.sizef = 28;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
@@ -188,7 +189,7 @@ class Panel {
                     this.nxf = 6;
                     this.nyf = 4;
                     this.sizef = 36;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
@@ -200,7 +201,7 @@ class Panel {
                     this.nxf = 8;
                     this.nyf = 6;
                     this.sizef = 28;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
@@ -212,7 +213,7 @@ class Panel {
                     this.nxf = 7;
                     this.nyf = 5;
                     this.sizef = 28;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
@@ -224,7 +225,7 @@ class Panel {
                     this.nxf = 7;
                     this.nyf = 6;
                     this.sizef = 28;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
@@ -236,7 +237,7 @@ class Panel {
                     this.nxf = 6;
                     this.nyf = 8;
                     this.sizef = 32;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
@@ -248,7 +249,7 @@ class Panel {
                     this.nxf = 4;
                     this.nyf = 6;
                     this.sizef = 32;
-                    this.canvas_size_setting(45);
+                    this.canvas_size_setting(canvas_size_setting_constant);
                     this.fkb.style.paddingTop = "0px";
                     this.fkb.style.display = "block";
                     this.fkm.style.display = "flex";
@@ -260,9 +261,9 @@ class Panel {
         } else if (pu.mode[pu.mode.qa].edit_mode === "symbol") {
             this.nxf = 4;
             this.nyf = 3;
-            this.sizef = 36;
+            this.sizef = 50;
             this.canvas_size_setting(5);
-            this.fkb.style.paddingTop = "20px";
+            this.fkb.style.paddingTop = "40px";
             this.fkb.style.display = "block";
             this.fkm.style.display = "none";
 
@@ -281,7 +282,7 @@ class Panel {
             var size = pu.size;
             pu.size = this.sizef;
             for (var i = 0; i < this.cont.length; i++) {
-                pu.draw_symbol_select(this.ctxf, (i % this.nxf + 0.45) * (this.sizef + this.spacef), ((i / this.nxf | 0) + 0.45) * (this.sizef + this.spacef), this.cont[i], pu.mode[pu.mode.qa].symbol[0]);
+                pu.draw_symbol_select(this.ctxf, (i % this.nxf + this.offset) * (this.sizef + this.spacef), ((i / this.nxf | 0) + this.offset) * (this.sizef + this.spacef), this.cont[i], pu.mode[pu.mode.qa].symbol[0]);
             }
             pu.size = size;
 
@@ -292,6 +293,46 @@ class Panel {
                 }
                 set_line_style(this.ctxf, 100);
                 this.ctxf.strokeRect((i_n % this.nxf) * (this.sizef + this.spacef), (i_n / this.nxf | 0) * (this.sizef + this.spacef), this.sizef, this.sizef);
+            }
+        } else if (pu.mode[pu.mode.qa].edit_mode === "sudoku") {
+            switch (this.panelmode) {
+                case "number":
+                    this.nxf = 4;
+                    this.nyf = 3;
+                    this.sizef = 50;
+                    this.canvas_size_setting(canvas_size_setting_constant);
+                    this.fkb.style.paddingTop = "0px";
+                    this.fkb.style.display = "block";
+                    this.fkm.style.display = "flex";
+                    this.cont = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, "\u{232B}", "\u{2421}"];
+                    this.draw_number();
+                    break;
+                case "alphabet":
+                    this.nxf = 6;
+                    this.nyf = 5;
+                    this.sizef = 40;
+                    this.canvas_size_setting(canvas_size_setting_constant);
+                    this.fkb.style.paddingTop = "0px";
+                    this.fkb.style.display = "block";
+                    this.fkm.style.display = "flex";
+                    this.cont = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O",
+                        "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "", "", "\u{2423}", "\u{2421}"
+                    ];
+                    this.draw_number();
+                    break;
+                case "alphabet_s":
+                    this.nxf = 6;
+                    this.nyf = 5;
+                    this.sizef = 40;
+                    this.canvas_size_setting(canvas_size_setting_constant);
+                    this.fkb.style.paddingTop = "0px";
+                    this.fkb.style.display = "block";
+                    this.fkm.style.display = "flex";
+                    this.cont = ["a", "b", "", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
+                        "p", "q", "r", "s", "t", "u", "", "w", "", "y", "", "", "", "\u{2423}", "\u{2421}"
+                    ];
+                    this.draw_number();
+                    break;
             }
         } else {
             this.fkb.style.display = "none";
