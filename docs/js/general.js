@@ -1916,6 +1916,12 @@ function make_ppfile() {
     document.getElementById("modal-save2").style.display = 'none';
 }
 
+function make_ppfile2() {
+    var text = pu.maketext_ppfile2();
+    document.getElementById("savetextarea").value = text;
+    document.getElementById("modal-save2").style.display = 'none';
+}
+
 function make_gmpfile() {
     var text = pu.maketext_gmpfile();
     document.getElementById("savetextarea").value = text;
