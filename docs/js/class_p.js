@@ -4745,9 +4745,9 @@ class Puzzle {
 
             for (var i in this.pu_q.symbol) {
                 if (this.pu_q.symbol[i][0] === 1 && this.pu_q.symbol[i][1] === "circle_S") {
-                    text += "w@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x) + ",0,0,1.5,1.5\n";
+                    text += "w@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x) + ",0,0,1.8,1.8\n";
                 } else if (this.pu_q.symbol[i][0] === 2 && this.pu_q.symbol[i][1] === "circle_S") {
-                    text += "b@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x) + ",0,0,1.5,1.5\n";
+                    text += "b@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x) + ",0,0,1.8,1.8\n";
                 }
             }
             text += "--------\n";
