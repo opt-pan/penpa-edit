@@ -405,3 +405,32 @@ function trans() {
     }
     trans_text(button_text, label_text, placeholder);
 }
+
+const PenpaText = {
+    get(key) {
+        const entry = this.dictionary[key] || {};
+        // @TODO: Centralize language toggle in UserSettings :)
+        if (document.getElementById("english").innerHTML === "EN") {
+            return entry.JP || '';
+        }
+        return entry.EN || '';
+    },
+    dictionary: {
+        scriptingMessageTitle: {
+            'JP': '',
+            'EN': 'Puzzle may contain scripting!'
+        },
+        scriptingMessage: {
+            'JP': '',
+            'EN': 'It could be something fun, but it could also be dangerous. You should not allow it to run unless it is from a trusted source.'
+        },
+        scriptingConfirm: {
+            'JP': '',
+            'EN': 'Allow it to run.'
+        },
+        scriptingCancel: {
+            'JP': '',
+            'EN': 'Remove it! (Recommended)'
+        }
+    }
+};
