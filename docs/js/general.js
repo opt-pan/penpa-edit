@@ -2294,8 +2294,18 @@ function load(urlParam, type = 'url', origurl = null) {
             if (document.getElementById("english").innerHTML === "EN") {
                 ptitle = "タイトル" + ptitle.slice(5);
             }
-            document.getElementById("puzzletitle").innerHTML = ptitle;
-            document.getElementById("saveinfotitle").value = ptitle.slice(7); // text after "Title: "
+            if (ptitle.indexOf('<') > -1) {
+                PenpaUI.requestScripting().then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById("puzzletitle").innerHTML = ptitle;
+                        document.getElementById("saveinfotitle").value = ptitle.slice(7); // text after "Title: "
+                    } else {
+                        ptitle = ptitle.replace(/<\/?[^>]+(>|$)/g, "");
+                        document.getElementById("puzzletitle").innerText = ptitle;
+                        document.getElementById("saveinfotitle").value = ptitle.slice(7); // text after "Title: "
+                    }
+                });
+            }
         }
     }
     if (rtext_para[16]) {
@@ -2304,16 +2314,26 @@ function load(urlParam, type = 'url', origurl = null) {
             if (document.getElementById("english").innerHTML === "EN") {
                 pauthor = "作者" + pauthor.slice(6);
             }
-            document.getElementById("puzzleauthor").innerHTML = pauthor;
-            document.getElementById("saveinfoauthor").value = pauthor.slice(8); // text after "Author: "
+            if (pauthor.indexOf('<') > -1) {
+                PenpaUI.requestScripting().then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById("puzzleauthor").innerHTML = pauthor;
+                        document.getElementById("saveinfoauthor").value = pauthor.slice(8); // text after "Author: "
+                    } else {
+                        pauthor = pauthor.replace(/<\/?[^>]+(>|$)/g, "");
+                        document.getElementById("puzzleauthor").innerText = pauthor;
+                        document.getElementById("saveinfoauthor").value = pauthor.slice(8); // text after "Author: "
+                    }
+                });
+            }
         }
     }
     if (rtext_para[17] && rtext_para[17] !== "") {
         document.getElementById("puzzlesourcelink").href = rtext_para[17];
         if (document.getElementById("english").innerHTML === "EN") {
-            document.getElementById("puzzlesource").innerHTML = "ソース";
+            document.getElementById("puzzlesource").innerText = "ソース";
         } else {
-            document.getElementById("puzzlesource").innerHTML = "Source";
+            document.getElementById("puzzlesource").innerText = "Source";
         }
         document.getElementById("saveinfosource").value = rtext_para[17];
     }
