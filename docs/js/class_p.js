@@ -4504,7 +4504,12 @@ class Puzzle {
             text += '&toWide\n';
 
             for (var i in this.pu_a.number) {
-                text += this.pu_a.number[i][0] + "@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x) + "\n";
+                if (this.pu_a.number[i][0] < 10) {
+                    text += this.pu_a.number[i][0] + "@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x) + "\n";
+                } else {
+                    text += parseInt(this.pu_a.number[i][0] / 10) + "@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x - this.size * 0.2) + ",0,0,0.9,1\n";
+                    text += this.pu_a.number[i][0] % 10 + "@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x + this.size * 0.2) + ",0,0,0.9,1\n";
+                }
             }
 
             text += "--------\n";
@@ -4527,8 +4532,8 @@ class Puzzle {
                 if (this.pu_q.number[i][0] < 10) {
                     text += this.pu_q.number[i][0] + "@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x) + "\n";
                 } else {
-                    text += parseInt(this.pu_q.number[i][0] / 10) + "@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x - this.size * 0.17) + ",0,0,0.85,1\n";
-                    text += this.pu_q.number[i][0] % 10 + "@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x + this.size * 0.17) + ",0,0,0.85,1\n";
+                    text += parseInt(this.pu_q.number[i][0] / 10) + "@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x - this.size * 0.2) + ",0,0,0.9,1\n";
+                    text += this.pu_q.number[i][0] % 10 + "@" + (this.point[i].y - offset_y) + "," + (this.point[i].x - offset_x + this.size * 0.2) + ",0,0,0.9,1\n";
                 }
             }
 
