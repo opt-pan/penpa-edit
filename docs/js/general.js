@@ -2186,8 +2186,7 @@ function export_sudoku() {
 function import_url(urlstring) {
     urlstring = urlstring || document.getElementById("urlstring").value;
     if (urlstring !== "") {
-        if (urlstring.indexOf("/penpa-edit/?") !== -1) {
-
+        if (urlstring.indexOf("/penpa-edit/") !== -1) {
             let param = urlstring.split('&');
             let paramArray = [];
 
@@ -2211,7 +2210,7 @@ function import_url(urlstring) {
                 }
                 load(url, type = 'localstorage', origurl = paramArray.p);
             } else {
-                urlstring = urlstring.split("/penpa-edit/?")[1];
+                urlstring = urlstring.split("#")[1];
                 load(urlstring, 'local');
             }
 
@@ -2263,6 +2262,7 @@ function load(urlParam, type = 'url', origurl = null) {
 
     // Decrypt P
     var rtext = decrypt_data(paramArray.p);
+    //rtext = DOMPurify.sanitize(rtext); // clean tugs
     rtext = rtext.split("\n");
     rtext[0] = rtext[0].split("zO").join("null");
     rtext[1] = rtext[1].split("zO").join("null");
