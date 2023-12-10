@@ -2262,7 +2262,7 @@ function load(urlParam, type = 'url', origurl = null) {
 
     // Decrypt P
     var rtext = decrypt_data(paramArray.p);
-    //rtext = DOMPurify.sanitize(rtext); // clean tugs
+    rtext = DOMPurify.sanitize(rtext); // clean tugs
     rtext = rtext.split("\n");
     rtext[0] = rtext[0].split("zO").join("null");
     rtext[1] = rtext[1].split("zO").join("null");
